@@ -2,13 +2,11 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Content Team</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     * {
@@ -30,7 +28,7 @@
     }
 
     header {
-      padding: 24px 20px;
+      padding: 25px 20px;
       background: #111;
       color: white;
       border-radius: 0 0 24px 24px;
@@ -43,7 +41,7 @@
 
     header p {
       margin: 0;
-      opacity: 0.7;
+      opacity: .7;
     }
 
     .section {
@@ -51,162 +49,314 @@
     }
 
     .section-title {
-      font-size: 18px;
+      font-size: 19px;
       font-weight: bold;
       margin-bottom: 14px;
     }
 
-    .project {
-      padding: 18px;
-      border-radius: 18px;
+    .project,
+    .content,
+    .task {
+      padding: 17px;
+      border-radius: 17px;
       background: #f3f3f3;
       margin-bottom: 12px;
     }
 
-    .project-name {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-
-    .stats {
-      color: #666;
-      font-size: 14px;
-    }
-
-    .task {
-      padding: 16px;
-      border: 1px solid #eee;
-      border-radius: 16px;
-      margin-bottom: 10px;
-    }
-
+    .project-name,
+    .content-title,
     .task-title {
+      font-size: 17px;
       font-weight: bold;
-      margin-bottom: 6px;
+      margin-bottom: 7px;
     }
 
-    .task-user {
+    .info {
+      color: #777;
       font-size: 14px;
+    }
+
+    .loading {
+      padding: 20px;
+      text-align: center;
       color: #777;
     }
 
-    .bottom-nav {
-      position: sticky;
-      bottom: 0;
-      display: flex;
-      justify-content: space-around;
-      padding: 14px 5px;
-      background: white;
-      border-top: 1px solid #eee;
-    }
-
-    .nav-item {
-      font-size: 13px;
-      color: #666;
-      text-align: center;
+    .error {
+      margin: 20px;
+      padding: 15px;
+      border-radius: 12px;
+      background: #ffe5e5;
+      color: #b00000;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="app">
+<div class="app">
 
-    <header>
-      <h1>Content Team</h1>
-      <p>مدیریت تیم تولید محتوا</p>
-    </header>
+  <header>
+    <h1>Content Team</h1>
+    <p>مدیریت تیم تولید محتوا</p>
+  </header>
 
-    <div class="section">
-
-      <div class="section-title">
-        📁 پروژه‌ها
-      </div>
-
-      <div class="project">
-
-        <div class="project-name">
-          ☕ کافه لیپار
-        </div>
-
-        <div class="stats">
-          ۱ محتوا • ۵ وظیفه
-        </div>
-
-      </div>
-
+  <div id="app">
+    <div class="loading">
+      در حال دریافت اطلاعات...
     </div>
-
-    <div class="section">
-
-      <div class="section-title">
-        📅 وظایف امروز
-      </div>
-
-      <div class="task">
-
-        <div class="task-title">
-          🎥 فیلمبرداری
-        </div>
-
-        <div class="task-user">
-          👤 Saeed
-        </div>
-
-      </div>
-
-      <div class="task">
-
-        <div class="task-title">
-          ✂️ تدوین
-        </div>
-
-        <div class="task-user">
-          👤 Mahdi
-        </div>
-
-      </div>
-
-      <div class="task">
-
-        <div class="task-title">
-          📝 نوشتن کپشن
-        </div>
-
-        <div class="task-user">
-          👤 Hozhan
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="bottom-nav">
-
-      <div class="nav-item">
-        🏠<br>
-        خانه
-      </div>
-
-      <div class="nav-item">
-        📁<br>
-        پروژه‌ها
-      </div>
-
-      <div class="nav-item">
-        📅<br>
-        تقویم
-      </div>
-
-      <div class="nav-item">
-        👤<br>
-        من
-      </div>
-
-    </div>
-
   </div>
+
+</div>
+
+<script>
+
+  // =========================
+  // SUPABASE
+  // =========================
+
+  const SUPABASE_URL =
+    "https://lnfvolroihvtchzzwrmi.supabase.co";
+
+  const SUPABASE_KEY =
+    "sb_publishable_vSkJkr5-Fwape45NRBjLsw_cW8wRIqB";
+
+  const supabaseClient =
+    supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+
+  // =========================
+  // LOAD DATA
+  // =========================
+
+  async function loadData() {
+
+    try {
+
+      const { data: projects, error: projectError } =
+        await supabaseClient
+          .from("projects")
+          .select("*")
+          .order("created_at", { ascending: false });
+
+      if (projectError) {
+        throw projectError;
+      }
+
+
+      const { data: contents, error: contentError } =
+        await supabaseClient
+          .from("contents")
+          .select("*")
+          .order("created_at", { ascending: false });
+
+      if (contentError) {
+        throw contentError;
+      }
+
+
+      const { data: tasks, error: taskError } =
+        await supabaseClient
+          .from("tasks")
+          .select("*")
+          .order("created_at", { ascending: false });
+
+      if (taskError) {
+        throw taskError;
+      }
+
+
+      render(
+        projects || [],
+        contents || [],
+        tasks || []
+      );
+
+    } catch (error) {
+
+      console.error(error);
+
+      document.getElementById("app").innerHTML = `
+        <div class="error">
+          خطا در دریافت اطلاعات از دیتابیس.
+          <br><br>
+          ${error.message}
+        </div>
+      `;
+
+    }
+
+  }
+
+
+  // =========================
+  // RENDER
+  // =========================
+
+  function render(projects, contents, tasks) {
+
+    let html = "";
+
+
+    // PROJECTS
+
+    html += `
+      <div class="section">
+
+        <div class="section-title">
+          📁 پروژه‌ها
+        </div>
+    `;
+
+
+    if (projects.length === 0) {
+
+      html += `
+        <div class="info">
+          هنوز پروژه‌ای ساخته نشده.
+        </div>
+      `;
+
+    }
+
+
+    projects.forEach(project => {
+
+      const projectContents =
+        contents.filter(
+          content => content.project_id === project.id
+        );
+
+      const projectTasks =
+        tasks.filter(
+          task => task.project_id === project.id
+        );
+
+
+      html += `
+        <div class="project">
+
+          <div class="project-name">
+            📁 ${project.name}
+          </div>
+
+          <div class="info">
+            ${project.description || ""}
+          </div>
+
+          <br>
+
+          <div class="info">
+            🎬 ${projectContents.length} محتوا
+            &nbsp; • &nbsp;
+            ✅ ${projectTasks.length} وظیفه
+          </div>
+
+        </div>
+      `;
+
+    });
+
+
+    html += `
+      </div>
+    `;
+
+
+    // CONTENTS
+
+    html += `
+      <div class="section">
+
+        <div class="section-title">
+          🎬 محتواها
+        </div>
+    `;
+
+
+    contents.forEach(content => {
+
+      html += `
+        <div class="content">
+
+          <div class="content-title">
+            🎬 ${content.title}
+          </div>
+
+          <div class="info">
+            نوع: ${content.content_type || "-"}
+          </div>
+
+          <div class="info">
+            پلتفرم: ${content.platform || "-"}
+          </div>
+
+          <div class="info">
+            وضعیت: ${content.status || "-"}
+          </div>
+
+        </div>
+      `;
+
+    });
+
+
+    html += `
+      </div>
+    `;
+
+
+    // TASKS
+
+    html += `
+      <div class="section">
+
+        <div class="section-title">
+          📅 وظایف
+        </div>
+    `;
+
+
+    tasks.forEach(task => {
+
+      html += `
+        <div class="task">
+
+          <div class="task-title">
+            ${task.title}
+          </div>
+
+          <div class="info">
+            وضعیت: ${task.status}
+          </div>
+
+          <div class="info">
+            اولویت: ${task.priority}
+          </div>
+
+        </div>
+      `;
+
+    });
+
+
+    html += `
+      </div>
+    `;
+
+
+    document.getElementById("app").innerHTML = html;
+
+  }
+
+
+  // شروع برنامه
+  loadData();
+
+</script>
 
 </body>
 </html>
