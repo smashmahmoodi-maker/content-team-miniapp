@@ -6,8 +6,6 @@
 
   <title>Content Team</title>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
   <style>
     * {
       box-sizing: border-box;
@@ -16,347 +14,152 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      color: #222;
-    }
-
-    .app {
-      max-width: 600px;
-      margin: auto;
-      min-height: 100vh;
-      background: white;
+      background: #f5f6f8;
+      color: #202124;
     }
 
     header {
-      padding: 25px 20px;
-      background: #111;
+      background: #111318;
       color: white;
-      border-radius: 0 0 24px 24px;
+      padding: 28px 20px;
+      border-radius: 0 0 28px 28px;
     }
 
     header h1 {
       margin: 0 0 8px;
-      font-size: 24px;
+      font-size: 28px;
     }
 
     header p {
       margin: 0;
-      opacity: .7;
+      color: #bfc2c8;
+      font-size: 15px;
     }
 
-    .section {
+    .container {
+      max-width: 900px;
+      margin: auto;
       padding: 20px;
     }
 
-    .section-title {
-      font-size: 19px;
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .stat {
+      background: white;
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.05);
+    }
+
+    .stat-number {
+      font-size: 28px;
       font-weight: bold;
-      margin-bottom: 14px;
+      margin-bottom: 6px;
     }
 
-    .project,
-    .content,
-    .task {
-      padding: 17px;
-      border-radius: 17px;
-      background: #f3f3f3;
-      margin-bottom: 12px;
-    }
-
-    .project-name,
-    .content-title,
-    .task-title {
-      font-size: 17px;
-      font-weight: bold;
-      margin-bottom: 7px;
-    }
-
-    .info {
+    .stat-title {
       color: #777;
       font-size: 14px;
     }
 
-    .loading {
-      padding: 20px;
-      text-align: center;
-      color: #777;
+    section {
+      margin-bottom: 28px;
     }
 
-    .error {
-      margin: 20px;
-      padding: 15px;
-      border-radius: 12px;
-      background: #ffe5e5;
-      color: #b00000;
+    .section-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 12px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.05);
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .meta {
+      color: #777;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 8px;
+      background: #eee;
+      font-size: 12px;
+      margin-left: 5px;
+      margin-top: 5px;
+    }
+
+    .priority-high {
+      background: #ffe1e1;
+      color: #b42318;
+    }
+
+    .status {
+      background: #e8f1ff;
+      color: #175cd3;
+    }
+
+    .empty {
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+      color: #777;
+      text-align: center;
+    }
+
+    @media (min-width: 700px) {
+      .stats {
+        grid-template-columns: repeat(4, 1fr);
+      }
     }
   </style>
 </head>
 
 <body>
 
-<div class="app">
+<header>
+  <h1>Content Team</h1>
+  <p>مدیریت تیم تولید محتوا</p>
+</header>
 
-  <header>
-    <h1>Content Team</h1>
-    <p>مدیریت تیم تولید محتوا</p>
-  </header>
+<div class="container">
 
-  <div id="app">
-    <div class="loading">
-      در حال دریافت اطلاعات...
+  <!-- آمار -->
+  <div class="stats">
+
+    <div class="stat">
+      <div class="stat-number" id="projectsCount">0</div>
+      <div class="stat-title">پروژه فعال</div>
     </div>
-  </div>
 
-</div>
-
-<script>
-
-  // =========================
-  // SUPABASE
-  // =========================
-
-  const SUPABASE_URL =
-    "https://lnfvolroihvtchzzwrmi.supabase.co";
-
-  const SUPABASE_KEY =
-    "sb_publishable_vSkJkr5-Fwape45NRBjLsw_cW8wRIqB";
-
-  const supabaseClient =
-    supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_KEY
-    );
-
-
-  // =========================
-  // LOAD DATA
-  // =========================
-
-  async function loadData() {
-
-    try {
-
-      const { data: projects, error: projectError } =
-        await supabaseClient
-          .from("projects")
-          .select("*")
-          .order("created_at", { ascending: false });
-
-      if (projectError) {
-        throw projectError;
-      }
-
-
-      const { data: contents, error: contentError } =
-        await supabaseClient
-          .from("contents")
-          .select("*")
-          .order("created_at", { ascending: false });
-
-      if (contentError) {
-        throw contentError;
-      }
-
-
-      const { data: tasks, error: taskError } =
-        await supabaseClient
-          .from("tasks")
-          .select("*")
-          .order("created_at", { ascending: false });
-
-      if (taskError) {
-        throw taskError;
-      }
-
-
-      render(
-        projects || [],
-        contents || [],
-        tasks || []
-      );
-
-    } catch (error) {
-
-      console.error(error);
-
-      document.getElementById("app").innerHTML = `
-        <div class="error">
-          خطا در دریافت اطلاعات از دیتابیس.
-          <br><br>
-          ${error.message}
-        </div>
-      `;
-
-    }
-
-  }
-
-
-  // =========================
-  // RENDER
-  // =========================
-
-  function render(projects, contents, tasks) {
-
-    let html = "";
-
-
-    // PROJECTS
-
-    html += `
-      <div class="section">
-
-        <div class="section-title">
-          📁 پروژه‌ها
-        </div>
-    `;
-
-
-    if (projects.length === 0) {
-
-      html += `
-        <div class="info">
-          هنوز پروژه‌ای ساخته نشده.
-        </div>
-      `;
-
-    }
-
-
-    projects.forEach(project => {
-
-      const projectContents =
-        contents.filter(
-          content => content.project_id === project.id
-        );
-
-      const projectTasks =
-        tasks.filter(
-          task => task.project_id === project.id
-        );
-
-
-      html += `
-        <div class="project">
-
-          <div class="project-name">
-            📁 ${project.name}
-          </div>
-
-          <div class="info">
-            ${project.description || ""}
-          </div>
-
-          <br>
-
-          <div class="info">
-            🎬 ${projectContents.length} محتوا
-            &nbsp; • &nbsp;
-            ✅ ${projectTasks.length} وظیفه
-          </div>
-
-        </div>
-      `;
-
-    });
-
-
-    html += `
-      </div>
-    `;
-
-
-    // CONTENTS
-
-    html += `
-      <div class="section">
-
-        <div class="section-title">
-          🎬 محتواها
-        </div>
-    `;
-
-
-    contents.forEach(content => {
-
-      html += `
-        <div class="content">
-
-          <div class="content-title">
-            🎬 ${content.title}
-          </div>
-
-          <div class="info">
-            نوع: ${content.content_type || "-"}
-          </div>
-
-          <div class="info">
-            پلتفرم: ${content.platform || "-"}
-          </div>
-
-          <div class="info">
-            وضعیت: ${content.status || "-"}
-          </div>
-
-        </div>
-      `;
-
-    });
-
-
-    html += `
-      </div>
-    `;
-
-
-    // TASKS
-
-    html += `
-      <div class="section">
-
-        <div class="section-title">
-          📅 وظایف
-        </div>
-    `;
-
-
-    tasks.forEach(task => {
-
-      html += `
-        <div class="task">
-
-          <div class="task-title">
-            ${task.title}
-          </div>
-
-          <div class="info">
-            وضعیت: ${task.status}
-          </div>
-
-          <div class="info">
-            اولویت: ${task.priority}
-          </div>
-
-        </div>
-      `;
-
-    });
-
-
-    html += `
-      </div>
-    `;
-
-
-    document.getElementById("app").innerHTML = html;
-
-  }
-
-
-  // شروع برنامه
-  loadData();
-
-</script>
-
-</body>
-</html>
+    <div class="stat">
+      <div class="stat-number" id="contentsCount">0</div>
+      <div class="stat-title">محتوا</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-number" id="tasksCount">0</div>
+      <div class="stat-title">تسک</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-number" id="highTasksCount">0</div>
+     
