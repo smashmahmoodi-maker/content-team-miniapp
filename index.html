@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
 <title>Content Team</title>
 
 <style>
+
 *{
   box-sizing:border-box;
 }
@@ -40,11 +48,11 @@ header p{
   padding:20px;
 }
 
-/* TOP NAV */
+/* NAV */
 
 .top-nav{
   display:grid;
-  grid-template-columns:1fr 1fr 1fr;
+  grid-template-columns:repeat(3,1fr);
   gap:8px;
   margin-bottom:20px;
 }
@@ -182,18 +190,29 @@ button:hover{
   color:#b91c1c;
 }
 
-.task-actions{
+.back-button{
+  background:#e5e7eb;
+  color:#374151;
+}
+
+/* ACTIONS */
+
+.task-actions,
+.project-actions{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
   gap:8px;
   margin-top:10px;
 }
 
-.task-actions button{
+.task-actions button,
+.project-actions button{
   margin-top:0;
   font-size:12px;
   padding:10px 5px;
 }
+
+/* FORMS */
 
 .form-group{
   margin-bottom:15px;
@@ -231,6 +250,30 @@ button:hover{
 
 .form-buttons button{
   margin-top:5px;
+}
+
+/* MEMBERS */
+
+.members-box{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+
+.member-option{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+  padding:9px 12px;
+  border-radius:10px;
+  font-size:13px;
+  cursor:pointer;
+}
+
+.member-option input{
+  width:auto;
 }
 
 /* FILTER */
@@ -391,10 +434,6 @@ button:hover{
   justify-content:space-between;
 }
 
-.notification-bell{
-  font-size:30px;
-}
-
 .notification-count{
   background:#dc2626;
   color:white;
@@ -462,7 +501,8 @@ button:hover{
     grid-template-columns:repeat(2,1fr);
   }
 
-  .task-actions{
+  .task-actions,
+  .project-actions{
     grid-template-columns:1fr;
   }
 
@@ -473,93 +513,259 @@ button:hover{
   .calendar-day{
     min-height:48px;
   }
+
 }
+
 </style>
+
 </head>
+
 
 <body>
 
 <header>
+
   <h1>Content Team</h1>
-  <p>مدیریت تیم تولید محتوا</p>
+
+  <p>
+    مدیریت تیم تولید محتوا
+  </p>
+
 </header>
 
-<div class="container" id="app"></div>
+
+<div
+  class="container"
+  id="app">
+</div>
+
 
 <script>
 
-const STORAGE_KEY = "contentTeamTasks";
+/* =====================================================
+   TEAM
+===================================================== */
+
+const TEAM_MEMBERS = [
+  "سعید",
+  "هوژان",
+  "مهدی",
+  "امیر"
+];
+
+
+/* =====================================================
+   STORAGE
+===================================================== */
+
+const PROJECTS_KEY =
+  "contentTeamProjects_v2";
+
+const TASKS_KEY =
+  "contentTeamTasks_v2";
+
+
+/* =====================================================
+   DEFAULT PROJECTS
+===================================================== */
+
+const defaultProjects = [
+
+  {
+    id:1,
+    title:"کافه لیپار",
+    description:"تولید و مدیریت محتوای شبکه‌های اجتماعی",
+    status:"فعال",
+    members:[
+      "سعید",
+      "هوژان",
+      "مهدی",
+      "امیر"
+    ]
+  }
+
+];
+
+
+/* =====================================================
+   DEFAULT TASKS
+===================================================== */
 
 const defaultTasks = [
+
   {
+    id:1,
+    projectId:1,
     title:"فیلمبرداری",
     person:"سعید",
     priority:"بالا",
     status:"انجام نشده",
     date:"1405/07/02"
   },
+
   {
+    id:2,
+    projectId:1,
     title:"تدوین",
     person:"مهدی",
     priority:"بالا",
     status:"در حال انجام",
     date:"1405/07/03"
   },
+
   {
+    id:3,
+    projectId:1,
     title:"نوشتن کپشن",
-    person:"هژان",
+    person:"هوژان",
     priority:"عادی",
     status:"انجام نشده",
     date:"1405/07/04"
   },
+
   {
+    id:4,
+    projectId:1,
     title:"تأیید نهایی",
     person:"سعید",
     priority:"بالا",
     status:"انجام شده",
     date:"1405/07/05"
   },
+
   {
+    id:5,
+    projectId:1,
     title:"انتشار",
-    person:"هژان",
+    person:"امیر",
     priority:"عادی",
     status:"انجام نشده",
     date:"1405/07/06"
   }
+
 ];
 
-let savedTasks = localStorage.getItem(STORAGE_KEY);
-let tasks;
 
-if(savedTasks){
-  try{
-    tasks = JSON.parse(savedTasks);
-  }catch(error){
-    tasks = [...defaultTasks];
-    saveTasks();
+/* =====================================================
+   LOAD DATA
+===================================================== */
+
+let projects =
+  loadData(
+    PROJECTS_KEY,
+    defaultProjects
+  );
+
+let tasks =
+  loadData(
+    TASKS_KEY,
+    defaultTasks
+  );
+
+
+function loadData(key,defaultValue){
+
+  const saved =
+    localStorage.getItem(key);
+
+  if(!saved){
+
+    localStorage.setItem(
+      key,
+      JSON.stringify(defaultValue)
+    );
+
+    return JSON.parse(
+      JSON.stringify(defaultValue)
+    );
+
   }
-}else{
-  tasks = [...defaultTasks];
-  saveTasks();
+
+  try{
+
+    return JSON.parse(saved);
+
+  }
+  catch(error){
+
+    localStorage.setItem(
+      key,
+      JSON.stringify(defaultValue)
+    );
+
+    return JSON.parse(
+      JSON.stringify(defaultValue)
+    );
+
+  }
+
 }
 
 
-/* =========================
-   STORAGE
-========================= */
+/* =====================================================
+   SAVE
+===================================================== */
+
+function saveProjects(){
+
+  localStorage.setItem(
+    PROJECTS_KEY,
+    JSON.stringify(projects)
+  );
+
+}
+
 
 function saveTasks(){
-  localStorage.setItem(STORAGE_KEY,JSON.stringify(tasks));
+
+  localStorage.setItem(
+    TASKS_KEY,
+    JSON.stringify(tasks)
+  );
+
 }
 
 
-/* =========================
-   DATE FUNCTIONS
-========================= */
+/* =====================================================
+   ID
+===================================================== */
+
+function getNewProjectId(){
+
+  if(projects.length===0){
+    return 1;
+  }
+
+  return Math.max(
+    ...projects.map(p=>p.id)
+  ) + 1;
+
+}
+
+
+function getNewTaskId(){
+
+  if(tasks.length===0){
+    return 1;
+  }
+
+  return Math.max(
+    ...tasks.map(t=>t.id)
+  ) + 1;
+
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
 
 function div(a,b){
+
   return Math.floor(a/b);
+
 }
+
 
 function jalaliToGregorian(jy,jm,jd){
 
@@ -571,56 +777,111 @@ function jalaliToGregorian(jy,jm,jd){
     div(jy,33) * 8 +
     div((jy % 33) + 3,4) +
     jd +
-    (jm < 7 ? (jm - 1) * 31 : ((jm - 7) * 30) + 186);
+    (jm < 7
+      ? (jm - 1) * 31
+      : ((jm - 7) * 30) + 186
+    );
 
-  let gy = 400 * div(days,146097);
+
+  let gy =
+    400 * div(days,146097);
+
 
   days %= 146097;
 
+
   if(days > 36524){
-    gy += 100 * div(--days,36524);
+
+    gy +=
+      100 * div(--days,36524);
+
     days %= 36524;
 
     if(days >= 365){
+
       days++;
+
     }
+
   }
 
-  gy += 4 * div(days,1461);
+
+  gy +=
+    4 * div(days,1461);
+
   days %= 1461;
 
+
   if(days > 365){
-    gy += div(days - 1,365);
-    days = (days - 1) % 365;
+
+    gy +=
+      div(days - 1,365);
+
+    days =
+      (days - 1) % 365;
+
   }
 
-  let gd = days + 1;
+
+  let gd =
+    days + 1;
+
 
   const monthDays = [
+
     0,
+
     31,
-    ((gy % 4 === 0 && gy % 100 !== 0) || gy % 400 === 0) ? 29 : 28,
-    31,30,31,30,31,31,30,31,30,31
+
+    (
+      (gy % 4 === 0 && gy % 100 !== 0)
+      ||
+      gy % 400 === 0
+    )
+    ? 29
+    : 28,
+
+    31,
+    30,
+    31,
+    30,
+    31,
+    31,
+    30,
+    31,
+    30,
+    31
+
   ];
 
-  let gm = 1;
 
-  while(gd > monthDays[gm]){
+  let gm=1;
+
+
+  while(
+    gd > monthDays[gm]
+  ){
+
     gd -= monthDays[gm];
+
     gm++;
+
   }
+
 
   return {
     gy,
     gm,
     gd
   };
+
 }
 
 
 function gregorianToJalali(gy,gm,gd){
 
   let g_d_m = [
+
     0,
     31,
     59,
@@ -633,9 +894,13 @@ function gregorianToJalali(gy,gm,gd){
     273,
     304,
     334
+
   ];
 
-  let gy2 = gy + 1;
+
+  let gy2 =
+    gy + 1;
+
 
   let days =
     355666 +
@@ -644,314 +909,735 @@ function gregorianToJalali(gy,gm,gd){
     div(gy2,100) +
     div(gy2,400) +
     gd +
-    g_d_m[gm - 1];
+    g_d_m[gm-1];
+
 
   if(
     gm > 2 &&
-    ((gy % 4 === 0 && gy % 100 !== 0) || gy % 400 === 0)
+    (
+      (gy % 4 === 0 && gy % 100 !== 0)
+      ||
+      gy % 400 === 0
+    )
   ){
+
     days++;
+
   }
 
-  let jy = -1595 + (33 * div(days,12053));
+
+  let jy =
+    -1595 +
+    (33 * div(days,12053));
+
 
   days %= 12053;
 
-  jy += 4 * div(days,1461);
+
+  jy +=
+    4 * div(days,1461);
+
 
   days %= 1461;
 
+
   if(days > 365){
-    jy += div(days - 1,365);
-    days = (days - 1) % 365;
+
+    jy +=
+      div(days - 1,365);
+
+    days =
+      (days - 1) % 365;
+
   }
 
-  let jd = days + 1;
+
+  let jd =
+    days + 1;
+
 
   let jm;
 
+
   if(jd <= 186){
-    jm = Math.ceil(jd / 31);
-  }else{
-    jm = Math.ceil((jd - 186) / 30) + 6;
+
+    jm =
+      Math.ceil(jd / 31);
+
   }
+  else{
+
+    jm =
+      Math.ceil((jd - 186) / 30) + 6;
+
+  }
+
 
   jd =
     jd <= 186
-    ? ((jd - 1) % 31) + 1
-    : ((jd - 187) % 30) + 1;
+    ?
+    ((jd - 1) % 31) + 1
+    :
+    ((jd - 187) % 30) + 1;
+
 
   return {
     jy,
     jm,
     jd
   };
+
 }
 
 
 function getTodayJalali(){
 
-  const now = new Date();
+  const now =
+    new Date();
 
   return gregorianToJalali(
     now.getFullYear(),
     now.getMonth()+1,
     now.getDate()
   );
+
 }
 
 
 function pad(num){
+
   return String(num).padStart(2,"0");
+
 }
 
 
 function makeDate(jy,jm,jd){
+
   return `${jy}/${pad(jm)}/${pad(jd)}`;
+
 }
 
 
 function dateNumber(date){
 
-  if(!date) return 0;
+  if(!date){
+    return 0;
+  }
 
-  const p = date.split("/").map(Number);
+  const p =
+    date.split("/").map(Number);
 
-  if(p.length !== 3) return 0;
+  if(p.length!==3){
+    return 0;
+  }
 
-  return p[0] * 10000 + p[1] * 100 + p[2];
+  return (
+    p[0]*10000 +
+    p[1]*100 +
+    p[2]
+  );
+
 }
 
 
-/* =========================
+/* =====================================================
    BADGES
-========================= */
+===================================================== */
 
 function getPriorityBadge(priority){
 
   if(priority==="بالا"){
-    return `<span class="badge high">اولویت بالا</span>`;
+
+    return `
+      <span class="badge high">
+        🔥 اولویت بالا
+      </span>
+    `;
+
   }
 
   if(priority==="کم"){
-    return `<span class="badge">اولویت کم</span>`;
+
+    return `
+      <span class="badge">
+        اولویت کم
+      </span>
+    `;
+
   }
 
-  return `<span class="badge">اولویت عادی</span>`;
+  return `
+    <span class="badge">
+      اولویت عادی
+    </span>
+  `;
+
 }
 
 
 function getStatusBadge(status){
 
   if(status==="انجام شده"){
-    return `<span class="badge green">✓ انجام شده</span>`;
+
+    return `
+      <span class="badge green">
+        ✓ انجام شده
+      </span>
+    `;
+
   }
 
   if(status==="در حال انجام"){
-    return `<span class="badge orange">⏳ در حال انجام</span>`;
+
+    return `
+      <span class="badge orange">
+        ⏳ در حال انجام
+      </span>
+    `;
+
   }
 
-  return `<span class="badge">○ انجام نشده</span>`;
+  return `
+    <span class="badge">
+      ○ انجام نشده
+    </span>
+  `;
+
 }
 
 
-/* =========================
+/* =====================================================
    DASHBOARD
-========================= */
+===================================================== */
 
 function showDashboard(){
 
   const completed =
-    tasks.filter(t=>t.status==="انجام شده").length;
+    tasks.filter(
+      t=>t.status==="انجام شده"
+    ).length;
+
 
   const progress =
     tasks.length
-    ? Math.round((completed/tasks.length)*100)
-    : 0;
+    ?
+    Math.round(
+      completed / tasks.length * 100
+    )
+    :
+    0;
+
 
   document.getElementById("app").innerHTML = `
 
     <div class="top-nav">
-      <button class="nav-btn active" onclick="showDashboard()">🏠 داشبورد</button>
-      <button class="nav-btn" onclick="showCalendar()">📅 تقویم</button>
-      <button class="nav-btn" onclick="showNotifications()">🔔 اعلان‌ها</button>
+
+      <button
+        class="nav-btn active"
+        onclick="showDashboard()">
+
+        🏠 داشبورد
+
+      </button>
+
+      <button
+        class="nav-btn"
+        onclick="showCalendar()">
+
+        📅 تقویم
+
+      </button>
+
+      <button
+        class="nav-btn"
+        onclick="showNotifications()">
+
+        🔔 اعلان‌ها
+
+      </button>
+
     </div>
+
 
     <div class="stats">
 
       <div class="stat">
-        <div class="stat-number">1</div>
-        <div class="stat-title">پروژه</div>
-      </div>
 
-      <div class="stat">
-        <div class="stat-number">1</div>
-        <div class="stat-title">محتوا</div>
-      </div>
-
-      <div class="stat">
-        <div class="stat-number">${tasks.length}</div>
-        <div class="stat-title">تسک</div>
-      </div>
-
-      <div class="stat">
         <div class="stat-number">
-          ${tasks.filter(t=>t.priority==="بالا").length}
+          ${projects.length}
         </div>
-        <div class="stat-title">اولویت بالا</div>
+
+        <div class="stat-title">
+          پروژه
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div class="stat-number">
+          ${tasks.length}
+        </div>
+
+        <div class="stat-title">
+          تسک
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div class="stat-number">
+          ${completed}
+        </div>
+
+        <div class="stat-title">
+          انجام شده
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div class="stat-number">
+          ${tasks.filter(
+            t=>t.priority==="بالا"
+          ).length}
+        </div>
+
+        <div class="stat-title">
+          اولویت بالا
+        </div>
+
       </div>
 
     </div>
+
 
     <div class="section-title">
-      وضعیت پروژه
+      📊 وضعیت کلی
     </div>
+
 
     <div class="card">
 
-      <h3>📊 پیشرفت کافه لیپار</h3>
+      <h3>
+        پیشرفت کل تیم
+      </h3>
 
       <div class="info">
-        ${completed} از ${tasks.length} تسک انجام شده
-        <strong>${progress}%</strong>
+
+        ${completed}
+        از
+        ${tasks.length}
+        تسک انجام شده
+
+        <strong>
+          ${progress}%
+        </strong>
+
       </div>
+
 
       <div class="progress-box">
 
         <div class="progress-bar">
+
           <div
             class="progress-fill"
             style="width:${progress}%">
           </div>
+
         </div>
 
       </div>
 
     </div>
 
+
     <div class="section-title">
-      پروژه‌ها
+
+      📁 پروژه‌ها
+
     </div>
+
+
+    <div id="dashboardProjects"></div>
+
 
     <div class="card">
 
-      <h3>کافه لیپار</h3>
+      <button
+        class="add-button"
+        onclick="showAddProjectForm()">
 
-      <div class="info">
+        + افزودن پروژه جدید
 
-        تولید و مدیریت محتوای شبکه‌های اجتماعی
-
-        <br><br>
-
-        <span class="badge blue">فعال</span>
-
-        <span class="badge">۱ محتوا</span>
-
-        <span class="badge">
-          ${tasks.length} تسک
-        </span>
-
-      </div>
-
-      <button onclick="openProject()">
-        ورود به پروژه
       </button>
 
     </div>
 
   `;
+
+
+  renderDashboardProjects();
+
 }
 
 
-/* =========================
+function renderDashboardProjects(){
+
+  const box =
+    document.getElementById(
+      "dashboardProjects"
+    );
+
+
+  if(!box){
+    return;
+  }
+
+
+  if(projects.length===0){
+
+    box.innerHTML = `
+
+      <div class="card">
+
+        <div class="empty">
+
+          هنوز پروژه‌ای ساخته نشده است.
+
+        </div>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  let html="";
+
+
+  projects.forEach(project=>{
+
+    const projectTasks =
+      tasks.filter(
+        t=>t.projectId===project.id
+      );
+
+
+    const completed =
+      projectTasks.filter(
+        t=>t.status==="انجام شده"
+      ).length;
+
+
+    const progress =
+      projectTasks.length
+      ?
+      Math.round(
+        completed /
+        projectTasks.length *
+        100
+      )
+      :
+      0;
+
+
+    html += `
+
+      <div class="card">
+
+        <h3>
+          📁 ${escapeHtml(project.title)}
+        </h3>
+
+
+        <div class="info">
+
+          ${escapeHtml(
+            project.description || ""
+          )}
+
+          <br><br>
+
+
+          <span class="badge blue">
+            ${escapeHtml(project.status)}
+          </span>
+
+
+          <span class="badge">
+            ${projectTasks.length} تسک
+          </span>
+
+
+          <span class="badge">
+            ${project.members.length} عضو
+          </span>
+
+
+          <br><br>
+
+
+          👥 اعضا:
+
+          <br>
+
+          ${project.members
+            .map(
+              m=>`
+                <span class="badge">
+                  ${escapeHtml(m)}
+                </span>
+              `
+            )
+            .join("")
+          }
+
+        </div>
+
+
+        <div class="progress-box">
+
+          <strong>
+            پیشرفت ${progress}%
+          </strong>
+
+          <div class="progress-bar">
+
+            <div
+              class="progress-fill"
+              style="width:${progress}%">
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <button
+          onclick="openProject(${project.id})">
+
+          ورود به پروژه
+
+        </button>
+
+
+        <div class="project-actions">
+
+          <button
+            class="edit-button"
+            onclick="showEditProjectForm(${project.id})">
+
+            ✏️ ویرایش
+
+          </button>
+
+
+          <button
+            class="delete-button"
+            onclick="deleteProject(${project.id})">
+
+            🗑️ حذف
+
+          </button>
+
+
+          <button
+            onclick="openProject(${project.id})">
+
+            📋 تسک‌ها
+
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+
+  box.innerHTML=html;
+
+}
+
+
+/* =====================================================
    PROJECT
-========================= */
+===================================================== */
 
-function openProject(){
+function openProject(projectId){
 
-  let completed =
-    tasks.filter(t=>t.status==="انجام شده").length;
+  const project =
+    projects.find(
+      p=>p.id===projectId
+    );
 
-  let doing =
-    tasks.filter(t=>t.status==="در حال انجام").length;
 
-  let pending =
-    tasks.filter(t=>t.status==="انجام نشده").length;
+  if(!project){
+
+    showDashboard();
+
+    return;
+
+  }
+
+
+  const projectTasks =
+    tasks.filter(
+      t=>t.projectId===projectId
+    );
+
+
+  const completed =
+    projectTasks.filter(
+      t=>t.status==="انجام شده"
+    ).length;
+
+
+  const doing =
+    projectTasks.filter(
+      t=>t.status==="در حال انجام"
+    ).length;
+
+
+  const pending =
+    projectTasks.filter(
+      t=>t.status==="انجام نشده"
+    ).length;
+
 
   document.getElementById("app").innerHTML = `
 
     <div class="top-nav">
 
-      <button class="nav-btn" onclick="showDashboard()">
+      <button
+        class="nav-btn"
+        onclick="showDashboard()">
+
         🏠 داشبورد
+
       </button>
 
-      <button class="nav-btn" onclick="showCalendar()">
+      <button
+        class="nav-btn"
+        onclick="showCalendar()">
+
         📅 تقویم
+
       </button>
 
-      <button class="nav-btn" onclick="showNotifications()">
+      <button
+        class="nav-btn"
+        onclick="showNotifications()">
+
         🔔 اعلان‌ها
+
       </button>
 
     </div>
+
 
     <div class="section-title">
-      پروژه کافه لیپار
+
+      📁
+      ${escapeHtml(project.title)}
+
     </div>
+
 
     <div class="card">
 
-      <h3>📊 وضعیت پروژه</h3>
+      <h3>
+        📊 وضعیت پروژه
+      </h3>
+
 
       <div class="info">
 
-        وضعیت:
-        <span class="badge blue">فعال</span>
+        ${escapeHtml(
+          project.description || ""
+        )}
 
         <br><br>
 
+
+        وضعیت:
+
+        <span class="badge blue">
+          ${escapeHtml(project.status)}
+        </span>
+
+
+        <br>
+
         کل تسک‌ها:
-        <strong>${tasks.length}</strong>
+        <strong>
+          ${projectTasks.length}
+        </strong>
 
         <br>
 
         انجام شده:
-        <strong>${completed}</strong>
+        <strong>
+          ${completed}
+        </strong>
 
         <br>
 
         در حال انجام:
-        <strong>${doing}</strong>
+        <strong>
+          ${doing}
+        </strong>
 
         <br>
 
         انجام نشده:
-        <strong>${pending}</strong>
+        <strong>
+          ${pending}
+        </strong>
 
       </div>
 
     </div>
 
-
-    <div class="section-title">
-      🎬 محتواهای پروژه
-    </div>
 
     <div class="card">
 
-      <h3>معرفی آیس لاته</h3>
+      <h3>
+        👥 اعضای پروژه
+      </h3>
 
-      <div class="info">
+      <div class="members-box">
 
-        <span class="badge">Reel</span>
-        <span class="badge">Instagram</span>
-        <span class="badge blue">ایده</span>
-        <span class="badge high">اولویت بالا</span>
-
-        <br><br>
-
-        ویدیوی کوتاه معرفی آیس لاته لیپار
+        ${project.members.length
+          ?
+          project.members
+            .map(
+              m=>`
+                <span class="badge blue">
+                  👤 ${escapeHtml(m)}
+                </span>
+              `
+            )
+            .join("")
+          :
+          `
+            <span class="info">
+              عضوی تعیین نشده
+            </span>
+          `
+        }
 
       </div>
 
@@ -959,7 +1645,9 @@ function openProject(){
 
 
     <div class="section-title">
+
       ✅ تسک‌های پروژه
+
     </div>
 
 
@@ -970,20 +1658,31 @@ function openProject(){
         class="search-input"
         type="text"
         placeholder="🔎 جستجوی نام تسک..."
-        oninput="filterTasks()"
+        oninput="filterProjectTasks(${projectId})"
       >
+
 
       <div class="filter-grid">
 
         <select
           id="filterPerson"
           class="filter-select"
-          onchange="filterTasks()">
+          onchange="filterProjectTasks(${projectId})">
 
-          <option value="">👤 همه مسئول‌ها</option>
-          <option value="سعید">سعید</option>
-          <option value="هژان">هژان</option>
-          <option value="مهدی">مهدی</option>
+          <option value="">
+            👤 همه مسئول‌ها
+          </option>
+
+          ${project.members
+            .map(
+              member=>`
+                <option value="${escapeAttr(member)}">
+                  ${escapeHtml(member)}
+                </option>
+              `
+            )
+            .join("")
+          }
 
         </select>
 
@@ -991,12 +1690,23 @@ function openProject(){
         <select
           id="filterStatus"
           class="filter-select"
-          onchange="filterTasks()">
+          onchange="filterProjectTasks(${projectId})">
 
-          <option value="">📌 همه وضعیت‌ها</option>
-          <option value="انجام نشده">انجام نشده</option>
-          <option value="در حال انجام">در حال انجام</option>
-          <option value="انجام شده">انجام شده</option>
+          <option value="">
+            📌 همه وضعیت‌ها
+          </option>
+
+          <option value="انجام نشده">
+            انجام نشده
+          </option>
+
+          <option value="در حال انجام">
+            در حال انجام
+          </option>
+
+          <option value="انجام شده">
+            انجام شده
+          </option>
 
         </select>
 
@@ -1004,12 +1714,23 @@ function openProject(){
         <select
           id="filterPriority"
           class="filter-select"
-          onchange="filterTasks()">
+          onchange="filterProjectTasks(${projectId})">
 
-          <option value="">🔥 همه اولویت‌ها</option>
-          <option value="بالا">اولویت بالا</option>
-          <option value="عادی">اولویت عادی</option>
-          <option value="کم">اولویت کم</option>
+          <option value="">
+            🔥 همه اولویت‌ها
+          </option>
+
+          <option value="بالا">
+            اولویت بالا
+          </option>
+
+          <option value="عادی">
+            اولویت عادی
+          </option>
+
+          <option value="کم">
+            اولویت کم
+          </option>
 
         </select>
 
@@ -1018,7 +1739,7 @@ function openProject(){
 
       <button
         class="clear-filter"
-        onclick="clearFilters()">
+        onclick="clearProjectFilters(${projectId})">
 
         پاک کردن فیلترها
 
@@ -1034,7 +1755,7 @@ function openProject(){
 
       <button
         class="add-button"
-        onclick="showAddTaskForm()">
+        onclick="showAddTaskForm(${projectId})">
 
         + افزودن تسک
 
@@ -1043,75 +1764,132 @@ function openProject(){
     </div>
 
 
-    <button onclick="showDashboard()">
-      ← بازگشت به داشبورد
+    <button
+      class="back-button"
+      onclick="showDashboard()">
+
+      ← بازگشت به پروژه‌ها
+
     </button>
 
   `;
 
-  renderTasks(
-    tasks.map((task,index)=>({task,index}))
+
+  renderProjectTasks(
+    projectId,
+    projectTasks.map(
+      (task,index)=>({
+        task,
+        index:tasks.indexOf(task)
+      })
+    )
   );
+
 }
 
 
-/* =========================
-   TASK LIST
-========================= */
+/* =====================================================
+   PROJECT TASK LIST
+===================================================== */
 
-function renderTasks(taskArray){
+function renderProjectTasks(
+  projectId,
+  taskArray
+){
 
   const taskList =
-    document.getElementById("taskList");
+    document.getElementById(
+      "taskList"
+    );
 
-  if(!taskList) return;
+
+  if(!taskList){
+    return;
+  }
+
 
   if(taskArray.length===0){
 
     taskList.innerHTML = `
+
       <div class="card">
+
         <div class="empty">
+
           هیچ تسکی با این مشخصات پیدا نشد.
+
         </div>
+
       </div>
+
     `;
 
     return;
+
   }
 
+
   let html = `
+
     <div class="result-count">
-      ${taskArray.length} تسک نمایش داده می‌شود
+
+      ${taskArray.length}
+      تسک نمایش داده می‌شود
+
     </div>
+
   `;
 
-  taskArray.forEach(function(item){
 
-    const task = item.task;
-    const index = item.index;
+  taskArray.forEach(item=>{
+
+    const task =
+      item.task;
+
+    const index =
+      item.index;
+
 
     html += `
 
       <div class="card">
 
-        <h3>${task.title}</h3>
+        <h3>
+          ${escapeHtml(task.title)}
+        </h3>
+
 
         <div class="info">
 
           👤 مسئول:
-          <strong>${task.person}</strong>
+
+          <strong>
+            ${escapeHtml(task.person)}
+          </strong>
+
 
           <br>
 
-          ${getPriorityBadge(task.priority)}
 
-          ${getStatusBadge(task.status)}
+          ${getPriorityBadge(
+            task.priority
+          )}
+
+
+          ${getStatusBadge(
+            task.status
+          )}
+
 
           <br>
+
 
           📅 تاریخ انجام:
+
           <strong>
-            ${task.date || "تعیین نشده"}
+            ${escapeHtml(
+              task.date || "تعیین نشده"
+            )}
           </strong>
 
         </div>
@@ -1127,16 +1905,18 @@ function renderTasks(taskArray){
 
           </button>
 
+
           <button
             onclick="changeStatus(${index})">
 
-            تغییر وضعیت
+            🔄 تغییر وضعیت
 
           </button>
 
+
           <button
-            onclick="deleteTask(${index})"
-            class="delete-button">
+            class="delete-button"
+            onclick="deleteTask(${index})">
 
             🗑️ حذف
 
@@ -1147,94 +1927,698 @@ function renderTasks(taskArray){
       </div>
 
     `;
+
   });
 
-  taskList.innerHTML = html;
+
+  taskList.innerHTML=html;
+
 }
 
 
-/* =========================
-   FILTER
-========================= */
+/* =====================================================
+   FILTER PROJECT TASKS
+===================================================== */
 
-function filterTasks(){
+function filterProjectTasks(
+  projectId
+){
 
   const search =
-    document.getElementById("searchTask").value
+    document.getElementById(
+      "searchTask"
+    )?.value
     .trim()
-    .toLowerCase();
+    .toLowerCase()
+    ||
+    "";
+
 
   const person =
-    document.getElementById("filterPerson").value;
+    document.getElementById(
+      "filterPerson"
+    )?.value
+    ||
+    "";
+
 
   const status =
-    document.getElementById("filterStatus").value;
+    document.getElementById(
+      "filterStatus"
+    )?.value
+    ||
+    "";
+
 
   const priority =
-    document.getElementById("filterPriority").value;
+    document.getElementById(
+      "filterPriority"
+    )?.value
+    ||
+    "";
 
 
   const filtered =
     tasks
-    .map((task,index)=>({task,index}))
-    .filter(item=>{
+      .map(
+        (task,index)=>({
+          task,
+          index
+        })
+      )
+      .filter(item=>{
 
-      const task = item.task;
-
-      const matchesSearch =
-        !search ||
-        task.title.toLowerCase().includes(search);
-
-      const matchesPerson =
-        !person ||
-        task.person===person;
-
-      const matchesStatus =
-        !status ||
-        task.status===status;
-
-      const matchesPriority =
-        !priority ||
-        task.priority===priority;
-
-      return (
-        matchesSearch &&
-        matchesPerson &&
-        matchesStatus &&
-        matchesPriority
-      );
-
-    });
+        const task =
+          item.task;
 
 
-  renderTasks(filtered);
-}
+        if(
+          task.projectId !== projectId
+        ){
+
+          return false;
+
+        }
 
 
-function clearFilters(){
+        const matchesSearch =
+          !search ||
+          task.title
+            .toLowerCase()
+            .includes(search);
 
-  document.getElementById("searchTask").value="";
-  document.getElementById("filterPerson").value="";
-  document.getElementById("filterStatus").value="";
-  document.getElementById("filterPriority").value="";
 
-  renderTasks(
-    tasks.map((task,index)=>({task,index}))
+        const matchesPerson =
+          !person ||
+          task.person===person;
+
+
+        const matchesStatus =
+          !status ||
+          task.status===status;
+
+
+        const matchesPriority =
+          !priority ||
+          task.priority===priority;
+
+
+        return (
+          matchesSearch &&
+          matchesPerson &&
+          matchesStatus &&
+          matchesPriority
+        );
+
+      });
+
+
+  renderProjectTasks(
+    projectId,
+    filtered
   );
+
 }
 
 
-/* =========================
-   ADD TASK
-========================= */
+function clearProjectFilters(
+  projectId
+){
 
-function showAddTaskForm(){
+  document.getElementById(
+    "searchTask"
+  ).value="";
+
+
+  document.getElementById(
+    "filterPerson"
+  ).value="";
+
+
+  document.getElementById(
+    "filterStatus"
+  ).value="";
+
+
+  document.getElementById(
+    "filterPriority"
+  ).value="";
+
+
+  filterProjectTasks(
+    projectId
+  );
+
+}
+
+
+/* =====================================================
+   ADD PROJECT
+===================================================== */
+
+function showAddProjectForm(){
 
   document.getElementById("app").innerHTML = `
 
     <div class="section-title">
-      ➕ افزودن تسک جدید
+
+      ➕ افزودن پروژه جدید
+
     </div>
+
+
+    <div class="card">
+
+      <div class="form-group">
+
+        <label class="form-label">
+          نام پروژه
+        </label>
+
+        <input
+          id="newProjectTitle"
+          class="form-input"
+          placeholder="مثلاً کمپین تابستانی"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          توضیحات پروژه
+        </label>
+
+        <textarea
+          id="newProjectDescription"
+          class="form-input"
+          rows="4"
+          placeholder="توضیحات پروژه..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          وضعیت پروژه
+        </label>
+
+        <select
+          id="newProjectStatus"
+          class="form-select">
+
+          <option value="فعال">
+            فعال
+          </option>
+
+          <option value="متوقف">
+            متوقف
+          </option>
+
+          <option value="تکمیل شده">
+            تکمیل شده
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          اعضای پروژه
+        </label>
+
+
+        <div class="members-box">
+
+          ${TEAM_MEMBERS
+            .map(
+              member=>`
+
+                <label class="member-option">
+
+                  <input
+                    type="checkbox"
+                    name="newProjectMembers"
+                    value="${escapeAttr(member)}"
+                  >
+
+                  ${escapeHtml(member)}
+
+                </label>
+
+              `
+            )
+            .join("")
+          }
+
+        </div>
+
+      </div>
+
+
+      <div class="form-buttons">
+
+        <button
+          class="add-button"
+          onclick="saveNewProject()">
+
+          ذخیره پروژه
+
+        </button>
+
+
+        <button
+          class="cancel-button"
+          onclick="showDashboard()">
+
+          انصراف
+
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+function saveNewProject(){
+
+  const title =
+    document.getElementById(
+      "newProjectTitle"
+    ).value.trim();
+
+
+  const description =
+    document.getElementById(
+      "newProjectDescription"
+    ).value.trim();
+
+
+  const status =
+    document.getElementById(
+      "newProjectStatus"
+    ).value;
+
+
+  const members =
+    Array.from(
+      document.querySelectorAll(
+        'input[name="newProjectMembers"]:checked'
+      )
+    )
+    .map(
+      checkbox=>checkbox.value
+    );
+
+
+  if(!title){
+
+    alert(
+      "لطفاً نام پروژه را وارد کن."
+    );
+
+    return;
+
+  }
+
+
+  const project = {
+
+    id:getNewProjectId(),
+
+    title,
+
+    description,
+
+    status,
+
+    members
+
+  };
+
+
+  projects.push(project);
+
+  saveProjects();
+
+  showDashboard();
+
+}
+
+
+/* =====================================================
+   EDIT PROJECT
+===================================================== */
+
+function showEditProjectForm(
+  projectId
+){
+
+  const project =
+    projects.find(
+      p=>p.id===projectId
+    );
+
+
+  if(!project){
+    return;
+  }
+
+
+  document.getElementById("app").innerHTML = `
+
+    <div class="section-title">
+
+      ✏️ ویرایش پروژه
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="form-group">
+
+        <label class="form-label">
+          نام پروژه
+        </label>
+
+        <input
+          id="editProjectTitle"
+          class="form-input"
+          value="${escapeAttr(project.title)}"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          توضیحات پروژه
+        </label>
+
+        <textarea
+          id="editProjectDescription"
+          class="form-input"
+          rows="4"
+        >${escapeHtml(
+          project.description || ""
+        )}</textarea>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          وضعیت پروژه
+        </label>
+
+        <select
+          id="editProjectStatus"
+          class="form-select">
+
+          <option
+            value="فعال"
+            ${project.status==="فعال"
+              ?"selected"
+              :""
+            }>
+            فعال
+          </option>
+
+          <option
+            value="متوقف"
+            ${project.status==="متوقف"
+              ?"selected"
+              :""
+            }>
+            متوقف
+          </option>
+
+          <option
+            value="تکمیل شده"
+            ${project.status==="تکمیل شده"
+              ?"selected"
+              :""
+            }>
+            تکمیل شده
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          اعضای پروژه
+        </label>
+
+
+        <div class="members-box">
+
+          ${TEAM_MEMBERS
+            .map(
+              member=>`
+
+                <label class="member-option">
+
+                  <input
+                    type="checkbox"
+                    name="editProjectMembers"
+                    value="${escapeAttr(member)}"
+                    ${
+                      project.members.includes(member)
+                      ?
+                      "checked"
+                      :
+                      ""
+                    }
+                  >
+
+                  ${escapeHtml(member)}
+
+                </label>
+
+              `
+            )
+            .join("")
+          }
+
+        </div>
+
+      </div>
+
+
+      <div class="form-buttons">
+
+        <button
+          class="add-button"
+          onclick="updateProject(${projectId})">
+
+          ذخیره تغییرات
+
+        </button>
+
+
+        <button
+          class="cancel-button"
+          onclick="showDashboard()">
+
+          انصراف
+
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+function updateProject(
+  projectId
+){
+
+  const project =
+    projects.find(
+      p=>p.id===projectId
+    );
+
+
+  if(!project){
+    return;
+  }
+
+
+  const title =
+    document.getElementById(
+      "editProjectTitle"
+    ).value.trim();
+
+
+  const description =
+    document.getElementById(
+      "editProjectDescription"
+    ).value.trim();
+
+
+  const status =
+    document.getElementById(
+      "editProjectStatus"
+    ).value;
+
+
+  const members =
+    Array.from(
+      document.querySelectorAll(
+        'input[name="editProjectMembers"]:checked'
+      )
+    )
+    .map(
+      checkbox=>checkbox.value
+    );
+
+
+  if(!title){
+
+    alert(
+      "نام پروژه نمی‌تواند خالی باشد."
+    );
+
+    return;
+
+  }
+
+
+  project.title =
+    title;
+
+  project.description =
+    description;
+
+  project.status =
+    status;
+
+  project.members =
+    members;
+
+
+  saveProjects();
+
+  showDashboard();
+
+}
+
+
+/* =====================================================
+   DELETE PROJECT
+===================================================== */
+
+function deleteProject(
+  projectId
+){
+
+  const project =
+    projects.find(
+      p=>p.id===projectId
+    );
+
+
+  if(!project){
+    return;
+  }
+
+
+  const projectTasks =
+    tasks.filter(
+      t=>t.projectId===projectId
+    );
+
+
+  let message =
+    `آیا از حذف پروژه «${project.title}» مطمئنی؟`;
+
+
+  if(projectTasks.length){
+
+    message +=
+      `\n\n${projectTasks.length} تسک این پروژه نیز حذف خواهد شد.`;
+
+  }
+
+
+  const confirmed =
+    confirm(message);
+
+
+  if(!confirmed){
+    return;
+  }
+
+
+  projects =
+    projects.filter(
+      p=>p.id!==projectId
+    );
+
+
+  tasks =
+    tasks.filter(
+      t=>t.projectId!==projectId
+    );
+
+
+  saveProjects();
+
+  saveTasks();
+
+  showDashboard();
+
+}
+
+
+/* =====================================================
+   ADD TASK
+===================================================== */
+
+function showAddTaskForm(
+  projectId
+){
+
+  const project =
+    projects.find(
+      p=>p.id===projectId
+    );
+
+
+  if(!project){
+    return;
+  }
+
+
+  document.getElementById("app").innerHTML = `
+
+    <div class="section-title">
+
+      ➕ افزودن تسک
+
+    </div>
+
 
     <div class="card">
 
@@ -1263,9 +2647,16 @@ function showAddTaskForm(){
           id="newPerson"
           class="form-select">
 
-          <option value="سعید">سعید</option>
-          <option value="هژان">هژان</option>
-          <option value="مهدی">مهدی</option>
+          ${project.members
+            .map(
+              member=>`
+                <option value="${escapeAttr(member)}">
+                  ${escapeHtml(member)}
+                </option>
+              `
+            )
+            .join("")
+          }
 
         </select>
 
@@ -1282,9 +2673,17 @@ function showAddTaskForm(){
           id="newPriority"
           class="form-select">
 
-          <option value="عادی">عادی</option>
-          <option value="بالا">بالا</option>
-          <option value="کم">کم</option>
+          <option value="عادی">
+            عادی
+          </option>
+
+          <option value="بالا">
+            بالا
+          </option>
+
+          <option value="کم">
+            کم
+          </option>
 
         </select>
 
@@ -1337,15 +2736,16 @@ function showAddTaskForm(){
 
         <button
           class="add-button"
-          onclick="saveTaskFromForm()">
+          onclick="saveTaskFromForm(${projectId})">
 
           ذخیره
 
         </button>
 
+
         <button
           class="cancel-button"
-          onclick="openProject()">
+          onclick="openProject(${projectId})">
 
           انصراف
 
@@ -1356,63 +2756,117 @@ function showAddTaskForm(){
     </div>
 
   `;
+
 }
 
 
-function saveTaskFromForm(){
+function saveTaskFromForm(
+  projectId
+){
 
   const title =
-    document.getElementById("newTitle").value.trim();
+    document.getElementById(
+      "newTitle"
+    ).value.trim();
+
 
   const person =
-    document.getElementById("newPerson").value;
+    document.getElementById(
+      "newPerson"
+    ).value;
+
 
   const priority =
-    document.getElementById("newPriority").value;
+    document.getElementById(
+      "newPriority"
+    ).value;
+
 
   const status =
-    document.getElementById("newStatus").value;
+    document.getElementById(
+      "newStatus"
+    ).value;
+
 
   const date =
-    document.getElementById("newDate").value.trim();
+    document.getElementById(
+      "newDate"
+    ).value.trim();
 
 
   if(!title){
 
-    alert("لطفاً نام تسک را وارد کن.");
+    alert(
+      "لطفاً نام تسک را وارد کن."
+    );
 
     return;
+
   }
 
 
   tasks.push({
+
+    id:getNewTaskId(),
+
+    projectId,
+
     title,
+
     person,
+
     priority,
+
     status,
+
     date
+
   });
 
 
   saveTasks();
 
-  openProject();
+  openProject(projectId);
+
 }
 
 
-/* =========================
+/* =====================================================
    EDIT TASK
-========================= */
+===================================================== */
 
-function showEditTaskForm(index){
+function showEditTaskForm(
+  index
+){
 
-  const task = tasks[index];
+  const task =
+    tasks[index];
+
+
+  if(!task){
+    return;
+  }
+
+
+  const project =
+    projects.find(
+      p=>p.id===task.projectId
+    );
+
+
+  if(!project){
+    return;
+  }
+
 
   document.getElementById("app").innerHTML = `
 
     <div class="section-title">
+
       ✏️ ویرایش تسک
+
     </div>
+
 
     <div class="card">
 
@@ -1425,7 +2879,7 @@ function showEditTaskForm(index){
         <input
           id="editTitle"
           class="form-input"
-          value="${task.title}"
+          value="${escapeAttr(task.title)}"
         >
 
       </div>
@@ -1441,23 +2895,28 @@ function showEditTaskForm(index){
           id="editPerson"
           class="form-select">
 
-          <option
-            value="سعید"
-            ${task.person==="سعید"?"selected":""}>
-            سعید
-          </option>
+          ${project.members
+            .map(
+              member=>`
 
-          <option
-            value="هژان"
-            ${task.person==="هژان"?"selected":""}>
-            هژان
-          </option>
+                <option
+                  value="${escapeAttr(member)}"
+                  ${
+                    task.person===member
+                    ?
+                    "selected"
+                    :
+                    ""
+                  }>
 
-          <option
-            value="مهدی"
-            ${task.person==="مهدی"?"selected":""}>
-            مهدی
-          </option>
+                  ${escapeHtml(member)}
+
+                </option>
+
+              `
+            )
+            .join("")
+          }
 
         </select>
 
@@ -1476,19 +2935,28 @@ function showEditTaskForm(index){
 
           <option
             value="بالا"
-            ${task.priority==="بالا"?"selected":""}>
+            ${task.priority==="بالا"
+              ?"selected"
+              :""
+            }>
             بالا
           </option>
 
           <option
             value="عادی"
-            ${task.priority==="عادی"?"selected":""}>
+            ${task.priority==="عادی"
+              ?"selected"
+              :""
+            }>
             عادی
           </option>
 
           <option
             value="کم"
-            ${task.priority==="کم"?"selected":""}>
+            ${task.priority==="کم"
+              ?"selected"
+              :""
+            }>
             کم
           </option>
 
@@ -1509,19 +2977,28 @@ function showEditTaskForm(index){
 
           <option
             value="انجام نشده"
-            ${task.status==="انجام نشده"?"selected":""}>
+            ${task.status==="انجام نشده"
+              ?"selected"
+              :""
+            }>
             انجام نشده
           </option>
 
           <option
             value="در حال انجام"
-            ${task.status==="در حال انجام"?"selected":""}>
+            ${task.status==="در حال انجام"
+              ?"selected"
+              :""
+            }>
             در حال انجام
           </option>
 
           <option
             value="انجام شده"
-            ${task.status==="انجام شده"?"selected":""}>
+            ${task.status==="انجام شده"
+              ?"selected"
+              :""
+            }>
             انجام شده
           </option>
 
@@ -1539,7 +3016,7 @@ function showEditTaskForm(index){
         <input
           id="editDate"
           class="form-input"
-          value="${task.date || ""}"
+          value="${escapeAttr(task.date || "")}"
         >
 
       </div>
@@ -1555,9 +3032,10 @@ function showEditTaskForm(index){
 
         </button>
 
+
         <button
           class="cancel-button"
-          onclick="openProject()">
+          onclick="openProject(${task.projectId})">
 
           انصراف
 
@@ -1568,118 +3046,214 @@ function showEditTaskForm(index){
     </div>
 
   `;
+
 }
 
 
-function updateTask(index){
+function updateTask(
+  index
+){
 
-  const title =
-    document.getElementById("editTitle").value.trim();
+  const task =
+    tasks[index];
 
-  if(!title){
 
-    alert("نام تسک نمی‌تواند خالی باشد.");
-
+  if(!task){
     return;
   }
 
 
-  tasks[index] = {
+  const title =
+    document.getElementById(
+      "editTitle"
+    ).value.trim();
 
-    title,
 
-    person:
-      document.getElementById("editPerson").value,
+  if(!title){
 
-    priority:
-      document.getElementById("editPriority").value,
+    alert(
+      "نام تسک نمی‌تواند خالی باشد."
+    );
 
-    status:
-      document.getElementById("editStatus").value,
+    return;
 
-    date:
-      document.getElementById("editDate").value.trim()
+  }
 
-  };
+
+  task.title =
+    title;
+
+
+  task.person =
+    document.getElementById(
+      "editPerson"
+    ).value;
+
+
+  task.priority =
+    document.getElementById(
+      "editPriority"
+    ).value;
+
+
+  task.status =
+    document.getElementById(
+      "editStatus"
+    ).value;
+
+
+  task.date =
+    document.getElementById(
+      "editDate"
+    ).value.trim();
 
 
   saveTasks();
 
-  openProject();
+  openProject(
+    task.projectId
+  );
+
 }
 
 
-/* =========================
-   STATUS / DELETE
-========================= */
+/* =====================================================
+   STATUS
+===================================================== */
 
-function changeStatus(index){
+function changeStatus(
+  index
+){
 
-  const current = tasks[index].status;
+  const task =
+    tasks[index];
 
-  let nextStatus;
 
-  if(current==="انجام نشده"){
-    nextStatus="در حال انجام";
+  if(!task){
+    return;
   }
-  else if(current==="در حال انجام"){
-    nextStatus="انجام شده";
+
+
+  if(
+    task.status==="انجام نشده"
+  ){
+
+    task.status =
+      "در حال انجام";
+
+  }
+  else if(
+    task.status==="در حال انجام"
+  ){
+
+    task.status =
+      "انجام شده";
+
   }
   else{
-    nextStatus="انجام نشده";
+
+    task.status =
+      "انجام نشده";
+
   }
 
-  tasks[index].status=nextStatus;
 
   saveTasks();
 
-  openProject();
+  openProject(
+    task.projectId
+  );
+
 }
 
 
-function deleteTask(index){
+/* =====================================================
+   DELETE TASK
+===================================================== */
 
-  const confirmDelete =
-    confirm("آیا از حذف این تسک مطمئنی؟");
+function deleteTask(
+  index
+){
 
-  if(!confirmDelete) return;
+  const task =
+    tasks[index];
 
-  tasks.splice(index,1);
+
+  if(!task){
+    return;
+  }
+
+
+  const confirmed =
+    confirm(
+      `آیا از حذف تسک «${task.title}» مطمئنی؟`
+    );
+
+
+  if(!confirmed){
+    return;
+  }
+
+
+  const projectId =
+    task.projectId;
+
+
+  tasks.splice(
+    index,
+    1
+  );
+
 
   saveTasks();
 
-  openProject();
+  openProject(
+    projectId
+  );
+
 }
 
 
-/* =========================
+/* =====================================================
    CALENDAR
-========================= */
+===================================================== */
 
 let calendarYear;
+
 let calendarMonth;
-let selectedCalendarDate = null;
+
+let selectedCalendarDate =
+  null;
 
 
 function showCalendar(){
 
-  const today = getTodayJalali();
+  const today =
+    getTodayJalali();
+
 
   if(calendarYear===undefined){
 
-    calendarYear=today.jy;
-    calendarMonth=today.jm;
+    calendarYear =
+      today.jy;
+
+    calendarMonth =
+      today.jm;
 
   }
 
+
   renderCalendar();
+
 }
 
 
 function renderCalendar(){
 
   const monthNames = [
+
     "",
+
     "فروردین",
     "اردیبهشت",
     "خرداد",
@@ -1692,10 +3266,12 @@ function renderCalendar(){
     "دی",
     "بهمن",
     "اسفند"
+
   ];
 
 
   const weekNames = [
+
     "ش",
     "ی",
     "د",
@@ -1703,17 +3279,24 @@ function renderCalendar(){
     "چ",
     "پ",
     "ج"
+
   ];
 
 
-  const today = getTodayJalali();
+  const today =
+    getTodayJalali();
+
 
   const monthLength =
     calendarMonth <= 6
-    ? 31
-    : calendarMonth <= 11
-      ? 30
-      : 30;
+    ?
+    31
+    :
+    calendarMonth <= 11
+    ?
+    30
+    :
+    30;
 
 
   const firstGregorian =
@@ -1732,31 +3315,35 @@ function renderCalendar(){
     );
 
 
-  /*
-    JS:
-    Sunday = 0
-    Saturday = 6
-
-    Our calendar starts Saturday.
-  */
-
   let firstDay =
-    (firstDate.getDay()+1)%7;
+    (
+      firstDate.getDay()+1
+    ) % 7;
 
 
   let calendarHTML="";
 
 
-  for(let i=0;i<firstDay;i++){
+  for(
+    let i=0;
+    i<firstDay;
+    i++
+  ){
 
     calendarHTML += `
-      <div class="calendar-day empty-day"></div>
+      <div
+        class="calendar-day empty-day">
+      </div>
     `;
 
   }
 
 
-  for(let day=1;day<=monthLength;day++){
+  for(
+    let day=1;
+    day<=monthLength;
+    day++
+  ){
 
     const date =
       makeDate(
@@ -1793,20 +3380,36 @@ function renderCalendar(){
         onclick="selectCalendarDate('${date}')">
 
         <div class="day-number">
+
           ${day}
+
         </div>
+
 
         ${
           dayTasks.length
           ?
+
           `
-          <div class="day-task-dot"></div>
-          <div class="day-task-count">
-            ${dayTasks.length} تسک
-          </div>
+
+            <div
+              class="day-task-dot">
+            </div>
+
+            <div
+              class="day-task-count">
+
+              ${dayTasks.length}
+              تسک
+
+            </div>
+
           `
+
           :
+
           ""
+
         }
 
       </div>
@@ -1816,7 +3419,9 @@ function renderCalendar(){
   }
 
 
-  document.getElementById("app").innerHTML = `
+  document.getElementById(
+    "app"
+  ).innerHTML = `
 
     <div class="top-nav">
 
@@ -1828,6 +3433,7 @@ function renderCalendar(){
 
       </button>
 
+
       <button
         class="nav-btn active"
         onclick="showCalendar()">
@@ -1835,6 +3441,7 @@ function renderCalendar(){
         📅 تقویم
 
       </button>
+
 
       <button
         class="nav-btn"
@@ -1848,7 +3455,9 @@ function renderCalendar(){
 
 
     <div class="section-title">
+
       📅 تقویم تسک‌ها
+
     </div>
 
 
@@ -1856,17 +3465,28 @@ function renderCalendar(){
 
       <div class="calendar-header">
 
-        <button onclick="previousMonth()">
+        <button
+          onclick="previousMonth()">
+
           ‹
+
         </button>
 
+
         <div class="calendar-title">
+
           ${monthNames[calendarMonth]}
+
           ${calendarYear}
+
         </div>
 
-        <button onclick="nextMonth()">
+
+        <button
+          onclick="nextMonth()">
+
           ›
+
         </button>
 
       </div>
@@ -1874,9 +3494,15 @@ function renderCalendar(){
 
       <div class="calendar-weekdays">
 
-        ${weekNames.map(
-          day=>`<div class="weekday">${day}</div>`
-        ).join("")}
+        ${weekNames
+          .map(
+            day=>
+              `<div class="weekday">
+                ${day}
+              </div>`
+          )
+          .join("")
+        }
 
       </div>
 
@@ -1890,7 +3516,9 @@ function renderCalendar(){
     </div>
 
 
-    <div id="selectedDayTasks"></div>
+    <div
+      id="selectedDayTasks">
+    </div>
 
   `;
 
@@ -1902,6 +3530,7 @@ function renderCalendar(){
     );
 
   }
+
 }
 
 
@@ -1912,6 +3541,7 @@ function previousMonth(){
   if(calendarMonth<1){
 
     calendarMonth=12;
+
     calendarYear--;
 
   }
@@ -1919,6 +3549,7 @@ function previousMonth(){
   selectedCalendarDate=null;
 
   renderCalendar();
+
 }
 
 
@@ -1929,6 +3560,7 @@ function nextMonth(){
   if(calendarMonth>12){
 
     calendarMonth=1;
+
     calendarYear++;
 
   }
@@ -1936,23 +3568,35 @@ function nextMonth(){
   selectedCalendarDate=null;
 
   renderCalendar();
+
 }
 
 
-function selectCalendarDate(date){
+function selectCalendarDate(
+  date
+){
 
-  selectedCalendarDate=date;
+  selectedCalendarDate =
+    date;
 
   renderCalendar();
+
 }
 
 
-function renderSelectedDayTasks(date){
+function renderSelectedDayTasks(
+  date
+){
 
   const box =
-    document.getElementById("selectedDayTasks");
+    document.getElementById(
+      "selectedDayTasks"
+    );
 
-  if(!box) return;
+
+  if(!box){
+    return;
+  }
 
 
   const dayTasks =
@@ -1969,7 +3613,9 @@ function renderSelectedDayTasks(date){
 
         <div class="empty">
 
-          برای ${date} تسکی ثبت نشده است.
+          برای
+          ${date}
+          تسکی ثبت نشده است.
 
         </div>
 
@@ -1978,316 +3624,116 @@ function renderSelectedDayTasks(date){
     `;
 
     return;
+
   }
 
 
   let html = `
 
     <div class="section-title">
-      📌 تسک‌های ${date}
+
+      📌 تسک‌های
+      ${date}
+
     </div>
 
   `;
 
 
-  dayTasks.forEach(task=>{
+  dayTasks.forEach(
+    task=>{
 
-    html += `
+      const project =
+        projects.find(
+          p=>p.id===task.projectId
+        );
 
-      <div class="card calendar-task ${task.priority==="بالا"?"high":""}">
 
-        <h3>${task.title}</h3>
+      html += `
 
-        <div class="info">
+        <div
+          class="
+            card
+            calendar-task
+            ${task.priority==="بالا"
+              ?"high"
+              :""
+            }
+          ">
 
-          👤 ${task.person}
+          <h3>
 
-          <br>
+            ${escapeHtml(
+              task.title
+            )}
 
-          ${getPriorityBadge(task.priority)}
+          </h3>
 
-          ${getStatusBadge(task.status)}
+
+          <div class="info">
+
+            📁
+
+            ${
+              project
+              ?
+              escapeHtml(
+                project.title
+              )
+              :
+              "پروژه حذف شده"
+            }
+
+            <br>
+
+
+            👤
+
+            ${escapeHtml(
+              task.person
+            )}
+
+
+            <br>
+
+
+            ${getPriorityBadge(
+              task.priority
+            )}
+
+
+            ${getStatusBadge(
+              task.status
+            )}
+
+          </div>
 
         </div>
 
-      </div>
+      `;
 
-    `;
+    }
+  );
 
-  });
 
+  box.innerHTML =
+    html;
 
-  box.innerHTML=html;
 }
 
 
-/* =========================
+/* =====================================================
    NOTIFICATIONS
-========================= */
+===================================================== */
 
 function getNotifications(){
 
   const today =
     getTodayJalali();
 
+
   const todayNum =
     dateNumber(
       makeDate(
         today.jy,
-        today.jm,
-        today.jd
-      )
-    );
-
-
-  const notifications=[];
-
-
-  tasks.forEach((task,index)=>{
-
-    if(task.status==="انجام شده"){
-      return;
-    }
-
-
-    const taskNum =
-      dateNumber(task.date);
-
-
-    if(!taskNum){
-      return;
-    }
-
-
-    if(taskNum < todayNum){
-
-      notifications.push({
-        type:"overdue",
-        title:"⚠️ تسک عقب افتاده",
-        text:
-          `تسک «${task.title}» مربوط به ${task.date} است و هنوز انجام نشده.`,
-        index
-      });
-
-    }
-
-    else if(taskNum===todayNum){
-
-      notifications.push({
-        type:"today",
-        title:"🔔 تسک امروز",
-        text:
-          `امروز باید «${task.title}» توسط ${task.person} انجام شود.`,
-        index
-      });
-
-    }
-
-    else if(taskNum <= todayNum+3){
-
-      notifications.push({
-        type:"normal",
-        title:"📅 تسک نزدیک",
-        text:
-          `تسک «${task.title}» در تاریخ ${task.date} برنامه‌ریزی شده.`,
-        index
-      });
-
-    }
-
-  });
-
-
-  return notifications;
-}
-
-
-function showNotifications(){
-
-  const notifications =
-    getNotifications();
-
-
-  document.getElementById("app").innerHTML = `
-
-    <div class="top-nav">
-
-      <button
-        class="nav-btn"
-        onclick="showDashboard()">
-
-        🏠 داشبورد
-
-      </button>
-
-      <button
-        class="nav-btn"
-        onclick="showCalendar()">
-
-        📅 تقویم
-
-      </button>
-
-      <button
-        class="nav-btn active"
-        onclick="showNotifications()">
-
-        🔔 اعلان‌ها
-
-      </button>
-
-    </div>
-
-
-    <div class="section-title">
-
-      <div class="notification-header">
-
-        <span>
-          🔔 اعلان‌ها
-        </span>
-
-        <span class="notification-count">
-          ${notifications.length}
-        </span>
-
-      </div>
-
-    </div>
-
-
-    ${
-      notifications.length===0
-
-      ?
-
-      `
-      <div class="card">
-
-        <div class="empty">
-
-          🎉
-
-          <br><br>
-
-          فعلاً اعلان مهمی نداری.
-
-        </div>
-
-      </div>
-      `
-
-      :
-
-      notifications.map(notification=>`
-
-        <div class="
-          notification
-          ${notification.type==="overdue"?"overdue":""}
-          ${notification.type==="today"?"today":""}
-        ">
-
-          <div class="notification-title">
-
-            ${notification.title}
-
-          </div>
-
-          <div class="notification-text">
-
-            ${notification.text}
-
-          </div>
-
-          <button
-            onclick="showEditTaskForm(${notification.index})">
-
-            مشاهده تسک
-
-          </button>
-
-        </div>
-
-      `).join("")
-
-    }
-
-
-    <div class="card">
-
-      <h3>🔔 اعلان مرورگر</h3>
-
-      <div class="info">
-
-        اگر اجازه اعلان مرورگر را فعال کنی،
-        برنامه می‌تواند برای اعلان‌های آینده
-        از سیستم اعلان گوشی/کامپیوتر استفاده کند.
-
-      </div>
-
-      <button onclick="requestNotificationPermission()">
-
-        فعال کردن اعلان‌ها
-
-      </button>
-
-    </div>
-
-  `;
-}
-
-
-/* =========================
-   BROWSER NOTIFICATION
-========================= */
-
-function requestNotificationPermission(){
-
-  if(!("Notification" in window)){
-
-    alert(
-      "مرورگر این دستگاه از اعلان‌های سیستم پشتیبانی نمی‌کند."
-    );
-
-    return;
-  }
-
-
-  Notification.requestPermission()
-    .then(permission=>{
-
-      if(permission==="granted"){
-
-        new Notification(
-          "Content Team",
-          {
-            body:"اعلان‌های Content Team فعال شد 🔔"
-          }
-        );
-
-        alert("اعلان‌ها فعال شدند.");
-
-      }
-      else{
-
-        alert(
-          "اجازه اعلان‌ها داده نشد."
-        );
-
-      }
-
-    });
-
-}
-
-
-/* =========================
-   START
-========================= */
-
-showDashboard();
-
-</script>
-
-</body>
-</html>
+        today.jm
