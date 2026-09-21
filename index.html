@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Content Team</title>
 
   <style>
@@ -13,104 +14,125 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #f5f6f8;
-      color: #17181c;
+      background: #f5f7fb;
+      color: #222;
     }
 
     header {
-      background: #111318;
+      background: #111827;
       color: white;
-      padding: 30px 22px;
-      border-radius: 0 0 28px 28px;
+      padding: 22px;
+      text-align: center;
     }
 
     header h1 {
-      margin: 0 0 8px;
-      font-size: 28px;
+      margin: 0;
+      font-size: 25px;
     }
 
     header p {
-      margin: 0;
-      color: #bbb;
+      margin: 7px 0 0;
+      color: #cbd5e1;
     }
 
     .container {
-      max-width: 900px;
+      max-width: 700px;
       margin: auto;
       padding: 20px;
     }
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-      margin-bottom: 28px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 25px;
     }
 
     .stat {
       background: white;
-      border-radius: 20px;
-      padding: 22px;
-      box-shadow: 0 4px 15px rgba(0,0,0,.05);
+      border-radius: 14px;
+      padding: 15px 5px;
+      text-align: center;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.06);
     }
 
-    .number {
-      font-size: 32px;
+    .stat-number {
+      font-size: 24px;
       font-weight: bold;
-      margin-bottom: 8px;
     }
 
-    .title {
-      color: #777;
+    .stat-title {
+      margin-top: 5px;
+      color: #64748b;
+      font-size: 13px;
     }
 
     .section-title {
-      font-size: 21px;
+      font-size: 20px;
       font-weight: bold;
       margin: 25px 0 12px;
     }
 
     .card {
       background: white;
-      border-radius: 18px;
+      border-radius: 16px;
       padding: 18px;
-      margin-bottom: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,.05);
+      margin-bottom: 14px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.06);
     }
 
     .card h3 {
-      margin: 0 0 10px;
+      margin-top: 0;
+      margin-bottom: 12px;
     }
 
     .info {
-      color: #777;
-      line-height: 2;
-      font-size: 14px;
+      color: #64748b;
+      line-height: 1.9;
     }
 
     .badge {
       display: inline-block;
-      padding: 5px 9px;
-      margin-left: 5px;
+      background: #e5e7eb;
+      color: #374151;
       border-radius: 8px;
-      background: #eee;
+      padding: 4px 9px;
       font-size: 12px;
+      margin: 3px;
     }
 
-    .high {
-      background: #ffe1e1;
-      color: #b42318;
+    .badge.blue {
+      background: #dbeafe;
+      color: #1d4ed8;
     }
 
-    .blue {
-      background: #e7f0ff;
-      color: #175cd3;
+    .badge.high {
+      background: #fee2e2;
+      color: #b91c1c;
     }
 
-    @media (min-width: 700px) {
-      .stats {
-        grid-template-columns: repeat(4, 1fr);
-      }
+    button {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 13px;
+      background: #111827;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .add-button {
+      background: #2563eb;
+    }
+
+    .task-button {
+      background: #16a34a;
     }
   </style>
 </head>
@@ -122,143 +144,107 @@
   <p>مدیریت تیم تولید محتوا</p>
 </header>
 
-<div class="container">
+<div class="container" id="mainContainer">
 
   <div class="stats">
 
     <div class="stat">
-      <div class="number">1</div>
-      <div class="title">پروژه فعال</div>
+      <div class="stat-number">1</div>
+      <div class="stat-title">پروژه</div>
     </div>
 
     <div class="stat">
-      <div class="number">1</div>
-      <div class="title">محتوا</div>
+      <div class="stat-number">1</div>
+      <div class="stat-title">محتوا</div>
     </div>
 
     <div class="stat">
-      <div class="number">5</div>
-      <div class="title">تسک</div>
+      <div class="stat-number">5</div>
+      <div class="stat-title">تسک</div>
     </div>
 
     <div class="stat">
-      <div class="number">3</div>
-      <div class="title">تسک با اولویت بالا</div>
+      <div class="stat-number">3</div>
+      <div class="stat-title">اولویت بالا</div>
     </div>
 
   </div>
 
 
-  <div class="section-title">پروژه‌ها</div>
-<div class="card">
-  <h3>کافه لیپار</h3>
-
-  <div class="info">
-    تولید و مدیریت محتوای شبکه‌های اجتماعی
-    <br><br>
-
-    <span class="badge blue">فعال</span>
-    <span class="badge">۱ محتوا</span>
-    <span class="badge">۵ تسک</span>
+  <div class="section-title">
+    پروژه‌ها
   </div>
 
-  <button onclick="openProject()">
-    ورود به پروژه
-  </button>
-</div>  
+
   <div class="card">
+
     <h3>کافه لیپار</h3>
+
     <div class="info">
       تولید و مدیریت محتوای شبکه‌های اجتماعی
-      <br>
+
+      <br><br>
+
       <span class="badge blue">فعال</span>
-    </div>
-  </div>
-
-
-  <div class="section-title">محتوا</div>
-
-  <div class="card">
-    <h3>معرفی آیس لاته</h3>
-
-    <div class="info">
-      <span class="badge">Reel</span>
-      <span class="badge">Instagram</span>
-      <span class="badge blue">ایده</span>
-      <span class="badge high">اولویت بالا</span>
+      <span class="badge">۱ محتوا</span>
+      <span class="badge">۵ تسک</span>
     </div>
 
-    <p class="info">
-      ویدیوی کوتاه معرفی آیس لاته لیپار
-    </p>
-  </div>
+    <button onclick="openProject()">
+      ورود به پروژه
+    </button>
 
-
-  <div class="section-title">تسک‌ها</div>
-
-  <div class="card">
-    <h3>فیلمبرداری</h3>
-    <div class="info">
-      مسئول: سعید
-      <br>
-      <span class="badge high">اولویت بالا</span>
-      <span class="badge">انجام نشده</span>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3>تدوین</h3>
-    <div class="info">
-      مسئول: مهدی
-      <br>
-      <span class="badge high">اولویت بالا</span>
-      <span class="badge">انجام نشده</span>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3>نوشتن کپشن</h3>
-    <div class="info">
-      مسئول: هژان
-      <br>
-      <span class="badge">اولویت عادی</span>
-      <span class="badge">انجام نشده</span>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3>تأیید نهایی</h3>
-    <div class="info">
-      مسئول: سعید
-      <br>
-      <span class="badge high">اولویت بالا</span>
-      <span class="badge">انجام نشده</span>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3>انتشار</h3>
-    <div class="info">
-      مسئول: هژان
-      <br>
-      <span class="badge">اولویت عادی</span>
-      <span class="badge">انجام نشده</span>
-    </div>
   </div>
 
 </div>
+
+
 <script>
-  function openProject() {
- document.querySelector(".container").innerHTML = `
+
+let tasks = [
+  {
+    title: "فیلمبرداری",
+    person: "سعید",
+    priority: "بالا"
+  },
+  {
+    title: "تدوین",
+    person: "مهدی",
+    priority: "بالا"
+  },
+  {
+    title: "نوشتن کپشن",
+    person: "هژان",
+    priority: "عادی"
+  },
+  {
+    title: "تأیید نهایی",
+    person: "سعید",
+    priority: "بالا"
+  },
+  {
+    title: "انتشار",
+    person: "هژان",
+    priority: "عادی"
+  }
+];
+
+
+function openProject() {
+
+  let html = `
 
     <div class="section-title">
       پروژه کافه لیپار
     </div>
 
+
     <div class="card">
+
       <h3>📊 وضعیت پروژه</h3>
 
       <div class="info">
+
         وضعیت:
         <span class="badge blue">فعال</span>
 
@@ -270,14 +256,17 @@
         <br>
 
         تسک:
-        <strong>۵</strong>
+        <strong>${tasks.length}</strong>
+
       </div>
+
     </div>
 
 
     <div class="section-title">
       🎬 محتواهای پروژه
     </div>
+
 
     <div class="card">
 
@@ -303,83 +292,123 @@
       ✅ تسک‌های پروژه
     </div>
 
-    <div class="card">
-      <h3>فیلمبرداری</h3>
-      <div class="info">
-        مسئول: سعید
-        <br>
-        <span class="badge high">اولویت بالا</span>
-        <span class="badge">انجام نشده</span>
+  `;
+
+
+  tasks.forEach(function(task) {
+
+    let priorityBadge = "";
+
+    if (task.priority === "بالا") {
+
+      priorityBadge =
+        '<span class="badge high">اولویت بالا</span>';
+
+    } else {
+
+      priorityBadge =
+        '<span class="badge">اولویت عادی</span>';
+
+    }
+
+
+    html += `
+
+      <div class="card">
+
+        <h3>${task.title}</h3>
+
+        <div class="info">
+
+          مسئول: ${task.person}
+
+          <br>
+
+          ${priorityBadge}
+
+          <span class="badge">
+            انجام نشده
+          </span>
+
+        </div>
+
       </div>
-    </div>
+
+    `;
+
+  });
+
+
+  html += `
 
     <div class="card">
-      <h3>تدوین</h3>
-      <div class="info">
-        مسئول: مهدی
-        <br>
-        <span class="badge high">اولویت بالا</span>
-        <span class="badge">انجام نشده</span>
-      </div>
+
+      <button class="add-button" onclick="addTask()">
+        + افزودن تسک
+      </button>
+
     </div>
 
-    <div class="card">
-      <h3>نوشتن کپشن</h3>
-      <div class="info">
-        مسئول: هژان
-        <br>
-        <span class="badge">اولویت عادی</span>
-        <span class="badge">انجام نشده</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>تأیید نهایی</h3>
-      <div class="info">
-        مسئول: سعید
-        <br>
-        <span class="badge high">اولویت بالا</span>
-        <span class="badge">انجام نشده</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>انتشار</h3>
-      <div class="info">
-        مسئول: هژان
-        <br>
-        <span class="badge">اولویت عادی</span>
-        <span class="badge">انجام نشده</span>
-      </div>
-    </div>
-<div class="card">
-  <button onclick="addTask()">
-    + افزودن تسک
-  </button>
-</div>
-    <br>
 
     <button onclick="location.reload()">
       ← بازگشت به داشبورد
     </button>
-<div class="card">
-  <button onclick="addTask()">
-    + افزودن تسک
-  </button>
-</div>
+
   `;
-    <div class="card">
-  <button onclick="addTask()">
-    + افزودن تسک
-  </button>
-</div>
-    function addTask() {
+
+
+  document.querySelector(".container").innerHTML = html;
+
+}
+
+
+
+function addTask() {
+
   const title = prompt("عنوان تسک را وارد کن:");
-  if (title) {
-    alert("تسک «" + title + "» ساخته شد.");
+
+  if (!title) {
+    return;
   }
+
+
+  const person = prompt(
+    "مسئول تسک را وارد کن:\nسعید / هژان / مهدی"
+  );
+
+
+  if (!person) {
+    return;
+  }
+
+
+  const priority = prompt(
+    "اولویت را وارد کن:\nبالا / عادی"
+  );
+
+
+  if (!priority) {
+    return;
+  }
+
+
+  tasks.push({
+
+    title: title,
+
+    person: person,
+
+    priority: priority
+
+  });
+
+
+  openProject();
+
 }
-}
+
+
 </script>
+
 </body>
 </html>
