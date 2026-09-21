@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Content Team</title>
 
   <style>
@@ -15,13 +14,13 @@
       margin: 0;
       font-family: Arial, sans-serif;
       background: #f5f6f8;
-      color: #202124;
+      color: #17181c;
     }
 
     header {
       background: #111318;
       color: white;
-      padding: 28px 20px;
+      padding: 30px 22px;
       border-radius: 0 0 28px 28px;
     }
 
@@ -32,8 +31,7 @@
 
     header p {
       margin: 0;
-      color: #bfc2c8;
-      font-size: 15px;
+      color: #bbb;
     }
 
     .container {
@@ -45,36 +43,31 @@
     .stats {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-bottom: 24px;
+      gap: 14px;
+      margin-bottom: 28px;
     }
 
     .stat {
       background: white;
-      border-radius: 18px;
-      padding: 18px;
-      box-shadow: 0 3px 12px rgba(0,0,0,.05);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 4px 15px rgba(0,0,0,.05);
     }
 
-    .stat-number {
-      font-size: 28px;
+    .number {
+      font-size: 32px;
       font-weight: bold;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
-    .stat-title {
+    .title {
       color: #777;
-      font-size: 14px;
-    }
-
-    section {
-      margin-bottom: 28px;
     }
 
     .section-title {
-      font-size: 20px;
+      font-size: 21px;
       font-weight: bold;
-      margin-bottom: 12px;
+      margin: 25px 0 12px;
     }
 
     .card {
@@ -82,47 +75,36 @@
       border-radius: 18px;
       padding: 18px;
       margin-bottom: 12px;
-      box-shadow: 0 3px 12px rgba(0,0,0,.05);
+      box-shadow: 0 4px 15px rgba(0,0,0,.05);
     }
 
-    .card-title {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 10px;
+    .card h3 {
+      margin: 0 0 10px;
     }
 
-    .meta {
+    .info {
       color: #777;
+      line-height: 2;
       font-size: 14px;
-      line-height: 1.8;
     }
 
     .badge {
       display: inline-block;
       padding: 5px 9px;
+      margin-left: 5px;
       border-radius: 8px;
       background: #eee;
       font-size: 12px;
-      margin-left: 5px;
-      margin-top: 5px;
     }
 
-    .priority-high {
+    .high {
       background: #ffe1e1;
       color: #b42318;
     }
 
-    .status {
-      background: #e8f1ff;
+    .blue {
+      background: #e7f0ff;
       color: #175cd3;
-    }
-
-    .empty {
-      background: white;
-      padding: 20px;
-      border-radius: 16px;
-      color: #777;
-      text-align: center;
     }
 
     @media (min-width: 700px) {
@@ -142,24 +124,114 @@
 
 <div class="container">
 
-  <!-- آمار -->
   <div class="stats">
 
     <div class="stat">
-      <div class="stat-number" id="projectsCount">0</div>
-      <div class="stat-title">پروژه فعال</div>
+      <div class="number">1</div>
+      <div class="title">پروژه فعال</div>
     </div>
 
     <div class="stat">
-      <div class="stat-number" id="contentsCount">0</div>
-      <div class="stat-title">محتوا</div>
+      <div class="number">1</div>
+      <div class="title">محتوا</div>
     </div>
 
     <div class="stat">
-      <div class="stat-number" id="tasksCount">0</div>
-      <div class="stat-title">تسک</div>
+      <div class="number">5</div>
+      <div class="title">تسک</div>
     </div>
 
     <div class="stat">
-      <div class="stat-number" id="highTasksCount">0</div>
-     
+      <div class="number">3</div>
+      <div class="title">تسک با اولویت بالا</div>
+    </div>
+
+  </div>
+
+
+  <div class="section-title">پروژه‌ها</div>
+
+  <div class="card">
+    <h3>کافه لیپار</h3>
+    <div class="info">
+      تولید و مدیریت محتوای شبکه‌های اجتماعی
+      <br>
+      <span class="badge blue">فعال</span>
+    </div>
+  </div>
+
+
+  <div class="section-title">محتوا</div>
+
+  <div class="card">
+    <h3>معرفی آیس لاته</h3>
+
+    <div class="info">
+      <span class="badge">Reel</span>
+      <span class="badge">Instagram</span>
+      <span class="badge blue">ایده</span>
+      <span class="badge high">اولویت بالا</span>
+    </div>
+
+    <p class="info">
+      ویدیوی کوتاه معرفی آیس لاته لیپار
+    </p>
+  </div>
+
+
+  <div class="section-title">تسک‌ها</div>
+
+  <div class="card">
+    <h3>فیلمبرداری</h3>
+    <div class="info">
+      مسئول: سعید
+      <br>
+      <span class="badge high">اولویت بالا</span>
+      <span class="badge">انجام نشده</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>تدوین</h3>
+    <div class="info">
+      مسئول: مهدی
+      <br>
+      <span class="badge high">اولویت بالا</span>
+      <span class="badge">انجام نشده</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>نوشتن کپشن</h3>
+    <div class="info">
+      مسئول: هژان
+      <br>
+      <span class="badge">اولویت عادی</span>
+      <span class="badge">انجام نشده</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>تأیید نهایی</h3>
+    <div class="info">
+      مسئول: سعید
+      <br>
+      <span class="badge high">اولویت بالا</span>
+      <span class="badge">انجام نشده</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>انتشار</h3>
+    <div class="info">
+      مسئول: هژان
+      <br>
+      <span class="badge">اولویت عادی</span>
+      <span class="badge">انجام نشده</span>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
