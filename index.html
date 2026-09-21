@@ -111,6 +111,16 @@
       color: #b91c1c;
     }
 
+    .badge.green {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .badge.orange {
+      background: #ffedd5;
+      color: #c2410c;
+    }
+
     button {
       width: 100%;
       border: none;
@@ -131,8 +141,38 @@
       background: #2563eb;
     }
 
-    .task-button {
-      background: #16a34a;
+    .delete-button {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .task-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .task-actions button {
+      margin-top: 0;
+      font-size: 13px;
+      padding: 10px;
+    }
+
+    .select-box {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      margin-top: 7px;
+      font-size: 14px;
+      background: white;
+    }
+
+    .empty {
+      text-align: center;
+      color: #64748b;
+      padding: 20px;
     }
   </style>
 </head>
@@ -159,35 +199,41 @@
     </div>
 
     <div class="stat">
-      <div class="stat-number">5</div>
+      <div class="stat-number" id="dashboardTasks">
+        5
+      </div>
       <div class="stat-title">تسک</div>
     </div>
 
     <div class="stat">
-      <div class="stat-number">3</div>
+      <div class="stat-number" id="dashboardHigh">
+        3
+      </div>
       <div class="stat-title">اولویت بالا</div>
     </div>
 
   </div>
 
-
   <div class="section-title">
     پروژه‌ها
   </div>
-
 
   <div class="card">
 
     <h3>کافه لیپار</h3>
 
     <div class="info">
+
       تولید و مدیریت محتوای شبکه‌های اجتماعی
 
       <br><br>
 
       <span class="badge blue">فعال</span>
       <span class="badge">۱ محتوا</span>
-      <span class="badge">۵ تسک</span>
+      <span class="badge">
+        <span id="projectTaskCount">۵</span> تسک
+      </span>
+
     </div>
 
     <button onclick="openProject()">
@@ -202,35 +248,92 @@
 <script>
 
 let tasks = [
+
   {
     title: "فیلمبرداری",
     person: "سعید",
-    priority: "بالا"
+    priority: "بالا",
+    status: "انجام نشده",
+    date: "1405/07/02"
   },
+
   {
     title: "تدوین",
     person: "مهدی",
-    priority: "بالا"
+    priority: "بالا",
+    status: "در حال انجام",
+    date: "1405/07/03"
   },
+
   {
     title: "نوشتن کپشن",
     person: "هژان",
-    priority: "عادی"
+    priority: "عادی",
+    status: "انجام نشده",
+    date: "1405/07/04"
   },
+
   {
     title: "تأیید نهایی",
     person: "سعید",
-    priority: "بالا"
+    priority: "بالا",
+    status: "انجام شده",
+    date: "1405/07/05"
   },
+
   {
     title: "انتشار",
     person: "هژان",
-    priority: "عادی"
+    priority: "عادی",
+    status: "انجام نشده",
+    date: "1405/07/06"
   }
+
 ];
 
 
+function getPriorityBadge(priority) {
+
+  if (priority === "بالا") {
+    return '<span class="badge high">اولویت بالا</span>';
+  }
+
+  if (priority === "کم") {
+    return '<span class="badge">اولویت کم</span>';
+  }
+
+  return '<span class="badge">اولویت عادی</span>';
+}
+
+
+function getStatusBadge(status) {
+
+  if (status === "انجام شده") {
+    return '<span class="badge green">✓ انجام شده</span>';
+  }
+
+  if (status === "در حال انجام") {
+    return '<span class="badge orange">⏳ در حال انجام</span>';
+  }
+
+  return '<span class="badge">○ انجام نشده</span>';
+}
+
+
 function openProject() {
+
+  let completed = tasks.filter(
+    task => task.status === "انجام شده"
+  ).length;
+
+  let doing = tasks.filter(
+    task => task.status === "در حال انجام"
+  ).length;
+
+  let pending = tasks.filter(
+    task => task.status === "انجام نشده"
+  ).length;
+
 
   let html = `
 
@@ -248,15 +351,25 @@ function openProject() {
         وضعیت:
         <span class="badge blue">فعال</span>
 
-        <br>
+        <br><br>
 
-        محتوا:
-        <strong>۱</strong>
-
-        <br>
-
-        تسک:
+        کل تسک‌ها:
         <strong>${tasks.length}</strong>
+
+        <br>
+
+        انجام شده:
+        <strong>${completed}</strong>
+
+        <br>
+
+        در حال انجام:
+        <strong>${doing}</strong>
+
+        <br>
+
+        انجام نشده:
+        <strong>${pending}</strong>
 
       </div>
 
@@ -295,22 +408,20 @@ function openProject() {
   `;
 
 
-  tasks.forEach(function(task) {
+  if (tasks.length === 0) {
 
-    let priorityBadge = "";
+    html += `
+      <div class="card">
+        <div class="empty">
+          هنوز هیچ تسکی اضافه نشده است.
+        </div>
+      </div>
+    `;
 
-    if (task.priority === "بالا") {
+  }
 
-      priorityBadge =
-        '<span class="badge high">اولویت بالا</span>';
 
-    } else {
-
-      priorityBadge =
-        '<span class="badge">اولویت عادی</span>';
-
-    }
-
+  tasks.forEach(function(task, index) {
 
     html += `
 
@@ -320,15 +431,37 @@ function openProject() {
 
         <div class="info">
 
-          مسئول: ${task.person}
+          👤 مسئول:
+          <strong>${task.person}</strong>
 
           <br>
 
-          ${priorityBadge}
+          ${getPriorityBadge(task.priority)}
 
-          <span class="badge">
-            انجام نشده
-          </span>
+          ${getStatusBadge(task.status)}
+
+          <br>
+
+          📅 تاریخ انجام:
+          <strong>${task.date || "تعیین نشده"}</strong>
+
+        </div>
+
+
+        <div class="task-actions">
+
+          <button
+            onclick="changeStatus(${index})"
+          >
+            تغییر وضعیت
+          </button>
+
+          <button
+            onclick="deleteTask(${index})"
+            class="delete-button"
+          >
+            حذف تسک
+          </button>
 
         </div>
 
@@ -343,7 +476,10 @@ function openProject() {
 
     <div class="card">
 
-      <button class="add-button" onclick="addTask()">
+      <button
+        class="add-button"
+        onclick="addTask()"
+      >
         + افزودن تسک
       </button>
 
@@ -362,10 +498,11 @@ function openProject() {
 }
 
 
-
 function addTask() {
 
-  const title = prompt("عنوان تسک را وارد کن:");
+  const title = prompt(
+    "عنوان تسک را وارد کن:"
+  );
 
   if (!title) {
     return;
@@ -376,20 +513,32 @@ function addTask() {
     "مسئول تسک را وارد کن:\nسعید / هژان / مهدی"
   );
 
-
   if (!person) {
     return;
   }
 
 
   const priority = prompt(
-    "اولویت را وارد کن:\nبالا / عادی"
+    "اولویت را وارد کن:\nبالا / عادی / کم"
   );
-
 
   if (!priority) {
     return;
   }
+
+
+  const status = prompt(
+    "وضعیت را وارد کن:\nانجام نشده / در حال انجام / انجام شده"
+  );
+
+  if (!status) {
+    return;
+  }
+
+
+  const date = prompt(
+    "تاریخ انجام را وارد کن:\nمثلاً 1405/07/10"
+  );
 
 
   tasks.push({
@@ -398,7 +547,11 @@ function addTask() {
 
     person: person,
 
-    priority: priority
+    priority: priority,
+
+    status: status,
+
+    date: date || "تعیین نشده"
 
   });
 
@@ -407,6 +560,52 @@ function addTask() {
 
 }
 
+
+function changeStatus(index) {
+
+  const current = tasks[index].status;
+
+  let nextStatus;
+
+
+  if (current === "انجام نشده") {
+
+    nextStatus = "در حال انجام";
+
+  } else if (current === "در حال انجام") {
+
+    nextStatus = "انجام شده";
+
+  } else {
+
+    nextStatus = "انجام نشده";
+
+  }
+
+
+  tasks[index].status = nextStatus;
+
+  openProject();
+
+}
+
+
+function deleteTask(index) {
+
+  const confirmDelete = confirm(
+    "آیا از حذف این تسک مطمئنی؟"
+  );
+
+  if (!confirmDelete) {
+    return;
+  }
+
+
+  tasks.splice(index, 1);
+
+  openProject();
+
+}
 
 </script>
 
