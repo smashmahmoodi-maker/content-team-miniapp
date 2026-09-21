@@ -6,278 +6,473 @@
 <title>Content Team</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{
+  box-sizing:border-box;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f5f7fb;
-  color: #222;
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f5f7fb;
+  color:#222;
 }
 
-header {
-  background: #111827;
-  color: white;
-  padding: 22px;
-  text-align: center;
+header{
+  background:#111827;
+  color:white;
+  padding:22px;
+  text-align:center;
 }
 
-header h1 {
-  margin: 0;
-  font-size: 25px;
+header h1{
+  margin:0;
+  font-size:25px;
 }
 
-header p {
-  margin: 7px 0 0;
-  color: #cbd5e1;
+header p{
+  margin:7px 0 0;
+  color:#cbd5e1;
 }
 
-.container {
-  max-width: 700px;
-  margin: auto;
-  padding: 20px;
+.container{
+  max-width:700px;
+  margin:auto;
+  padding:20px;
 }
 
-.stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin-bottom: 25px;
+/* TOP NAV */
+
+.top-nav{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:8px;
+  margin-bottom:20px;
 }
 
-.stat {
-  background: white;
-  border-radius: 14px;
-  padding: 15px 5px;
-  text-align: center;
-  box-shadow: 0 3px 12px rgba(0,0,0,.06);
+.nav-btn{
+  background:white;
+  color:#374151;
+  border:1px solid #e5e7eb;
+  margin:0;
+  padding:12px 5px;
+  font-size:13px;
 }
 
-.stat-number {
-  font-size: 24px;
-  font-weight: bold;
+.nav-btn.active{
+  background:#111827;
+  color:white;
 }
 
-.stat-title {
-  margin-top: 5px;
-  color: #64748b;
-  font-size: 13px;
+/* STATS */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-bottom:25px;
 }
 
-.section-title {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 25px 0 12px;
+.stat{
+  background:white;
+  border-radius:14px;
+  padding:15px 5px;
+  text-align:center;
+  box-shadow:0 3px 12px rgba(0,0,0,.06);
 }
 
-.card {
-  background: white;
-  border-radius: 16px;
-  padding: 18px;
-  margin-bottom: 14px;
-  box-shadow: 0 3px 12px rgba(0,0,0,.06);
+.stat-number{
+  font-size:24px;
+  font-weight:bold;
 }
 
-.card h3 {
-  margin-top: 0;
-  margin-bottom: 12px;
+.stat-title{
+  margin-top:5px;
+  color:#64748b;
+  font-size:13px;
 }
 
-.info {
-  color: #64748b;
-  line-height: 1.9;
+/* GENERAL */
+
+.section-title{
+  font-size:20px;
+  font-weight:bold;
+  margin:25px 0 12px;
 }
 
-.badge {
-  display: inline-block;
-  background: #e5e7eb;
-  color: #374151;
-  border-radius: 8px;
-  padding: 4px 9px;
-  font-size: 12px;
-  margin: 3px;
+.card{
+  background:white;
+  border-radius:16px;
+  padding:18px;
+  margin-bottom:14px;
+  box-shadow:0 3px 12px rgba(0,0,0,.06);
 }
 
-.badge.blue {
-  background: #dbeafe;
-  color: #1d4ed8;
+.card h3{
+  margin-top:0;
+  margin-bottom:12px;
 }
 
-.badge.high {
-  background: #fee2e2;
-  color: #b91c1c;
+.info{
+  color:#64748b;
+  line-height:1.9;
 }
 
-.badge.green {
-  background: #dcfce7;
-  color: #15803d;
+.badge{
+  display:inline-block;
+  background:#e5e7eb;
+  color:#374151;
+  border-radius:8px;
+  padding:4px 9px;
+  font-size:12px;
+  margin:3px;
 }
 
-.badge.orange {
-  background: #ffedd5;
-  color: #c2410c;
+.badge.blue{
+  background:#dbeafe;
+  color:#1d4ed8;
 }
 
-button {
-  width: 100%;
-  border: none;
-  border-radius: 12px;
-  padding: 13px;
-  background: #111827;
-  color: white;
-  font-size: 15px;
-  cursor: pointer;
-  margin-top: 10px;
+.badge.high{
+  background:#fee2e2;
+  color:#b91c1c;
 }
 
-button:hover {
-  opacity: .9;
+.badge.green{
+  background:#dcfce7;
+  color:#15803d;
 }
 
-.add-button {
-  background: #2563eb;
+.badge.orange{
+  background:#ffedd5;
+  color:#c2410c;
 }
 
-.edit-button {
-  background: #dbeafe;
-  color: #1d4ed8;
+button{
+  width:100%;
+  border:none;
+  border-radius:12px;
+  padding:13px;
+  background:#111827;
+  color:white;
+  font-size:15px;
+  cursor:pointer;
+  margin-top:10px;
 }
 
-.cancel-button {
-  background: #e5e7eb;
-  color: #374151;
+button:hover{
+  opacity:.9;
 }
 
-.delete-button {
-  background: #fee2e2;
-  color: #b91c1c;
+.add-button{
+  background:#2563eb;
 }
 
-.task-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 8px;
-  margin-top: 10px;
+.edit-button{
+  background:#dbeafe;
+  color:#1d4ed8;
 }
 
-.task-actions button {
-  margin-top: 0;
-  font-size: 12px;
-  padding: 10px 5px;
+.cancel-button{
+  background:#e5e7eb;
+  color:#374151;
 }
 
-.form-group {
-  margin-bottom: 15px;
+.delete-button{
+  background:#fee2e2;
+  color:#b91c1c;
 }
 
-.form-label {
-  display: block;
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 7px;
-  color: #374151;
+.task-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:8px;
+  margin-top:10px;
+}
+
+.task-actions button{
+  margin-top:0;
+  font-size:12px;
+  padding:10px 5px;
+}
+
+.form-group{
+  margin-bottom:15px;
+}
+
+.form-label{
+  display:block;
+  font-size:14px;
+  font-weight:bold;
+  margin-bottom:7px;
+  color:#374151;
 }
 
 .form-input,
-.form-select {
-  width: 100%;
-  padding: 13px;
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
-  font-size: 14px;
-  background: white;
-  outline: none;
+.form-select{
+  width:100%;
+  padding:13px;
+  border:1px solid #d1d5db;
+  border-radius:10px;
+  font-size:14px;
+  background:white;
+  outline:none;
 }
 
 .form-input:focus,
-.form-select:focus {
-  border-color: #2563eb;
+.form-select:focus{
+  border-color:#2563eb;
 }
 
-.form-buttons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+.form-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
 }
 
-.form-buttons button {
-  margin-top: 5px;
+.form-buttons button{
+  margin-top:5px;
 }
 
-.empty {
-  text-align: center;
-  color: #64748b;
-  padding: 20px;
+/* FILTER */
+
+.filter-box{
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+  border-radius:14px;
+  padding:14px;
+  margin-bottom:15px;
 }
 
-.filter-box {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
-  padding: 14px;
-  margin-bottom: 15px;
+.search-input{
+  width:100%;
+  padding:13px;
+  border:1px solid #d1d5db;
+  border-radius:10px;
+  font-size:14px;
+  outline:none;
+  margin-bottom:10px;
 }
 
-.search-input {
-  width: 100%;
-  padding: 13px;
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
-  font-size: 14px;
-  outline: none;
-  margin-bottom: 10px;
+.filter-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
 }
 
-.search-input:focus {
-  border-color: #2563eb;
+.filter-select{
+  width:100%;
+  padding:11px;
+  border:1px solid #d1d5db;
+  border-radius:10px;
+  font-size:13px;
+  background:white;
+  outline:none;
 }
 
-.filter-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
+.clear-filter{
+  background:#e5e7eb;
+  color:#374151;
+  margin-top:10px;
+  font-size:13px;
+  padding:10px;
 }
 
-.filter-select {
-  width: 100%;
-  padding: 11px;
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
-  font-size: 13px;
-  background: white;
-  outline: none;
+.result-count{
+  color:#64748b;
+  font-size:13px;
+  margin:8px 2px 15px;
 }
 
-.clear-filter {
-  background: #e5e7eb;
-  color: #374151;
-  margin-top: 10px;
-  font-size: 13px;
-  padding: 10px;
+.empty{
+  text-align:center;
+  color:#64748b;
+  padding:20px;
 }
 
-.result-count {
-  color: #64748b;
-  font-size: 13px;
-  margin: 8px 2px 15px;
+/* CALENDAR */
+
+.calendar-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:15px;
 }
 
-@media (max-width: 500px) {
+.calendar-header button{
+  width:auto;
+  margin:0;
+  padding:9px 15px;
+  background:#e5e7eb;
+  color:#374151;
+}
 
-  .stats {
-    grid-template-columns: repeat(2, 1fr);
+.calendar-title{
+  font-size:18px;
+  font-weight:bold;
+}
+
+.calendar-weekdays,
+.calendar-grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:5px;
+}
+
+.weekday{
+  text-align:center;
+  font-size:11px;
+  color:#64748b;
+  padding:7px 2px;
+}
+
+.calendar-day{
+  min-height:55px;
+  background:#f8fafc;
+  border:1px solid #e5e7eb;
+  border-radius:10px;
+  padding:6px;
+  text-align:center;
+  cursor:pointer;
+  position:relative;
+}
+
+.calendar-day:hover{
+  border-color:#2563eb;
+}
+
+.calendar-day.empty-day{
+  background:transparent;
+  border:none;
+  cursor:default;
+}
+
+.calendar-day.today{
+  border:2px solid #2563eb;
+}
+
+.calendar-day.selected{
+  background:#dbeafe;
+  border-color:#2563eb;
+}
+
+.day-number{
+  font-size:13px;
+  font-weight:bold;
+}
+
+.day-task-dot{
+  width:6px;
+  height:6px;
+  background:#2563eb;
+  border-radius:50%;
+  margin:5px auto 0;
+}
+
+.day-task-count{
+  font-size:10px;
+  color:#2563eb;
+  margin-top:2px;
+}
+
+.calendar-task{
+  border-right:4px solid #2563eb;
+}
+
+.calendar-task.high{
+  border-right-color:#dc2626;
+}
+
+/* NOTIFICATIONS */
+
+.notification-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.notification-bell{
+  font-size:30px;
+}
+
+.notification-count{
+  background:#dc2626;
+  color:white;
+  border-radius:20px;
+  padding:5px 10px;
+  font-size:12px;
+}
+
+.notification{
+  border-right:4px solid #2563eb;
+  background:#f8fafc;
+  padding:12px;
+  border-radius:10px;
+  margin-bottom:10px;
+}
+
+.notification.overdue{
+  border-right-color:#dc2626;
+}
+
+.notification.today{
+  border-right-color:#f59e0b;
+}
+
+.notification-title{
+  font-weight:bold;
+  margin-bottom:5px;
+}
+
+.notification-text{
+  color:#64748b;
+  font-size:13px;
+  line-height:1.8;
+}
+
+/* PROGRESS */
+
+.progress-box{
+  background:#f8fafc;
+  border-radius:12px;
+  padding:15px;
+  margin-top:12px;
+}
+
+.progress-bar{
+  width:100%;
+  height:12px;
+  background:#e5e7eb;
+  border-radius:20px;
+  overflow:hidden;
+  margin-top:10px;
+}
+
+.progress-fill{
+  height:100%;
+  background:#2563eb;
+  border-radius:20px;
+}
+
+/* MOBILE */
+
+@media(max-width:500px){
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
   }
 
-  .task-actions {
-    grid-template-columns: 1fr;
+  .task-actions{
+    grid-template-columns:1fr;
   }
 
-  .filter-grid {
-    grid-template-columns: 1fr;
+  .filter-grid{
+    grid-template-columns:1fr;
   }
 
+  .calendar-day{
+    min-height:48px;
+  }
 }
 </style>
 </head>
@@ -289,64 +484,7 @@ button:hover {
   <p>مدیریت تیم تولید محتوا</p>
 </header>
 
-<div class="container">
-
-  <div class="stats">
-
-    <div class="stat">
-      <div class="stat-number">1</div>
-      <div class="stat-title">پروژه</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-number">1</div>
-      <div class="stat-title">محتوا</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-number" id="dashboardTasks">0</div>
-      <div class="stat-title">تسک</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-number" id="dashboardHigh">0</div>
-      <div class="stat-title">اولویت بالا</div>
-    </div>
-
-  </div>
-
-  <div class="section-title">
-    پروژه‌ها
-  </div>
-
-  <div class="card">
-
-    <h3>کافه لیپار</h3>
-
-    <div class="info">
-
-      تولید و مدیریت محتوای شبکه‌های اجتماعی
-
-      <br><br>
-
-      <span class="badge blue">فعال</span>
-
-      <span class="badge">۱ محتوا</span>
-
-      <span class="badge">
-        <span id="projectTaskCount">0</span>
-        تسک
-      </span>
-
-    </div>
-
-    <button onclick="openProject()">
-      ورود به پروژه
-    </button>
-
-  </div>
-
-</div>
+<div class="container" id="app"></div>
 
 <script>
 
@@ -354,202 +492,409 @@ const STORAGE_KEY = "contentTeamTasks";
 
 const defaultTasks = [
   {
-    title: "فیلمبرداری",
-    person: "سعید",
-    priority: "بالا",
-    status: "انجام نشده",
-    date: "1405/07/02"
+    title:"فیلمبرداری",
+    person:"سعید",
+    priority:"بالا",
+    status:"انجام نشده",
+    date:"1405/07/02"
   },
   {
-    title: "تدوین",
-    person: "مهدی",
-    priority: "بالا",
-    status: "در حال انجام",
-    date: "1405/07/03"
+    title:"تدوین",
+    person:"مهدی",
+    priority:"بالا",
+    status:"در حال انجام",
+    date:"1405/07/03"
   },
   {
-    title: "نوشتن کپشن",
-    person: "هژان",
-    priority: "عادی",
-    status: "انجام نشده",
-    date: "1405/07/04"
+    title:"نوشتن کپشن",
+    person:"هژان",
+    priority:"عادی",
+    status:"انجام نشده",
+    date:"1405/07/04"
   },
   {
-    title: "تأیید نهایی",
-    person: "سعید",
-    priority: "بالا",
-    status: "انجام شده",
-    date: "1405/07/05"
+    title:"تأیید نهایی",
+    person:"سعید",
+    priority:"بالا",
+    status:"انجام شده",
+    date:"1405/07/05"
   },
   {
-    title: "انتشار",
-    person: "هژان",
-    priority: "عادی",
-    status: "انجام نشده",
-    date: "1405/07/06"
+    title:"انتشار",
+    person:"هژان",
+    priority:"عادی",
+    status:"انجام نشده",
+    date:"1405/07/06"
   }
 ];
 
 let savedTasks = localStorage.getItem(STORAGE_KEY);
-
 let tasks;
 
-if (savedTasks) {
-
-  try {
+if(savedTasks){
+  try{
     tasks = JSON.parse(savedTasks);
-  }
-
-  catch(error) {
+  }catch(error){
     tasks = [...defaultTasks];
     saveTasks();
   }
-
-}
-
-else {
-
+}else{
   tasks = [...defaultTasks];
   saveTasks();
-
 }
 
 
-/* ذخیره */
+/* =========================
+   STORAGE
+========================= */
 
-function saveTasks() {
+function saveTasks(){
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(tasks));
+}
 
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(tasks)
+
+/* =========================
+   DATE FUNCTIONS
+========================= */
+
+function div(a,b){
+  return Math.floor(a/b);
+}
+
+function jalaliToGregorian(jy,jm,jd){
+
+  jy += 1595;
+
+  let days =
+    -355668 +
+    (365 * jy) +
+    div(jy,33) * 8 +
+    div((jy % 33) + 3,4) +
+    jd +
+    (jm < 7 ? (jm - 1) * 31 : ((jm - 7) * 30) + 186);
+
+  let gy = 400 * div(days,146097);
+
+  days %= 146097;
+
+  if(days > 36524){
+    gy += 100 * div(--days,36524);
+    days %= 36524;
+
+    if(days >= 365){
+      days++;
+    }
+  }
+
+  gy += 4 * div(days,1461);
+  days %= 1461;
+
+  if(days > 365){
+    gy += div(days - 1,365);
+    days = (days - 1) % 365;
+  }
+
+  let gd = days + 1;
+
+  const monthDays = [
+    0,
+    31,
+    ((gy % 4 === 0 && gy % 100 !== 0) || gy % 400 === 0) ? 29 : 28,
+    31,30,31,30,31,31,30,31,30,31
+  ];
+
+  let gm = 1;
+
+  while(gd > monthDays[gm]){
+    gd -= monthDays[gm];
+    gm++;
+  }
+
+  return {
+    gy,
+    gm,
+    gd
+  };
+}
+
+
+function gregorianToJalali(gy,gm,gd){
+
+  let g_d_m = [
+    0,
+    31,
+    59,
+    90,
+    120,
+    151,
+    181,
+    212,
+    243,
+    273,
+    304,
+    334
+  ];
+
+  let gy2 = gy + 1;
+
+  let days =
+    355666 +
+    (365 * gy) +
+    div(gy2,4) -
+    div(gy2,100) +
+    div(gy2,400) +
+    gd +
+    g_d_m[gm - 1];
+
+  if(
+    gm > 2 &&
+    ((gy % 4 === 0 && gy % 100 !== 0) || gy % 400 === 0)
+  ){
+    days++;
+  }
+
+  let jy = -1595 + (33 * div(days,12053));
+
+  days %= 12053;
+
+  jy += 4 * div(days,1461);
+
+  days %= 1461;
+
+  if(days > 365){
+    jy += div(days - 1,365);
+    days = (days - 1) % 365;
+  }
+
+  let jd = days + 1;
+
+  let jm;
+
+  if(jd <= 186){
+    jm = Math.ceil(jd / 31);
+  }else{
+    jm = Math.ceil((jd - 186) / 30) + 6;
+  }
+
+  jd =
+    jd <= 186
+    ? ((jd - 1) % 31) + 1
+    : ((jd - 187) % 30) + 1;
+
+  return {
+    jy,
+    jm,
+    jd
+  };
+}
+
+
+function getTodayJalali(){
+
+  const now = new Date();
+
+  return gregorianToJalali(
+    now.getFullYear(),
+    now.getMonth()+1,
+    now.getDate()
   );
-
-  updateDashboard();
-
 }
 
 
-/* داشبورد */
-
-function updateDashboard() {
-
-  const taskCount =
-    document.getElementById("dashboardTasks");
-
-  const highCount =
-    document.getElementById("dashboardHigh");
-
-  const projectCount =
-    document.getElementById("projectTaskCount");
-
-
-  if (taskCount) {
-    taskCount.textContent = tasks.length;
-  }
-
-  if (highCount) {
-
-    highCount.textContent =
-      tasks.filter(
-        task => task.priority === "بالا"
-      ).length;
-
-  }
-
-  if (projectCount) {
-    projectCount.textContent = tasks.length;
-  }
-
+function pad(num){
+  return String(num).padStart(2,"0");
 }
 
 
-/* اولویت */
+function makeDate(jy,jm,jd){
+  return `${jy}/${pad(jm)}/${pad(jd)}`;
+}
 
-function getPriorityBadge(priority) {
 
-  if (priority === "بالا") {
+function dateNumber(date){
 
-    return `
-      <span class="badge high">
-        اولویت بالا
-      </span>
-    `;
+  if(!date) return 0;
 
+  const p = date.split("/").map(Number);
+
+  if(p.length !== 3) return 0;
+
+  return p[0] * 10000 + p[1] * 100 + p[2];
+}
+
+
+/* =========================
+   BADGES
+========================= */
+
+function getPriorityBadge(priority){
+
+  if(priority==="بالا"){
+    return `<span class="badge high">اولویت بالا</span>`;
   }
 
-  if (priority === "کم") {
-
-    return `
-      <span class="badge">
-        اولویت کم
-      </span>
-    `;
-
+  if(priority==="کم"){
+    return `<span class="badge">اولویت کم</span>`;
   }
 
-  return `
-    <span class="badge">
-      اولویت عادی
-    </span>
+  return `<span class="badge">اولویت عادی</span>`;
+}
+
+
+function getStatusBadge(status){
+
+  if(status==="انجام شده"){
+    return `<span class="badge green">✓ انجام شده</span>`;
+  }
+
+  if(status==="در حال انجام"){
+    return `<span class="badge orange">⏳ در حال انجام</span>`;
+  }
+
+  return `<span class="badge">○ انجام نشده</span>`;
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+function showDashboard(){
+
+  const completed =
+    tasks.filter(t=>t.status==="انجام شده").length;
+
+  const progress =
+    tasks.length
+    ? Math.round((completed/tasks.length)*100)
+    : 0;
+
+  document.getElementById("app").innerHTML = `
+
+    <div class="top-nav">
+      <button class="nav-btn active" onclick="showDashboard()">🏠 داشبورد</button>
+      <button class="nav-btn" onclick="showCalendar()">📅 تقویم</button>
+      <button class="nav-btn" onclick="showNotifications()">🔔 اعلان‌ها</button>
+    </div>
+
+    <div class="stats">
+
+      <div class="stat">
+        <div class="stat-number">1</div>
+        <div class="stat-title">پروژه</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-number">1</div>
+        <div class="stat-title">محتوا</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-number">${tasks.length}</div>
+        <div class="stat-title">تسک</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-number">
+          ${tasks.filter(t=>t.priority==="بالا").length}
+        </div>
+        <div class="stat-title">اولویت بالا</div>
+      </div>
+
+    </div>
+
+    <div class="section-title">
+      وضعیت پروژه
+    </div>
+
+    <div class="card">
+
+      <h3>📊 پیشرفت کافه لیپار</h3>
+
+      <div class="info">
+        ${completed} از ${tasks.length} تسک انجام شده
+        <strong>${progress}%</strong>
+      </div>
+
+      <div class="progress-box">
+
+        <div class="progress-bar">
+          <div
+            class="progress-fill"
+            style="width:${progress}%">
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="section-title">
+      پروژه‌ها
+    </div>
+
+    <div class="card">
+
+      <h3>کافه لیپار</h3>
+
+      <div class="info">
+
+        تولید و مدیریت محتوای شبکه‌های اجتماعی
+
+        <br><br>
+
+        <span class="badge blue">فعال</span>
+
+        <span class="badge">۱ محتوا</span>
+
+        <span class="badge">
+          ${tasks.length} تسک
+        </span>
+
+      </div>
+
+      <button onclick="openProject()">
+        ورود به پروژه
+      </button>
+
+    </div>
+
   `;
-
 }
 
 
-/* وضعیت */
+/* =========================
+   PROJECT
+========================= */
 
-function getStatusBadge(status) {
-
-  if (status === "انجام شده") {
-
-    return `
-      <span class="badge green">
-        ✓ انجام شده
-      </span>
-    `;
-
-  }
-
-  if (status === "در حال انجام") {
-
-    return `
-      <span class="badge orange">
-        ⏳ در حال انجام
-      </span>
-    `;
-
-  }
-
-  return `
-    <span class="badge">
-      ○ انجام نشده
-    </span>
-  `;
-
-}
-
-
-/* پروژه */
-
-function openProject() {
+function openProject(){
 
   let completed =
-    tasks.filter(
-      task => task.status === "انجام شده"
-    ).length;
+    tasks.filter(t=>t.status==="انجام شده").length;
 
   let doing =
-    tasks.filter(
-      task => task.status === "در حال انجام"
-    ).length;
+    tasks.filter(t=>t.status==="در حال انجام").length;
 
   let pending =
-    tasks.filter(
-      task => task.status === "انجام نشده"
-    ).length;
+    tasks.filter(t=>t.status==="انجام نشده").length;
 
+  document.getElementById("app").innerHTML = `
 
-  let html = `
+    <div class="top-nav">
+
+      <button class="nav-btn" onclick="showDashboard()">
+        🏠 داشبورد
+      </button>
+
+      <button class="nav-btn" onclick="showCalendar()">
+        📅 تقویم
+      </button>
+
+      <button class="nav-btn" onclick="showNotifications()">
+        🔔 اعلان‌ها
+      </button>
+
+    </div>
 
     <div class="section-title">
       پروژه کافه لیپار
@@ -562,9 +907,7 @@ function openProject() {
       <div class="info">
 
         وضعیت:
-        <span class="badge blue">
-          فعال
-        </span>
+        <span class="badge blue">فعال</span>
 
         <br><br>
 
@@ -597,21 +940,14 @@ function openProject() {
 
     <div class="card">
 
-      <h3>
-        معرفی آیس لاته
-      </h3>
+      <h3>معرفی آیس لاته</h3>
 
       <div class="info">
 
         <span class="badge">Reel</span>
-
         <span class="badge">Instagram</span>
-
         <span class="badge blue">ایده</span>
-
-        <span class="badge high">
-          اولویت بالا
-        </span>
+        <span class="badge high">اولویت بالا</span>
 
         <br><br>
 
@@ -626,8 +962,6 @@ function openProject() {
       ✅ تسک‌های پروژه
     </div>
 
-
-    <!-- فیلتر و جستجو -->
 
     <div class="filter-box">
 
@@ -646,21 +980,10 @@ function openProject() {
           class="filter-select"
           onchange="filterTasks()">
 
-          <option value="">
-            👤 همه مسئول‌ها
-          </option>
-
-          <option value="سعید">
-            سعید
-          </option>
-
-          <option value="هژان">
-            هژان
-          </option>
-
-          <option value="مهدی">
-            مهدی
-          </option>
+          <option value="">👤 همه مسئول‌ها</option>
+          <option value="سعید">سعید</option>
+          <option value="هژان">هژان</option>
+          <option value="مهدی">مهدی</option>
 
         </select>
 
@@ -670,21 +993,10 @@ function openProject() {
           class="filter-select"
           onchange="filterTasks()">
 
-          <option value="">
-            📌 همه وضعیت‌ها
-          </option>
-
-          <option value="انجام نشده">
-            انجام نشده
-          </option>
-
-          <option value="در حال انجام">
-            در حال انجام
-          </option>
-
-          <option value="انجام شده">
-            انجام شده
-          </option>
+          <option value="">📌 همه وضعیت‌ها</option>
+          <option value="انجام نشده">انجام نشده</option>
+          <option value="در حال انجام">در حال انجام</option>
+          <option value="انجام شده">انجام شده</option>
 
         </select>
 
@@ -694,21 +1006,10 @@ function openProject() {
           class="filter-select"
           onchange="filterTasks()">
 
-          <option value="">
-            🔥 همه اولویت‌ها
-          </option>
-
-          <option value="بالا">
-            اولویت بالا
-          </option>
-
-          <option value="عادی">
-            اولویت عادی
-          </option>
-
-          <option value="کم">
-            اولویت کم
-          </option>
+          <option value="">🔥 همه اولویت‌ها</option>
+          <option value="بالا">اولویت بالا</option>
+          <option value="عادی">اولویت عادی</option>
+          <option value="کم">اولویت کم</option>
 
         </select>
 
@@ -726,10 +1027,7 @@ function openProject() {
     </div>
 
 
-    <div
-      id="taskList"
-      class="task-list">
-    </div>
+    <div id="taskList"></div>
 
 
     <div class="card">
@@ -746,87 +1044,62 @@ function openProject() {
 
 
     <button onclick="showDashboard()">
-
       ← بازگشت به داشبورد
-
     </button>
 
   `;
 
-
-  document.querySelector(".container").innerHTML =
-    html;
-
-
-  renderTasks(tasks);
-
+  renderTasks(
+    tasks.map((task,index)=>({task,index}))
+  );
 }
 
 
-/* نمایش تسک‌ها */
+/* =========================
+   TASK LIST
+========================= */
 
-function renderTasks(taskArray) {
+function renderTasks(taskArray){
 
   const taskList =
     document.getElementById("taskList");
 
+  if(!taskList) return;
 
-  if (!taskList) return;
-
-
-  if (taskArray.length === 0) {
+  if(taskArray.length===0){
 
     taskList.innerHTML = `
-
       <div class="card">
-
         <div class="empty">
-
           هیچ تسکی با این مشخصات پیدا نشد.
-
         </div>
-
       </div>
-
     `;
 
     return;
-
   }
 
-
   let html = `
-
     <div class="result-count">
-
-      ${taskArray.length}
-      تسک نمایش داده می‌شود
-
+      ${taskArray.length} تسک نمایش داده می‌شود
     </div>
-
   `;
 
-
-  taskArray.forEach(function(item) {
+  taskArray.forEach(function(item){
 
     const task = item.task;
     const index = item.index;
-
 
     html += `
 
       <div class="card">
 
-        <h3>
-          ${task.title}
-        </h3>
+        <h3>${task.title}</h3>
 
         <div class="info">
 
           👤 مسئول:
-          <strong>
-            ${task.person}
-          </strong>
+          <strong>${task.person}</strong>
 
           <br>
 
@@ -854,14 +1127,12 @@ function renderTasks(taskArray) {
 
           </button>
 
-
           <button
             onclick="changeStatus(${index})">
 
             تغییر وضعیت
 
           </button>
-
 
           <button
             onclick="deleteTask(${index})"
@@ -876,259 +1147,108 @@ function renderTasks(taskArray) {
       </div>
 
     `;
-
   });
 
-
   taskList.innerHTML = html;
-
 }
 
 
-/* فیلتر */
+/* =========================
+   FILTER
+========================= */
 
-function filterTasks() {
+function filterTasks(){
 
   const search =
-    document
-      .getElementById("searchTask")
-      .value
-      .trim()
-      .toLowerCase();
-
+    document.getElementById("searchTask").value
+    .trim()
+    .toLowerCase();
 
   const person =
-    document
-      .getElementById("filterPerson")
-      .value;
-
+    document.getElementById("filterPerson").value;
 
   const status =
-    document
-      .getElementById("filterStatus")
-      .value;
-
+    document.getElementById("filterStatus").value;
 
   const priority =
-    document
-      .getElementById("filterPriority")
-      .value;
+    document.getElementById("filterPriority").value;
 
 
   const filtered =
     tasks
-      .map((task, index) => ({
-        task: task,
-        index: index
-      }))
-      .filter(item => {
+    .map((task,index)=>({task,index}))
+    .filter(item=>{
 
-        const task = item.task;
+      const task = item.task;
 
+      const matchesSearch =
+        !search ||
+        task.title.toLowerCase().includes(search);
 
-        const matchesSearch =
-          !search ||
-          task.title
-            .toLowerCase()
-            .includes(search);
+      const matchesPerson =
+        !person ||
+        task.person===person;
 
+      const matchesStatus =
+        !status ||
+        task.status===status;
 
-        const matchesPerson =
-          !person ||
-          task.person === person;
+      const matchesPriority =
+        !priority ||
+        task.priority===priority;
 
+      return (
+        matchesSearch &&
+        matchesPerson &&
+        matchesStatus &&
+        matchesPriority
+      );
 
-        const matchesStatus =
-          !status ||
-          task.status === status;
-
-
-        const matchesPriority =
-          !priority ||
-          task.priority === priority;
-
-
-        return (
-          matchesSearch &&
-          matchesPerson &&
-          matchesStatus &&
-          matchesPriority
-        );
-
-      });
+    });
 
 
   renderTasks(filtered);
-
 }
 
 
-/* پاک کردن فیلترها */
+function clearFilters(){
 
-function clearFilters() {
-
-  document.getElementById("searchTask").value = "";
-
-  document.getElementById("filterPerson").value = "";
-
-  document.getElementById("filterStatus").value = "";
-
-  document.getElementById("filterPriority").value = "";
-
+  document.getElementById("searchTask").value="";
+  document.getElementById("filterPerson").value="";
+  document.getElementById("filterStatus").value="";
+  document.getElementById("filterPriority").value="";
 
   renderTasks(
-    tasks.map((task, index) => ({
-      task: task,
-      index: index
-    }))
+    tasks.map((task,index)=>({task,index}))
   );
-
 }
 
 
-/* داشبورد */
+/* =========================
+   ADD TASK
+========================= */
 
-function showDashboard() {
+function showAddTaskForm(){
 
-  document.querySelector(".container").innerHTML = `
-
-    <div class="stats">
-
-      <div class="stat">
-
-        <div class="stat-number">
-          1
-        </div>
-
-        <div class="stat-title">
-          پروژه
-        </div>
-
-      </div>
-
-
-      <div class="stat">
-
-        <div class="stat-number">
-          1
-        </div>
-
-        <div class="stat-title">
-          محتوا
-        </div>
-
-      </div>
-
-
-      <div class="stat">
-
-        <div
-          class="stat-number"
-          id="dashboardTasks">
-
-          ${tasks.length}
-
-        </div>
-
-        <div class="stat-title">
-          تسک
-        </div>
-
-      </div>
-
-
-      <div class="stat">
-
-        <div
-          class="stat-number"
-          id="dashboardHigh">
-
-          ${
-            tasks.filter(
-              task => task.priority === "بالا"
-            ).length
-          }
-
-        </div>
-
-        <div class="stat-title">
-          اولویت بالا
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="section-title">
-      پروژه‌ها
-    </div>
-
-
-    <div class="card">
-
-      <h3>
-        کافه لیپار
-      </h3>
-
-      <div class="info">
-
-        تولید و مدیریت محتوای شبکه‌های اجتماعی
-
-        <br><br>
-
-        <span class="badge blue">
-          فعال
-        </span>
-
-        <span class="badge">
-          ۱ محتوا
-        </span>
-
-        <span class="badge">
-          ${tasks.length} تسک
-        </span>
-
-      </div>
-
-
-      <button onclick="openProject()">
-
-        ورود به پروژه
-
-      </button>
-
-    </div>
-
-  `;
-
-}
-
-
-/* فرم افزودن */
-
-function showAddTaskForm() {
-
-  document.querySelector(".container").innerHTML = `
+  document.getElementById("app").innerHTML = `
 
     <div class="section-title">
       ➕ افزودن تسک جدید
     </div>
-
 
     <div class="card">
 
       <div class="form-group">
 
         <label class="form-label">
-          عنوان تسک
+          نام تسک
         </label>
 
         <input
-          id="taskTitle"
+          id="newTitle"
           class="form-input"
-          type="text"
-          placeholder="مثلاً طراحی پست اینستاگرام">
+          placeholder="مثلاً عکاسی محصول"
+        >
 
       </div>
 
@@ -1140,24 +1260,12 @@ function showAddTaskForm() {
         </label>
 
         <select
-          id="taskPerson"
+          id="newPerson"
           class="form-select">
 
-          <option value="">
-            انتخاب مسئول
-          </option>
-
-          <option value="سعید">
-            سعید
-          </option>
-
-          <option value="هژان">
-            هژان
-          </option>
-
-          <option value="مهدی">
-            مهدی
-          </option>
+          <option value="سعید">سعید</option>
+          <option value="هژان">هژان</option>
+          <option value="مهدی">مهدی</option>
 
         </select>
 
@@ -1171,24 +1279,12 @@ function showAddTaskForm() {
         </label>
 
         <select
-          id="taskPriority"
+          id="newPriority"
           class="form-select">
 
-          <option value="">
-            انتخاب اولویت
-          </option>
-
-          <option value="کم">
-            کم
-          </option>
-
-          <option value="عادی">
-            عادی
-          </option>
-
-          <option value="بالا">
-            بالا
-          </option>
+          <option value="عادی">عادی</option>
+          <option value="بالا">بالا</option>
+          <option value="کم">کم</option>
 
         </select>
 
@@ -1202,7 +1298,7 @@ function showAddTaskForm() {
         </label>
 
         <select
-          id="taskStatus"
+          id="newStatus"
           class="form-select">
 
           <option value="انجام نشده">
@@ -1229,10 +1325,10 @@ function showAddTaskForm() {
         </label>
 
         <input
-          id="taskDate"
+          id="newDate"
           class="form-input"
-          type="text"
-          placeholder="مثلاً 1405/07/10">
+          placeholder="1405/07/10"
+        >
 
       </div>
 
@@ -1243,16 +1339,15 @@ function showAddTaskForm() {
           class="add-button"
           onclick="saveTaskFromForm()">
 
-          ✓ افزودن تسک
+          ذخیره
 
         </button>
-
 
         <button
           class="cancel-button"
           onclick="openProject()">
 
-          لغو
+          انصراف
 
         </button>
 
@@ -1261,47 +1356,31 @@ function showAddTaskForm() {
     </div>
 
   `;
-
 }
 
 
-/* ذخیره تسک */
-
-function saveTaskFromForm() {
+function saveTaskFromForm(){
 
   const title =
-    document.getElementById("taskTitle").value.trim();
+    document.getElementById("newTitle").value.trim();
 
   const person =
-    document.getElementById("taskPerson").value;
+    document.getElementById("newPerson").value;
 
   const priority =
-    document.getElementById("taskPriority").value;
+    document.getElementById("newPriority").value;
 
   const status =
-    document.getElementById("taskStatus").value;
+    document.getElementById("newStatus").value;
 
   const date =
-    document.getElementById("taskDate").value.trim();
+    document.getElementById("newDate").value.trim();
 
 
-  if (!title) {
-    alert("لطفاً عنوان تسک را وارد کن.");
-    return;
-  }
+  if(!title){
 
-  if (!person) {
-    alert("لطفاً مسئول تسک را انتخاب کن.");
-    return;
-  }
+    alert("لطفاً نام تسک را وارد کن.");
 
-  if (!priority) {
-    alert("لطفاً اولویت تسک را انتخاب کن.");
-    return;
-  }
-
-  if (!date) {
-    alert("لطفاً تاریخ انجام را وارد کن.");
     return;
   }
 
@@ -1318,37 +1397,36 @@ function saveTaskFromForm() {
   saveTasks();
 
   openProject();
-
 }
 
 
-/* فرم ویرایش */
+/* =========================
+   EDIT TASK
+========================= */
 
-function showEditTaskForm(index) {
+function showEditTaskForm(index){
 
   const task = tasks[index];
 
-
-  document.querySelector(".container").innerHTML = `
+  document.getElementById("app").innerHTML = `
 
     <div class="section-title">
       ✏️ ویرایش تسک
     </div>
-
 
     <div class="card">
 
       <div class="form-group">
 
         <label class="form-label">
-          عنوان تسک
+          نام تسک
         </label>
 
         <input
-          id="taskTitle"
+          id="editTitle"
           class="form-input"
-          type="text"
-          value="${task.title}">
+          value="${task.title}"
+        >
 
       </div>
 
@@ -1360,21 +1438,24 @@ function showEditTaskForm(index) {
         </label>
 
         <select
-          id="taskPerson"
+          id="editPerson"
           class="form-select">
 
-          <option value="سعید"
-            ${task.person === "سعید" ? "selected" : ""}>
+          <option
+            value="سعید"
+            ${task.person==="سعید"?"selected":""}>
             سعید
           </option>
 
-          <option value="هژان"
-            ${task.person === "هژان" ? "selected" : ""}>
+          <option
+            value="هژان"
+            ${task.person==="هژان"?"selected":""}>
             هژان
           </option>
 
-          <option value="مهدی"
-            ${task.person === "مهدی" ? "selected" : ""}>
+          <option
+            value="مهدی"
+            ${task.person==="مهدی"?"selected":""}>
             مهدی
           </option>
 
@@ -1390,22 +1471,25 @@ function showEditTaskForm(index) {
         </label>
 
         <select
-          id="taskPriority"
+          id="editPriority"
           class="form-select">
 
-          <option value="کم"
-            ${task.priority === "کم" ? "selected" : ""}>
-            کم
+          <option
+            value="بالا"
+            ${task.priority==="بالا"?"selected":""}>
+            بالا
           </option>
 
-          <option value="عادی"
-            ${task.priority === "عادی" ? "selected" : ""}>
+          <option
+            value="عادی"
+            ${task.priority==="عادی"?"selected":""}>
             عادی
           </option>
 
-          <option value="بالا"
-            ${task.priority === "بالا" ? "selected" : ""}>
-            بالا
+          <option
+            value="کم"
+            ${task.priority==="کم"?"selected":""}>
+            کم
           </option>
 
         </select>
@@ -1420,21 +1504,24 @@ function showEditTaskForm(index) {
         </label>
 
         <select
-          id="taskStatus"
+          id="editStatus"
           class="form-select">
 
-          <option value="انجام نشده"
-            ${task.status === "انجام نشده" ? "selected" : ""}>
+          <option
+            value="انجام نشده"
+            ${task.status==="انجام نشده"?"selected":""}>
             انجام نشده
           </option>
 
-          <option value="در حال انجام"
-            ${task.status === "در حال انجام" ? "selected" : ""}>
+          <option
+            value="در حال انجام"
+            ${task.status==="در حال انجام"?"selected":""}>
             در حال انجام
           </option>
 
-          <option value="انجام شده"
-            ${task.status === "انجام شده" ? "selected" : ""}>
+          <option
+            value="انجام شده"
+            ${task.status==="انجام شده"?"selected":""}>
             انجام شده
           </option>
 
@@ -1450,10 +1537,10 @@ function showEditTaskForm(index) {
         </label>
 
         <input
-          id="taskDate"
+          id="editDate"
           class="form-input"
-          type="text"
-          value="${task.date || ""}">
+          value="${task.date || ""}"
+        >
 
       </div>
 
@@ -1464,16 +1551,15 @@ function showEditTaskForm(index) {
           class="add-button"
           onclick="updateTask(${index})">
 
-          ✓ ذخیره تغییرات
+          ذخیره تغییرات
 
         </button>
-
 
         <button
           class="cancel-button"
           onclick="openProject()">
 
-          لغو
+          انصراف
 
         </button>
 
@@ -1482,128 +1568,726 @@ function showEditTaskForm(index) {
     </div>
 
   `;
-
 }
 
 
-/* ذخیره ویرایش */
-
-function updateTask(index) {
+function updateTask(index){
 
   const title =
-    document.getElementById("taskTitle").value.trim();
+    document.getElementById("editTitle").value.trim();
 
-  const person =
-    document.getElementById("taskPerson").value;
+  if(!title){
 
-  const priority =
-    document.getElementById("taskPriority").value;
+    alert("نام تسک نمی‌تواند خالی باشد.");
 
-  const status =
-    document.getElementById("taskStatus").value;
-
-  const date =
-    document.getElementById("taskDate").value.trim();
-
-
-  if (!title) {
-    alert("لطفاً عنوان تسک را وارد کن.");
-    return;
-  }
-
-  if (!person) {
-    alert("لطفاً مسئول تسک را انتخاب کن.");
-    return;
-  }
-
-  if (!priority) {
-    alert("لطفاً اولویت تسک را انتخاب کن.");
-    return;
-  }
-
-  if (!date) {
-    alert("لطفاً تاریخ انجام را وارد کن.");
     return;
   }
 
 
   tasks[index] = {
+
     title,
-    person,
-    priority,
-    status,
-    date
+
+    person:
+      document.getElementById("editPerson").value,
+
+    priority:
+      document.getElementById("editPriority").value,
+
+    status:
+      document.getElementById("editStatus").value,
+
+    date:
+      document.getElementById("editDate").value.trim()
+
   };
 
 
   saveTasks();
 
   openProject();
-
 }
 
 
-/* تغییر وضعیت */
+/* =========================
+   STATUS / DELETE
+========================= */
 
-function changeStatus(index) {
+function changeStatus(index){
 
-  const current =
-    tasks[index].status;
+  const current = tasks[index].status;
 
   let nextStatus;
 
-
-  if (current === "انجام نشده") {
-    nextStatus = "در حال انجام";
+  if(current==="انجام نشده"){
+    nextStatus="در حال انجام";
+  }
+  else if(current==="در حال انجام"){
+    nextStatus="انجام شده";
+  }
+  else{
+    nextStatus="انجام نشده";
   }
 
-  else if (current === "در حال انجام") {
-    nextStatus = "انجام شده";
-  }
-
-  else {
-    nextStatus = "انجام نشده";
-  }
-
-
-  tasks[index].status =
-    nextStatus;
-
+  tasks[index].status=nextStatus;
 
   saveTasks();
 
   openProject();
-
 }
 
 
-/* حذف */
-
-function deleteTask(index) {
+function deleteTask(index){
 
   const confirmDelete =
     confirm("آیا از حذف این تسک مطمئنی؟");
 
+  if(!confirmDelete) return;
 
-  if (!confirmDelete) {
-    return;
-  }
-
-
-  tasks.splice(index, 1);
+  tasks.splice(index,1);
 
   saveTasks();
 
   openProject();
+}
+
+
+/* =========================
+   CALENDAR
+========================= */
+
+let calendarYear;
+let calendarMonth;
+let selectedCalendarDate = null;
+
+
+function showCalendar(){
+
+  const today = getTodayJalali();
+
+  if(calendarYear===undefined){
+
+    calendarYear=today.jy;
+    calendarMonth=today.jm;
+
+  }
+
+  renderCalendar();
+}
+
+
+function renderCalendar(){
+
+  const monthNames = [
+    "",
+    "فروردین",
+    "اردیبهشت",
+    "خرداد",
+    "تیر",
+    "مرداد",
+    "شهریور",
+    "مهر",
+    "آبان",
+    "آذر",
+    "دی",
+    "بهمن",
+    "اسفند"
+  ];
+
+
+  const weekNames = [
+    "ش",
+    "ی",
+    "د",
+    "س",
+    "چ",
+    "پ",
+    "ج"
+  ];
+
+
+  const today = getTodayJalali();
+
+  const monthLength =
+    calendarMonth <= 6
+    ? 31
+    : calendarMonth <= 11
+      ? 30
+      : 30;
+
+
+  const firstGregorian =
+    jalaliToGregorian(
+      calendarYear,
+      calendarMonth,
+      1
+    );
+
+
+  const firstDate =
+    new Date(
+      firstGregorian.gy,
+      firstGregorian.gm-1,
+      firstGregorian.gd
+    );
+
+
+  /*
+    JS:
+    Sunday = 0
+    Saturday = 6
+
+    Our calendar starts Saturday.
+  */
+
+  let firstDay =
+    (firstDate.getDay()+1)%7;
+
+
+  let calendarHTML="";
+
+
+  for(let i=0;i<firstDay;i++){
+
+    calendarHTML += `
+      <div class="calendar-day empty-day"></div>
+    `;
+
+  }
+
+
+  for(let day=1;day<=monthLength;day++){
+
+    const date =
+      makeDate(
+        calendarYear,
+        calendarMonth,
+        day
+      );
+
+
+    const dayTasks =
+      tasks.filter(
+        task=>task.date===date
+      );
+
+
+    const isToday =
+      today.jy===calendarYear &&
+      today.jm===calendarMonth &&
+      today.jd===day;
+
+
+    const isSelected =
+      selectedCalendarDate===date;
+
+
+    calendarHTML += `
+
+      <div
+        class="
+          calendar-day
+          ${isToday?"today":""}
+          ${isSelected?"selected":""}
+        "
+        onclick="selectCalendarDate('${date}')">
+
+        <div class="day-number">
+          ${day}
+        </div>
+
+        ${
+          dayTasks.length
+          ?
+          `
+          <div class="day-task-dot"></div>
+          <div class="day-task-count">
+            ${dayTasks.length} تسک
+          </div>
+          `
+          :
+          ""
+        }
+
+      </div>
+
+    `;
+
+  }
+
+
+  document.getElementById("app").innerHTML = `
+
+    <div class="top-nav">
+
+      <button
+        class="nav-btn"
+        onclick="showDashboard()">
+
+        🏠 داشبورد
+
+      </button>
+
+      <button
+        class="nav-btn active"
+        onclick="showCalendar()">
+
+        📅 تقویم
+
+      </button>
+
+      <button
+        class="nav-btn"
+        onclick="showNotifications()">
+
+        🔔 اعلان‌ها
+
+      </button>
+
+    </div>
+
+
+    <div class="section-title">
+      📅 تقویم تسک‌ها
+    </div>
+
+
+    <div class="card">
+
+      <div class="calendar-header">
+
+        <button onclick="previousMonth()">
+          ‹
+        </button>
+
+        <div class="calendar-title">
+          ${monthNames[calendarMonth]}
+          ${calendarYear}
+        </div>
+
+        <button onclick="nextMonth()">
+          ›
+        </button>
+
+      </div>
+
+
+      <div class="calendar-weekdays">
+
+        ${weekNames.map(
+          day=>`<div class="weekday">${day}</div>`
+        ).join("")}
+
+      </div>
+
+
+      <div class="calendar-grid">
+
+        ${calendarHTML}
+
+      </div>
+
+    </div>
+
+
+    <div id="selectedDayTasks"></div>
+
+  `;
+
+
+  if(selectedCalendarDate){
+
+    renderSelectedDayTasks(
+      selectedCalendarDate
+    );
+
+  }
+}
+
+
+function previousMonth(){
+
+  calendarMonth--;
+
+  if(calendarMonth<1){
+
+    calendarMonth=12;
+    calendarYear--;
+
+  }
+
+  selectedCalendarDate=null;
+
+  renderCalendar();
+}
+
+
+function nextMonth(){
+
+  calendarMonth++;
+
+  if(calendarMonth>12){
+
+    calendarMonth=1;
+    calendarYear++;
+
+  }
+
+  selectedCalendarDate=null;
+
+  renderCalendar();
+}
+
+
+function selectCalendarDate(date){
+
+  selectedCalendarDate=date;
+
+  renderCalendar();
+}
+
+
+function renderSelectedDayTasks(date){
+
+  const box =
+    document.getElementById("selectedDayTasks");
+
+  if(!box) return;
+
+
+  const dayTasks =
+    tasks.filter(
+      task=>task.date===date
+    );
+
+
+  if(dayTasks.length===0){
+
+    box.innerHTML = `
+
+      <div class="card">
+
+        <div class="empty">
+
+          برای ${date} تسکی ثبت نشده است.
+
+        </div>
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+
+  let html = `
+
+    <div class="section-title">
+      📌 تسک‌های ${date}
+    </div>
+
+  `;
+
+
+  dayTasks.forEach(task=>{
+
+    html += `
+
+      <div class="card calendar-task ${task.priority==="بالا"?"high":""}">
+
+        <h3>${task.title}</h3>
+
+        <div class="info">
+
+          👤 ${task.person}
+
+          <br>
+
+          ${getPriorityBadge(task.priority)}
+
+          ${getStatusBadge(task.status)}
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+
+  box.innerHTML=html;
+}
+
+
+/* =========================
+   NOTIFICATIONS
+========================= */
+
+function getNotifications(){
+
+  const today =
+    getTodayJalali();
+
+  const todayNum =
+    dateNumber(
+      makeDate(
+        today.jy,
+        today.jm,
+        today.jd
+      )
+    );
+
+
+  const notifications=[];
+
+
+  tasks.forEach((task,index)=>{
+
+    if(task.status==="انجام شده"){
+      return;
+    }
+
+
+    const taskNum =
+      dateNumber(task.date);
+
+
+    if(!taskNum){
+      return;
+    }
+
+
+    if(taskNum < todayNum){
+
+      notifications.push({
+        type:"overdue",
+        title:"⚠️ تسک عقب افتاده",
+        text:
+          `تسک «${task.title}» مربوط به ${task.date} است و هنوز انجام نشده.`,
+        index
+      });
+
+    }
+
+    else if(taskNum===todayNum){
+
+      notifications.push({
+        type:"today",
+        title:"🔔 تسک امروز",
+        text:
+          `امروز باید «${task.title}» توسط ${task.person} انجام شود.`,
+        index
+      });
+
+    }
+
+    else if(taskNum <= todayNum+3){
+
+      notifications.push({
+        type:"normal",
+        title:"📅 تسک نزدیک",
+        text:
+          `تسک «${task.title}» در تاریخ ${task.date} برنامه‌ریزی شده.`,
+        index
+      });
+
+    }
+
+  });
+
+
+  return notifications;
+}
+
+
+function showNotifications(){
+
+  const notifications =
+    getNotifications();
+
+
+  document.getElementById("app").innerHTML = `
+
+    <div class="top-nav">
+
+      <button
+        class="nav-btn"
+        onclick="showDashboard()">
+
+        🏠 داشبورد
+
+      </button>
+
+      <button
+        class="nav-btn"
+        onclick="showCalendar()">
+
+        📅 تقویم
+
+      </button>
+
+      <button
+        class="nav-btn active"
+        onclick="showNotifications()">
+
+        🔔 اعلان‌ها
+
+      </button>
+
+    </div>
+
+
+    <div class="section-title">
+
+      <div class="notification-header">
+
+        <span>
+          🔔 اعلان‌ها
+        </span>
+
+        <span class="notification-count">
+          ${notifications.length}
+        </span>
+
+      </div>
+
+    </div>
+
+
+    ${
+      notifications.length===0
+
+      ?
+
+      `
+      <div class="card">
+
+        <div class="empty">
+
+          🎉
+
+          <br><br>
+
+          فعلاً اعلان مهمی نداری.
+
+        </div>
+
+      </div>
+      `
+
+      :
+
+      notifications.map(notification=>`
+
+        <div class="
+          notification
+          ${notification.type==="overdue"?"overdue":""}
+          ${notification.type==="today"?"today":""}
+        ">
+
+          <div class="notification-title">
+
+            ${notification.title}
+
+          </div>
+
+          <div class="notification-text">
+
+            ${notification.text}
+
+          </div>
+
+          <button
+            onclick="showEditTaskForm(${notification.index})">
+
+            مشاهده تسک
+
+          </button>
+
+        </div>
+
+      `).join("")
+
+    }
+
+
+    <div class="card">
+
+      <h3>🔔 اعلان مرورگر</h3>
+
+      <div class="info">
+
+        اگر اجازه اعلان مرورگر را فعال کنی،
+        برنامه می‌تواند برای اعلان‌های آینده
+        از سیستم اعلان گوشی/کامپیوتر استفاده کند.
+
+      </div>
+
+      <button onclick="requestNotificationPermission()">
+
+        فعال کردن اعلان‌ها
+
+      </button>
+
+    </div>
+
+  `;
+}
+
+
+/* =========================
+   BROWSER NOTIFICATION
+========================= */
+
+function requestNotificationPermission(){
+
+  if(!("Notification" in window)){
+
+    alert(
+      "مرورگر این دستگاه از اعلان‌های سیستم پشتیبانی نمی‌کند."
+    );
+
+    return;
+  }
+
+
+  Notification.requestPermission()
+    .then(permission=>{
+
+      if(permission==="granted"){
+
+        new Notification(
+          "Content Team",
+          {
+            body:"اعلان‌های Content Team فعال شد 🔔"
+          }
+        );
+
+        alert("اعلان‌ها فعال شدند.");
+
+      }
+      else{
+
+        alert(
+          "اجازه اعلان‌ها داده نشد."
+        );
+
+      }
+
+    });
 
 }
 
 
-/* شروع */
+/* =========================
+   START
+========================= */
 
-updateDashboard();
+showDashboard();
 
 </script>
 
 </body>
-</html> 
+</html>
