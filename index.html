@@ -1,334 +1,284 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content Team</title>
 
-  <title>Content Team</title>
+<style>
+* {
+  box-sizing: border-box;
+}
 
-  <style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f7fb;
+  color: #222;
+}
 
-    * {
-      box-sizing: border-box;
-    }
+header {
+  background: #111827;
+  color: white;
+  padding: 22px;
+  text-align: center;
+}
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f7fb;
-      color: #222;
-    }
+header h1 {
+  margin: 0;
+  font-size: 25px;
+}
 
-    header {
-      background: #111827;
-      color: white;
-      padding: 22px;
-      text-align: center;
-    }
+header p {
+  margin: 7px 0 0;
+  color: #cbd5e1;
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 25px;
-    }
+.container {
+  max-width: 700px;
+  margin: auto;
+  padding: 20px;
+}
 
-    header p {
-      margin: 7px 0 0;
-      color: #cbd5e1;
-    }
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 25px;
+}
 
-    .container {
-      max-width: 700px;
-      margin: auto;
-      padding: 20px;
-    }
+.stat {
+  background: white;
+  border-radius: 14px;
+  padding: 15px 5px;
+  text-align: center;
+  box-shadow: 0 3px 12px rgba(0,0,0,.06);
+}
 
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-bottom: 25px;
-    }
+.stat-number {
+  font-size: 24px;
+  font-weight: bold;
+}
 
-    .stat {
-      background: white;
-      border-radius: 14px;
-      padding: 15px 5px;
-      text-align: center;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.06);
-    }
+.stat-title {
+  margin-top: 5px;
+  color: #64748b;
+  font-size: 13px;
+}
 
-    .stat-number {
-      font-size: 24px;
-      font-weight: bold;
-    }
+.section-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 25px 0 12px;
+}
 
-    .stat-title {
-      margin-top: 5px;
-      color: #64748b;
-      font-size: 13px;
-    }
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 14px;
+  box-shadow: 0 3px 12px rgba(0,0,0,.06);
+}
 
-    .section-title {
-      font-size: 20px;
-      font-weight: bold;
-      margin: 25px 0 12px;
-    }
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
 
-    .card {
-      background: white;
-      border-radius: 16px;
-      padding: 18px;
-      margin-bottom: 14px;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.06);
-    }
+.info {
+  color: #64748b;
+  line-height: 1.9;
+}
 
-    .card h3 {
-      margin-top: 0;
-      margin-bottom: 12px;
-    }
+.badge {
+  display: inline-block;
+  background: #e5e7eb;
+  color: #374151;
+  border-radius: 8px;
+  padding: 4px 9px;
+  font-size: 12px;
+  margin: 3px;
+}
 
-    .info {
-      color: #64748b;
-      line-height: 1.9;
-    }
+.badge.blue {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
 
-    .badge {
-      display: inline-block;
-      background: #e5e7eb;
-      color: #374151;
-      border-radius: 8px;
-      padding: 4px 9px;
-      font-size: 12px;
-      margin: 3px;
-    }
+.badge.high {
+  background: #fee2e2;
+  color: #b91c1c;
+}
 
-    .badge.blue {
-      background: #dbeafe;
-      color: #1d4ed8;
-    }
+.badge.green {
+  background: #dcfce7;
+  color: #15803d;
+}
 
-    .badge.high {
-      background: #fee2e2;
-      color: #b91c1c;
-    }
+.badge.orange {
+  background: #ffedd5;
+  color: #c2410c;
+}
 
-    .badge.green {
-      background: #dcfce7;
-      color: #15803d;
-    }
+button {
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  padding: 13px;
+  background: #111827;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 10px;
+}
 
-    .badge.orange {
-      background: #ffedd5;
-      color: #c2410c;
-    }
+button:hover {
+  opacity: .9;
+}
 
-    button {
-      width: 100%;
-      border: none;
-      border-radius: 12px;
-      padding: 13px;
-      background: #111827;
-      color: white;
-      font-size: 15px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
+.add-button {
+  background: #2563eb;
+}
 
-    button:hover {
-      opacity: 0.9;
-    }
+.edit-button {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
 
-    .add-button {
-      background: #2563eb;
-    }
+.cancel-button {
+  background: #e5e7eb;
+  color: #374151;
+}
 
-    .cancel-button {
-      background: #e5e7eb;
-      color: #374151;
-    }
+.delete-button {
+  background: #fee2e2;
+  color: #b91c1c;
+}
 
-    .delete-button {
-      background: #fee2e2;
-      color: #b91c1c;
-    }
+.task-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
 
-    .task-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-top: 10px;
-    }
+.task-actions button {
+  margin-top: 0;
+  font-size: 12px;
+  padding: 10px 5px;
+}
 
-    .task-actions button {
-      margin-top: 0;
-      font-size: 13px;
-      padding: 10px;
-    }
+.form-group {
+  margin-bottom: 15px;
+}
 
-    .form-group {
-      margin-bottom: 15px;
-    }
+.form-label {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 7px;
+  color: #374151;
+}
 
-    .form-label {
-      display: block;
-      font-size: 14px;
-      font-weight: bold;
-      margin-bottom: 7px;
-      color: #374151;
-    }
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 14px;
+  background: white;
+  outline: none;
+}
 
-    .form-input,
-    .form-select {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      font-size: 14px;
-      background: white;
-      outline: none;
-    }
+.form-input:focus,
+.form-select:focus {
+  border-color: #2563eb;
+}
 
-    .form-input:focus,
-    .form-select:focus {
-      border-color: #2563eb;
-    }
+.form-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
 
-    .form-buttons {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
+.form-buttons button {
+  margin-top: 5px;
+}
 
-    .form-buttons button {
-      margin-top: 5px;
-    }
+.empty {
+  text-align: center;
+  color: #64748b;
+  padding: 20px;
+}
 
-    .empty {
-      text-align: center;
-      color: #64748b;
-      padding: 20px;
-    }
+@media (max-width: 500px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
-  </style>
-
+  .task-actions {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
 </head>
-
 
 <body>
 
 <header>
-
   <h1>Content Team</h1>
-
-  <p>
-    مدیریت تیم تولید محتوا
-  </p>
-
+  <p>مدیریت تیم تولید محتوا</p>
 </header>
 
-
-<div
-  class="container"
-  id="mainContainer"
->
+<div class="container" id="mainContainer">
 
   <div class="stats">
 
     <div class="stat">
-
-      <div class="stat-number">
-        1
-      </div>
-
-      <div class="stat-title">
-        پروژه
-      </div>
-
+      <div class="stat-number">1</div>
+      <div class="stat-title">پروژه</div>
     </div>
 
-
     <div class="stat">
-
-      <div class="stat-number">
-        1
-      </div>
-
-      <div class="stat-title">
-        محتوا
-      </div>
-
+      <div class="stat-number">1</div>
+      <div class="stat-title">محتوا</div>
     </div>
 
-
     <div class="stat">
-
-      <div
-        class="stat-number"
-        id="dashboardTasks"
-      >
-        0
-      </div>
-
-      <div class="stat-title">
-        تسک
-      </div>
-
+      <div class="stat-number" id="dashboardTasks">0</div>
+      <div class="stat-title">تسک</div>
     </div>
 
-
     <div class="stat">
-
-      <div
-        class="stat-number"
-        id="dashboardHigh"
-      >
-        0
-      </div>
-
-      <div class="stat-title">
-        اولویت بالا
-      </div>
-
+      <div class="stat-number" id="dashboardHigh">0</div>
+      <div class="stat-title">اولویت بالا</div>
     </div>
 
   </div>
-
 
   <div class="section-title">
     پروژه‌ها
   </div>
 
-
   <div class="card">
 
-    <h3>
-      کافه لیپار
-    </h3>
+    <h3>کافه لیپار</h3>
 
     <div class="info">
-
       تولید و مدیریت محتوای شبکه‌های اجتماعی
 
       <br><br>
 
-      <span class="badge blue">
-        فعال
-      </span>
+      <span class="badge blue">فعال</span>
+
+      <span class="badge">۱ محتوا</span>
 
       <span class="badge">
-        ۱ محتوا
-      </span>
-
-      <span class="badge">
-        <span id="projectTaskCount">
-          0
-        </span>
+        <span id="projectTaskCount">0</span>
         تسک
       </span>
-
     </div>
-
 
     <button onclick="openProject()">
       ورود به پروژه
@@ -338,16 +288,11 @@
 
 </div>
 
-
-
 <script>
-
 
 const STORAGE_KEY = "contentTeamTasks";
 
-
 const defaultTasks = [
-
   {
     title: "فیلمبرداری",
     person: "سعید",
@@ -355,7 +300,6 @@ const defaultTasks = [
     status: "انجام نشده",
     date: "1405/07/02"
   },
-
   {
     title: "تدوین",
     person: "مهدی",
@@ -363,7 +307,6 @@ const defaultTasks = [
     status: "در حال انجام",
     date: "1405/07/03"
   },
-
   {
     title: "نوشتن کپشن",
     person: "هژان",
@@ -371,7 +314,6 @@ const defaultTasks = [
     status: "انجام نشده",
     date: "1405/07/04"
   },
-
   {
     title: "تأیید نهایی",
     person: "سعید",
@@ -379,7 +321,6 @@ const defaultTasks = [
     status: "انجام شده",
     date: "1405/07/05"
   },
-
   {
     title: "انتشار",
     person: "هژان",
@@ -387,49 +328,36 @@ const defaultTasks = [
     status: "انجام نشده",
     date: "1405/07/06"
   }
-
 ];
 
-
-
-let savedTasks =
-  localStorage.getItem(STORAGE_KEY);
-
-
+let savedTasks = localStorage.getItem(STORAGE_KEY);
 
 let tasks;
-
 
 if (savedTasks) {
 
   try {
 
-    tasks =
-      JSON.parse(savedTasks);
+    tasks = JSON.parse(savedTasks);
 
-  }
+  } catch (error) {
 
-  catch (error) {
-
-    tasks =
-      [...defaultTasks];
+    tasks = [...defaultTasks];
 
     saveTasks();
 
   }
 
-}
+} else {
 
-else {
-
-  tasks =
-    [...defaultTasks];
+  tasks = [...defaultTasks];
 
   saveTasks();
 
 }
 
 
+/* ذخیره اطلاعات */
 
 function saveTasks() {
 
@@ -439,27 +367,21 @@ function saveTasks() {
   );
 
   updateDashboard();
-
 }
 
 
+/* بروزرسانی داشبورد */
 
 function updateDashboard() {
 
   const taskCount =
-    document.getElementById(
-      "dashboardTasks"
-    );
+    document.getElementById("dashboardTasks");
 
   const highCount =
-    document.getElementById(
-      "dashboardHigh"
-    );
+    document.getElementById("dashboardHigh");
 
   const projectCount =
-    document.getElementById(
-      "projectTaskCount"
-    );
+    document.getElementById("projectTaskCount");
 
 
   if (taskCount) {
@@ -490,6 +412,7 @@ function updateDashboard() {
 }
 
 
+/* رنگ اولویت */
 
 function getPriorityBadge(priority) {
 
@@ -503,7 +426,6 @@ function getPriorityBadge(priority) {
 
   }
 
-
   if (priority === "کم") {
 
     return `
@@ -514,7 +436,6 @@ function getPriorityBadge(priority) {
 
   }
 
-
   return `
     <span class="badge">
       اولویت عادی
@@ -524,6 +445,7 @@ function getPriorityBadge(priority) {
 }
 
 
+/* رنگ وضعیت */
 
 function getStatusBadge(status) {
 
@@ -537,7 +459,6 @@ function getStatusBadge(status) {
 
   }
 
-
   if (status === "در حال انجام") {
 
     return `
@@ -548,7 +469,6 @@ function getStatusBadge(status) {
 
   }
 
-
   return `
     <span class="badge">
       ○ انجام نشده
@@ -558,21 +478,19 @@ function getStatusBadge(status) {
 }
 
 
+/* ورود به پروژه */
 
 function openProject() {
-
 
   let completed =
     tasks.filter(
       task => task.status === "انجام شده"
     ).length;
 
-
   let doing =
     tasks.filter(
       task => task.status === "در حال انجام"
     ).length;
-
 
   let pending =
     tasks.filter(
@@ -603,30 +521,22 @@ function openProject() {
         <br><br>
 
         کل تسک‌ها:
-        <strong>
-          ${tasks.length}
-        </strong>
+        <strong>${tasks.length}</strong>
 
         <br>
 
         انجام شده:
-        <strong>
-          ${completed}
-        </strong>
+        <strong>${completed}</strong>
 
         <br>
 
         در حال انجام:
-        <strong>
-          ${doing}
-        </strong>
+        <strong>${doing}</strong>
 
         <br>
 
         انجام نشده:
-        <strong>
-          ${pending}
-        </strong>
+        <strong>${pending}</strong>
 
       </div>
 
@@ -695,9 +605,7 @@ function openProject() {
   }
 
 
-
   tasks.forEach(function(task, index) {
-
 
     html += `
 
@@ -733,17 +641,20 @@ function openProject() {
         <div class="task-actions">
 
           <button
-            onclick="changeStatus(${index})"
-          >
+            class="edit-button"
+            onclick="showEditTaskForm(${index})">
+            ✏️ ویرایش
+          </button>
+
+          <button
+            onclick="changeStatus(${index})">
             تغییر وضعیت
           </button>
 
-
           <button
             onclick="deleteTask(${index})"
-            class="delete-button"
-          >
-            حذف تسک
+            class="delete-button">
+            🗑️ حذف
           </button>
 
         </div>
@@ -755,43 +666,41 @@ function openProject() {
   });
 
 
-
   html += `
 
     <div class="card">
 
       <button
         class="add-button"
-        onclick="showAddTaskForm()"
-      >
+        onclick="showAddTaskForm()">
+
         + افزودن تسک
+
       </button>
 
     </div>
 
 
-    <button
-      onclick="showDashboard()"
-    >
+    <button onclick="showDashboard()">
+
       ← بازگشت به داشبورد
+
     </button>
 
   `;
 
 
-  document.querySelector(
-    ".container"
-  ).innerHTML = html;
+  document.querySelector(".container").innerHTML =
+    html;
 
 }
 
 
+/* داشبورد */
 
 function showDashboard() {
 
-  document.querySelector(
-    ".container"
-  ).innerHTML = `
+  document.querySelector(".container").innerHTML = `
 
     <div class="stats">
 
@@ -825,9 +734,10 @@ function showDashboard() {
 
         <div
           class="stat-number"
-          id="dashboardTasks"
-        >
+          id="dashboardTasks">
+
           ${tasks.length}
+
         </div>
 
         <div class="stat-title">
@@ -841,13 +751,14 @@ function showDashboard() {
 
         <div
           class="stat-number"
-          id="dashboardHigh"
-        >
+          id="dashboardHigh">
+
           ${
             tasks.filter(
               task => task.priority === "بالا"
             ).length
           }
+
         </div>
 
         <div class="stat-title">
@@ -892,7 +803,9 @@ function showDashboard() {
 
 
       <button onclick="openProject()">
+
         ورود به پروژه
+
       </button>
 
     </div>
@@ -902,11 +815,11 @@ function showDashboard() {
 }
 
 
+/* فرم افزودن تسک */
 
 function showAddTaskForm() {
 
-
-  const html = `
+  document.querySelector(".container").innerHTML = `
 
     <div class="section-title">
       ➕ افزودن تسک جدید
@@ -925,8 +838,7 @@ function showAddTaskForm() {
           id="taskTitle"
           class="form-input"
           type="text"
-          placeholder="مثلاً طراحی پست اینستاگرام"
-        >
+          placeholder="مثلاً طراحی پست اینستاگرام">
 
       </div>
 
@@ -939,8 +851,7 @@ function showAddTaskForm() {
 
         <select
           id="taskPerson"
-          class="form-select"
-        >
+          class="form-select">
 
           <option value="">
             انتخاب مسئول
@@ -971,8 +882,7 @@ function showAddTaskForm() {
 
         <select
           id="taskPriority"
-          class="form-select"
-        >
+          class="form-select">
 
           <option value="">
             انتخاب اولویت
@@ -1003,8 +913,7 @@ function showAddTaskForm() {
 
         <select
           id="taskStatus"
-          class="form-select"
-        >
+          class="form-select">
 
           <option value="انجام نشده">
             انجام نشده
@@ -1033,8 +942,7 @@ function showAddTaskForm() {
           id="taskDate"
           class="form-input"
           type="text"
-          placeholder="مثلاً 1405/07/10"
-        >
+          placeholder="مثلاً 1405/07/10">
 
       </div>
 
@@ -1043,17 +951,19 @@ function showAddTaskForm() {
 
         <button
           class="add-button"
-          onclick="saveTaskFromForm()"
-        >
+          onclick="saveTaskFromForm()">
+
           ✓ افزودن تسک
+
         </button>
 
 
         <button
           class="cancel-button"
-          onclick="openProject()"
-        >
+          onclick="openProject()">
+
           لغو
+
         </button>
 
       </div>
@@ -1062,54 +972,32 @@ function showAddTaskForm() {
 
   `;
 
-
-  document.querySelector(
-    ".container"
-  ).innerHTML = html;
-
 }
 
 
+/* ذخیره تسک جدید */
 
 function saveTaskFromForm() {
 
-
   const title =
-    document.getElementById(
-      "taskTitle"
-    ).value.trim();
-
+    document.getElementById("taskTitle").value.trim();
 
   const person =
-    document.getElementById(
-      "taskPerson"
-    ).value;
-
+    document.getElementById("taskPerson").value;
 
   const priority =
-    document.getElementById(
-      "taskPriority"
-    ).value;
-
+    document.getElementById("taskPriority").value;
 
   const status =
-    document.getElementById(
-      "taskStatus"
-    ).value;
-
+    document.getElementById("taskStatus").value;
 
   const date =
-    document.getElementById(
-      "taskDate"
-    ).value.trim();
-
+    document.getElementById("taskDate").value.trim();
 
 
   if (!title) {
 
-    alert(
-      "لطفاً عنوان تسک را وارد کن."
-    );
+    alert("لطفاً عنوان تسک را وارد کن.");
 
     return;
 
@@ -1118,9 +1006,7 @@ function saveTaskFromForm() {
 
   if (!person) {
 
-    alert(
-      "لطفاً مسئول تسک را انتخاب کن."
-    );
+    alert("لطفاً مسئول تسک را انتخاب کن.");
 
     return;
 
@@ -1129,9 +1015,7 @@ function saveTaskFromForm() {
 
   if (!priority) {
 
-    alert(
-      "لطفاً اولویت تسک را انتخاب کن."
-    );
+    alert("لطفاً اولویت تسک را انتخاب کن.");
 
     return;
 
@@ -1140,27 +1024,20 @@ function saveTaskFromForm() {
 
   if (!date) {
 
-    alert(
-      "لطفاً تاریخ انجام را وارد کن."
-    );
+    alert("لطفاً تاریخ انجام را وارد کن.");
 
     return;
 
   }
 
 
-
   tasks.push({
 
-    title: title,
-
-    person: person,
-
-    priority: priority,
-
-    status: status,
-
-    date: date
+    title,
+    person,
+    priority,
+    status,
+    date
 
   });
 
@@ -1172,13 +1049,250 @@ function saveTaskFromForm() {
 }
 
 
+/* فرم ویرایش */
+
+function showEditTaskForm(index) {
+
+  const task = tasks[index];
+
+
+  document.querySelector(".container").innerHTML = `
+
+    <div class="section-title">
+      ✏️ ویرایش تسک
+    </div>
+
+
+    <div class="card">
+
+      <div class="form-group">
+
+        <label class="form-label">
+          عنوان تسک
+        </label>
+
+        <input
+          id="taskTitle"
+          class="form-input"
+          type="text"
+          value="${task.title}">
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          مسئول
+        </label>
+
+        <select
+          id="taskPerson"
+          class="form-select">
+
+          <option value="سعید"
+            ${task.person === "سعید" ? "selected" : ""}>
+            سعید
+          </option>
+
+          <option value="هژان"
+            ${task.person === "هژان" ? "selected" : ""}>
+            هژان
+          </option>
+
+          <option value="مهدی"
+            ${task.person === "مهدی" ? "selected" : ""}>
+            مهدی
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          اولویت
+        </label>
+
+        <select
+          id="taskPriority"
+          class="form-select">
+
+          <option value="کم"
+            ${task.priority === "کم" ? "selected" : ""}>
+            کم
+          </option>
+
+          <option value="عادی"
+            ${task.priority === "عادی" ? "selected" : ""}>
+            عادی
+          </option>
+
+          <option value="بالا"
+            ${task.priority === "بالا" ? "selected" : ""}>
+            بالا
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          وضعیت
+        </label>
+
+        <select
+          id="taskStatus"
+          class="form-select">
+
+          <option value="انجام نشده"
+            ${task.status === "انجام نشده" ? "selected" : ""}>
+            انجام نشده
+          </option>
+
+          <option value="در حال انجام"
+            ${task.status === "در حال انجام" ? "selected" : ""}>
+            در حال انجام
+          </option>
+
+          <option value="انجام شده"
+            ${task.status === "انجام شده" ? "selected" : ""}>
+            انجام شده
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          تاریخ انجام
+        </label>
+
+        <input
+          id="taskDate"
+          class="form-input"
+          type="text"
+          value="${task.date || ""}">
+
+      </div>
+
+
+      <div class="form-buttons">
+
+        <button
+          class="add-button"
+          onclick="updateTask(${index})">
+
+          ✓ ذخیره تغییرات
+
+        </button>
+
+
+        <button
+          class="cancel-button"
+          onclick="openProject()">
+
+          لغو
+
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* ذخیره ویرایش */
+
+function updateTask(index) {
+
+  const title =
+    document.getElementById("taskTitle").value.trim();
+
+  const person =
+    document.getElementById("taskPerson").value;
+
+  const priority =
+    document.getElementById("taskPriority").value;
+
+  const status =
+    document.getElementById("taskStatus").value;
+
+  const date =
+    document.getElementById("taskDate").value.trim();
+
+
+  if (!title) {
+
+    alert("لطفاً عنوان تسک را وارد کن.");
+
+    return;
+
+  }
+
+
+  if (!person) {
+
+    alert("لطفاً مسئول تسک را انتخاب کن.");
+
+    return;
+
+  }
+
+
+  if (!priority) {
+
+    alert("لطفاً اولویت تسک را انتخاب کن.");
+
+    return;
+
+  }
+
+
+  if (!date) {
+
+    alert("لطفاً تاریخ انجام را وارد کن.");
+
+    return;
+
+  }
+
+
+  tasks[index] = {
+
+    title,
+    person,
+    priority,
+    status,
+    date
+
+  };
+
+
+  saveTasks();
+
+  openProject();
+
+}
+
+
+/* تغییر وضعیت */
 
 function changeStatus(index) {
 
-
   const current =
     tasks[index].status;
-
 
   let nextStatus;
 
@@ -1213,14 +1327,12 @@ function changeStatus(index) {
 }
 
 
+/* حذف تسک */
 
 function deleteTask(index) {
 
-
   const confirmDelete =
-    confirm(
-      "آیا از حذف این تسک مطمئنی؟"
-    );
+    confirm("آیا از حذف این تسک مطمئنی؟");
 
 
   if (!confirmDelete) {
@@ -1232,7 +1344,6 @@ function deleteTask(index) {
 
   tasks.splice(index, 1);
 
-
   saveTasks();
 
   openProject();
@@ -1240,11 +1351,11 @@ function deleteTask(index) {
 }
 
 
+/* شروع برنامه */
 
 updateDashboard();
 
 </script>
 
 </body>
-
 </html>
