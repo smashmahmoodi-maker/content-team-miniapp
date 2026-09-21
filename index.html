@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -212,7 +212,60 @@ button:hover {
   padding: 20px;
 }
 
+.filter-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 15px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+  margin-bottom: 10px;
+}
+
+.search-input:focus {
+  border-color: #2563eb;
+}
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.filter-select {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 13px;
+  background: white;
+  outline: none;
+}
+
+.clear-filter {
+  background: #e5e7eb;
+  color: #374151;
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 10px;
+}
+
+.result-count {
+  color: #64748b;
+  font-size: 13px;
+  margin: 8px 2px 15px;
+}
+
 @media (max-width: 500px) {
+
   .stats {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -220,6 +273,11 @@ button:hover {
   .task-actions {
     grid-template-columns: 1fr;
   }
+
+  .filter-grid {
+    grid-template-columns: 1fr;
+  }
+
 }
 </style>
 </head>
@@ -231,7 +289,7 @@ button:hover {
   <p>مدیریت تیم تولید محتوا</p>
 </header>
 
-<div class="container" id="mainContainer">
+<div class="container">
 
   <div class="stats">
 
@@ -266,6 +324,7 @@ button:hover {
     <h3>کافه لیپار</h3>
 
     <div class="info">
+
       تولید و مدیریت محتوای شبکه‌های اجتماعی
 
       <br><br>
@@ -278,6 +337,7 @@ button:hover {
         <span id="projectTaskCount">0</span>
         تسک
       </span>
+
     </div>
 
     <button onclick="openProject()">
@@ -337,27 +397,25 @@ let tasks;
 if (savedTasks) {
 
   try {
-
     tasks = JSON.parse(savedTasks);
-
-  } catch (error) {
-
-    tasks = [...defaultTasks];
-
-    saveTasks();
-
   }
 
-} else {
+  catch(error) {
+    tasks = [...defaultTasks];
+    saveTasks();
+  }
+
+}
+
+else {
 
   tasks = [...defaultTasks];
-
   saveTasks();
 
 }
 
 
-/* ذخیره اطلاعات */
+/* ذخیره */
 
 function saveTasks() {
 
@@ -367,10 +425,11 @@ function saveTasks() {
   );
 
   updateDashboard();
+
 }
 
 
-/* بروزرسانی داشبورد */
+/* داشبورد */
 
 function updateDashboard() {
 
@@ -385,12 +444,8 @@ function updateDashboard() {
 
 
   if (taskCount) {
-
-    taskCount.textContent =
-      tasks.length;
-
+    taskCount.textContent = tasks.length;
   }
-
 
   if (highCount) {
 
@@ -401,18 +456,14 @@ function updateDashboard() {
 
   }
 
-
   if (projectCount) {
-
-    projectCount.textContent =
-      tasks.length;
-
+    projectCount.textContent = tasks.length;
   }
 
 }
 
 
-/* رنگ اولویت */
+/* اولویت */
 
 function getPriorityBadge(priority) {
 
@@ -445,7 +496,7 @@ function getPriorityBadge(priority) {
 }
 
 
-/* رنگ وضعیت */
+/* وضعیت */
 
 function getStatusBadge(status) {
 
@@ -478,7 +529,7 @@ function getStatusBadge(status) {
 }
 
 
-/* ورود به پروژه */
+/* پروژه */
 
 function openProject() {
 
@@ -504,12 +555,9 @@ function openProject() {
       پروژه کافه لیپار
     </div>
 
-
     <div class="card">
 
-      <h3>
-        📊 وضعیت پروژه
-      </h3>
+      <h3>📊 وضعیت پروژه</h3>
 
       <div class="info">
 
@@ -547,7 +595,6 @@ function openProject() {
       🎬 محتواهای پروژه
     </div>
 
-
     <div class="card">
 
       <h3>
@@ -556,17 +603,11 @@ function openProject() {
 
       <div class="info">
 
-        <span class="badge">
-          Reel
-        </span>
+        <span class="badge">Reel</span>
 
-        <span class="badge">
-          Instagram
-        </span>
+        <span class="badge">Instagram</span>
 
-        <span class="badge blue">
-          ایده
-        </span>
+        <span class="badge blue">ایده</span>
 
         <span class="badge high">
           اولویت بالا
@@ -585,27 +626,192 @@ function openProject() {
       ✅ تسک‌های پروژه
     </div>
 
+
+    <!-- فیلتر و جستجو -->
+
+    <div class="filter-box">
+
+      <input
+        id="searchTask"
+        class="search-input"
+        type="text"
+        placeholder="🔎 جستجوی نام تسک..."
+        oninput="filterTasks()"
+      >
+
+      <div class="filter-grid">
+
+        <select
+          id="filterPerson"
+          class="filter-select"
+          onchange="filterTasks()">
+
+          <option value="">
+            👤 همه مسئول‌ها
+          </option>
+
+          <option value="سعید">
+            سعید
+          </option>
+
+          <option value="هژان">
+            هژان
+          </option>
+
+          <option value="مهدی">
+            مهدی
+          </option>
+
+        </select>
+
+
+        <select
+          id="filterStatus"
+          class="filter-select"
+          onchange="filterTasks()">
+
+          <option value="">
+            📌 همه وضعیت‌ها
+          </option>
+
+          <option value="انجام نشده">
+            انجام نشده
+          </option>
+
+          <option value="در حال انجام">
+            در حال انجام
+          </option>
+
+          <option value="انجام شده">
+            انجام شده
+          </option>
+
+        </select>
+
+
+        <select
+          id="filterPriority"
+          class="filter-select"
+          onchange="filterTasks()">
+
+          <option value="">
+            🔥 همه اولویت‌ها
+          </option>
+
+          <option value="بالا">
+            اولویت بالا
+          </option>
+
+          <option value="عادی">
+            اولویت عادی
+          </option>
+
+          <option value="کم">
+            اولویت کم
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <button
+        class="clear-filter"
+        onclick="clearFilters()">
+
+        پاک کردن فیلترها
+
+      </button>
+
+    </div>
+
+
+    <div
+      id="taskList"
+      class="task-list">
+    </div>
+
+
+    <div class="card">
+
+      <button
+        class="add-button"
+        onclick="showAddTaskForm()">
+
+        + افزودن تسک
+
+      </button>
+
+    </div>
+
+
+    <button onclick="showDashboard()">
+
+      ← بازگشت به داشبورد
+
+    </button>
+
   `;
 
 
-  if (tasks.length === 0) {
+  document.querySelector(".container").innerHTML =
+    html;
 
-    html += `
+
+  renderTasks(tasks);
+
+}
+
+
+/* نمایش تسک‌ها */
+
+function renderTasks(taskArray) {
+
+  const taskList =
+    document.getElementById("taskList");
+
+
+  if (!taskList) return;
+
+
+  if (taskArray.length === 0) {
+
+    taskList.innerHTML = `
 
       <div class="card">
 
         <div class="empty">
-          هنوز هیچ تسکی اضافه نشده است.
+
+          هیچ تسکی با این مشخصات پیدا نشد.
+
         </div>
 
       </div>
 
     `;
 
+    return;
+
   }
 
 
-  tasks.forEach(function(task, index) {
+  let html = `
+
+    <div class="result-count">
+
+      ${taskArray.length}
+      تسک نمایش داده می‌شود
+
+    </div>
+
+  `;
+
+
+  taskArray.forEach(function(item) {
+
+    const task = item.task;
+    const index = item.index;
+
 
     html += `
 
@@ -643,18 +849,26 @@ function openProject() {
           <button
             class="edit-button"
             onclick="showEditTaskForm(${index})">
+
             ✏️ ویرایش
+
           </button>
+
 
           <button
             onclick="changeStatus(${index})">
+
             تغییر وضعیت
+
           </button>
+
 
           <button
             onclick="deleteTask(${index})"
             class="delete-button">
+
             🗑️ حذف
+
           </button>
 
         </div>
@@ -666,32 +880,108 @@ function openProject() {
   });
 
 
-  html += `
+  taskList.innerHTML = html;
 
-    <div class="card">
-
-      <button
-        class="add-button"
-        onclick="showAddTaskForm()">
-
-        + افزودن تسک
-
-      </button>
-
-    </div>
+}
 
 
-    <button onclick="showDashboard()">
+/* فیلتر */
 
-      ← بازگشت به داشبورد
+function filterTasks() {
 
-    </button>
+  const search =
+    document
+      .getElementById("searchTask")
+      .value
+      .trim()
+      .toLowerCase();
 
-  `;
+
+  const person =
+    document
+      .getElementById("filterPerson")
+      .value;
 
 
-  document.querySelector(".container").innerHTML =
-    html;
+  const status =
+    document
+      .getElementById("filterStatus")
+      .value;
+
+
+  const priority =
+    document
+      .getElementById("filterPriority")
+      .value;
+
+
+  const filtered =
+    tasks
+      .map((task, index) => ({
+        task: task,
+        index: index
+      }))
+      .filter(item => {
+
+        const task = item.task;
+
+
+        const matchesSearch =
+          !search ||
+          task.title
+            .toLowerCase()
+            .includes(search);
+
+
+        const matchesPerson =
+          !person ||
+          task.person === person;
+
+
+        const matchesStatus =
+          !status ||
+          task.status === status;
+
+
+        const matchesPriority =
+          !priority ||
+          task.priority === priority;
+
+
+        return (
+          matchesSearch &&
+          matchesPerson &&
+          matchesStatus &&
+          matchesPriority
+        );
+
+      });
+
+
+  renderTasks(filtered);
+
+}
+
+
+/* پاک کردن فیلترها */
+
+function clearFilters() {
+
+  document.getElementById("searchTask").value = "";
+
+  document.getElementById("filterPerson").value = "";
+
+  document.getElementById("filterStatus").value = "";
+
+  document.getElementById("filterPriority").value = "";
+
+
+  renderTasks(
+    tasks.map((task, index) => ({
+      task: task,
+      index: index
+    }))
+  );
 
 }
 
@@ -815,7 +1105,7 @@ function showDashboard() {
 }
 
 
-/* فرم افزودن تسک */
+/* فرم افزودن */
 
 function showAddTaskForm() {
 
@@ -975,7 +1265,7 @@ function showAddTaskForm() {
 }
 
 
-/* ذخیره تسک جدید */
+/* ذخیره تسک */
 
 function saveTaskFromForm() {
 
@@ -996,49 +1286,32 @@ function saveTaskFromForm() {
 
 
   if (!title) {
-
     alert("لطفاً عنوان تسک را وارد کن.");
-
     return;
-
   }
-
 
   if (!person) {
-
     alert("لطفاً مسئول تسک را انتخاب کن.");
-
     return;
-
   }
-
 
   if (!priority) {
-
     alert("لطفاً اولویت تسک را انتخاب کن.");
-
     return;
-
   }
 
-
   if (!date) {
-
     alert("لطفاً تاریخ انجام را وارد کن.");
-
     return;
-
   }
 
 
   tasks.push({
-
     title,
     person,
     priority,
     status,
     date
-
   });
 
 
@@ -1234,49 +1507,32 @@ function updateTask(index) {
 
 
   if (!title) {
-
     alert("لطفاً عنوان تسک را وارد کن.");
-
     return;
-
   }
-
 
   if (!person) {
-
     alert("لطفاً مسئول تسک را انتخاب کن.");
-
     return;
-
   }
-
 
   if (!priority) {
-
     alert("لطفاً اولویت تسک را انتخاب کن.");
-
     return;
-
   }
 
-
   if (!date) {
-
     alert("لطفاً تاریخ انجام را وارد کن.");
-
     return;
-
   }
 
 
   tasks[index] = {
-
     title,
     person,
     priority,
     status,
     date
-
   };
 
 
@@ -1298,21 +1554,15 @@ function changeStatus(index) {
 
 
   if (current === "انجام نشده") {
-
     nextStatus = "در حال انجام";
-
   }
 
   else if (current === "در حال انجام") {
-
     nextStatus = "انجام شده";
-
   }
 
   else {
-
     nextStatus = "انجام نشده";
-
   }
 
 
@@ -1327,7 +1577,7 @@ function changeStatus(index) {
 }
 
 
-/* حذف تسک */
+/* حذف */
 
 function deleteTask(index) {
 
@@ -1336,9 +1586,7 @@ function deleteTask(index) {
 
 
   if (!confirmDelete) {
-
     return;
-
   }
 
 
@@ -1351,11 +1599,11 @@ function deleteTask(index) {
 }
 
 
-/* شروع برنامه */
+/* شروع */
 
 updateDashboard();
 
 </script>
 
 </body>
-</html>
+</html> 
