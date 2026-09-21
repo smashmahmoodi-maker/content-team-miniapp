@@ -250,8 +250,14 @@
 <script>
   function openProject() {
     function openProject() {
-  document.querySelector(".container").innerHTML = `
-    
+ document.querySelector(".container").innerHTML = `
+function addTask() {
+  const title = prompt("عنوان تسک را وارد کن:");
+
+  if (!title) return;
+
+  alert("تسک «" + title + "» ساخته شد.");
+}    
     <div class="section-title">
       پروژه کافه لیپار
     </div>
@@ -353,7 +359,11 @@
         <span class="badge">انجام نشده</span>
       </div>
     </div>
-
+<div class="card">
+  <button onclick="addTask()">
+    + افزودن تسک
+  </button>
+</div>
     <br>
 
     <button onclick="location.reload()">
