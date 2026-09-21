@@ -267,7 +267,7 @@
         class="stat-number"
         id="dashboardTasks"
       >
-        5
+        0
       </div>
 
       <div class="stat-title">
@@ -283,7 +283,7 @@
         class="stat-number"
         id="dashboardHigh"
       >
-        3
+        0
       </div>
 
       <div class="stat-title">
@@ -322,7 +322,7 @@
 
       <span class="badge">
         <span id="projectTaskCount">
-          ۵
+          0
         </span>
         تسک
       </span>
@@ -343,7 +343,10 @@
 <script>
 
 
-let tasks = [
+const STORAGE_KEY = "contentTeamTasks";
+
+
+const defaultTasks = [
 
   {
     title: "فیلمبرداری",
@@ -386,6 +389,105 @@ let tasks = [
   }
 
 ];
+
+
+
+let savedTasks =
+  localStorage.getItem(STORAGE_KEY);
+
+
+
+let tasks;
+
+
+if (savedTasks) {
+
+  try {
+
+    tasks =
+      JSON.parse(savedTasks);
+
+  }
+
+  catch (error) {
+
+    tasks =
+      [...defaultTasks];
+
+    saveTasks();
+
+  }
+
+}
+
+else {
+
+  tasks =
+    [...defaultTasks];
+
+  saveTasks();
+
+}
+
+
+
+function saveTasks() {
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(tasks)
+  );
+
+  updateDashboard();
+
+}
+
+
+
+function updateDashboard() {
+
+  const taskCount =
+    document.getElementById(
+      "dashboardTasks"
+    );
+
+  const highCount =
+    document.getElementById(
+      "dashboardHigh"
+    );
+
+  const projectCount =
+    document.getElementById(
+      "projectTaskCount"
+    );
+
+
+  if (taskCount) {
+
+    taskCount.textContent =
+      tasks.length;
+
+  }
+
+
+  if (highCount) {
+
+    highCount.textContent =
+      tasks.filter(
+        task => task.priority === "بالا"
+      ).length;
+
+  }
+
+
+  if (projectCount) {
+
+    projectCount.textContent =
+      tasks.length;
+
+  }
+
+}
 
 
 
@@ -669,7 +771,7 @@ function openProject() {
 
 
     <button
-      onclick="location.reload()"
+      onclick="showDashboard()"
     >
       ← بازگشت به داشبورد
     </button>
@@ -683,6 +785,121 @@ function openProject() {
 
 }
 
+
+
+function showDashboard() {
+
+  document.querySelector(
+    ".container"
+  ).innerHTML = `
+
+    <div class="stats">
+
+      <div class="stat">
+
+        <div class="stat-number">
+          1
+        </div>
+
+        <div class="stat-title">
+          پروژه
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div class="stat-number">
+          1
+        </div>
+
+        <div class="stat-title">
+          محتوا
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div
+          class="stat-number"
+          id="dashboardTasks"
+        >
+          ${tasks.length}
+        </div>
+
+        <div class="stat-title">
+          تسک
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div
+          class="stat-number"
+          id="dashboardHigh"
+        >
+          ${
+            tasks.filter(
+              task => task.priority === "بالا"
+            ).length
+          }
+        </div>
+
+        <div class="stat-title">
+          اولویت بالا
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="section-title">
+      پروژه‌ها
+    </div>
+
+
+    <div class="card">
+
+      <h3>
+        کافه لیپار
+      </h3>
+
+      <div class="info">
+
+        تولید و مدیریت محتوای شبکه‌های اجتماعی
+
+        <br><br>
+
+        <span class="badge blue">
+          فعال
+        </span>
+
+        <span class="badge">
+          ۱ محتوا
+        </span>
+
+        <span class="badge">
+          ${tasks.length} تسک
+        </span>
+
+      </div>
+
+
+      <button onclick="openProject()">
+        ورود به پروژه
+      </button>
+
+    </div>
+
+  `;
+
+}
 
 
 
@@ -826,7 +1043,7 @@ function showAddTaskForm() {
 
         <button
           class="add-button"
-          onclick="saveTask()"
+          onclick="saveTaskFromForm()"
         >
           ✓ افزودن تسک
         </button>
@@ -854,7 +1071,7 @@ function showAddTaskForm() {
 
 
 
-function saveTask() {
+function saveTaskFromForm() {
 
 
   const title =
@@ -948,6 +1165,8 @@ function saveTask() {
   });
 
 
+  saveTasks();
+
   openProject();
 
 }
@@ -987,6 +1206,8 @@ function changeStatus(index) {
     nextStatus;
 
 
+  saveTasks();
+
   openProject();
 
 }
@@ -1012,12 +1233,18 @@ function deleteTask(index) {
   tasks.splice(index, 1);
 
 
+  saveTasks();
+
   openProject();
 
 }
+
+
+
+updateDashboard();
 
 </script>
 
 </body>
 
-</html> 
+</html>
