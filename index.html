@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <title>Content Team</title>
 
   <style>
+
     * {
       box-sizing: border-box;
     }
@@ -141,6 +143,11 @@
       background: #2563eb;
     }
 
+    .cancel-button {
+      background: #e5e7eb;
+      color: #374151;
+    }
+
     .delete-button {
       background: #fee2e2;
       color: #b91c1c;
@@ -159,14 +166,42 @@
       padding: 10px;
     }
 
-    .select-box {
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 7px;
+      color: #374151;
+    }
+
+    .form-input,
+    .form-select {
       width: 100%;
-      padding: 12px;
+      padding: 13px;
       border: 1px solid #d1d5db;
       border-radius: 10px;
-      margin-top: 7px;
       font-size: 14px;
       background: white;
+      outline: none;
+    }
+
+    .form-input:focus,
+    .form-select:focus {
+      border-color: #2563eb;
+    }
+
+    .form-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .form-buttons button {
+      margin-top: 5px;
     }
 
     .empty {
@@ -174,53 +209,102 @@
       color: #64748b;
       padding: 20px;
     }
+
   </style>
+
 </head>
+
 
 <body>
 
 <header>
+
   <h1>Content Team</h1>
-  <p>مدیریت تیم تولید محتوا</p>
+
+  <p>
+    مدیریت تیم تولید محتوا
+  </p>
+
 </header>
 
-<div class="container" id="mainContainer">
+
+<div
+  class="container"
+  id="mainContainer"
+>
 
   <div class="stats">
 
     <div class="stat">
-      <div class="stat-number">1</div>
-      <div class="stat-title">پروژه</div>
+
+      <div class="stat-number">
+        1
+      </div>
+
+      <div class="stat-title">
+        پروژه
+      </div>
+
     </div>
 
-    <div class="stat">
-      <div class="stat-number">1</div>
-      <div class="stat-title">محتوا</div>
-    </div>
 
     <div class="stat">
-      <div class="stat-number" id="dashboardTasks">
+
+      <div class="stat-number">
+        1
+      </div>
+
+      <div class="stat-title">
+        محتوا
+      </div>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div
+        class="stat-number"
+        id="dashboardTasks"
+      >
         5
       </div>
-      <div class="stat-title">تسک</div>
+
+      <div class="stat-title">
+        تسک
+      </div>
+
     </div>
 
+
     <div class="stat">
-      <div class="stat-number" id="dashboardHigh">
+
+      <div
+        class="stat-number"
+        id="dashboardHigh"
+      >
         3
       </div>
-      <div class="stat-title">اولویت بالا</div>
+
+      <div class="stat-title">
+        اولویت بالا
+      </div>
+
     </div>
 
   </div>
+
 
   <div class="section-title">
     پروژه‌ها
   </div>
 
+
   <div class="card">
 
-    <h3>کافه لیپار</h3>
+    <h3>
+      کافه لیپار
+    </h3>
 
     <div class="info">
 
@@ -228,13 +312,23 @@
 
       <br><br>
 
-      <span class="badge blue">فعال</span>
-      <span class="badge">۱ محتوا</span>
+      <span class="badge blue">
+        فعال
+      </span>
+
       <span class="badge">
-        <span id="projectTaskCount">۵</span> تسک
+        ۱ محتوا
+      </span>
+
+      <span class="badge">
+        <span id="projectTaskCount">
+          ۵
+        </span>
+        تسک
       </span>
 
     </div>
+
 
     <button onclick="openProject()">
       ورود به پروژه
@@ -245,7 +339,9 @@
 </div>
 
 
+
 <script>
+
 
 let tasks = [
 
@@ -292,47 +388,94 @@ let tasks = [
 ];
 
 
+
 function getPriorityBadge(priority) {
 
   if (priority === "بالا") {
-    return '<span class="badge high">اولویت بالا</span>';
+
+    return `
+      <span class="badge high">
+        اولویت بالا
+      </span>
+    `;
+
   }
+
 
   if (priority === "کم") {
-    return '<span class="badge">اولویت کم</span>';
+
+    return `
+      <span class="badge">
+        اولویت کم
+      </span>
+    `;
+
   }
 
-  return '<span class="badge">اولویت عادی</span>';
+
+  return `
+    <span class="badge">
+      اولویت عادی
+    </span>
+  `;
+
 }
+
 
 
 function getStatusBadge(status) {
 
   if (status === "انجام شده") {
-    return '<span class="badge green">✓ انجام شده</span>';
+
+    return `
+      <span class="badge green">
+        ✓ انجام شده
+      </span>
+    `;
+
   }
+
 
   if (status === "در حال انجام") {
-    return '<span class="badge orange">⏳ در حال انجام</span>';
+
+    return `
+      <span class="badge orange">
+        ⏳ در حال انجام
+      </span>
+    `;
+
   }
 
-  return '<span class="badge">○ انجام نشده</span>';
+
+  return `
+    <span class="badge">
+      ○ انجام نشده
+    </span>
+  `;
+
 }
+
 
 
 function openProject() {
 
-  let completed = tasks.filter(
-    task => task.status === "انجام شده"
-  ).length;
 
-  let doing = tasks.filter(
-    task => task.status === "در حال انجام"
-  ).length;
+  let completed =
+    tasks.filter(
+      task => task.status === "انجام شده"
+    ).length;
 
-  let pending = tasks.filter(
-    task => task.status === "انجام نشده"
-  ).length;
+
+  let doing =
+    tasks.filter(
+      task => task.status === "در حال انجام"
+    ).length;
+
+
+  let pending =
+    tasks.filter(
+      task => task.status === "انجام نشده"
+    ).length;
 
 
   let html = `
@@ -344,32 +487,44 @@ function openProject() {
 
     <div class="card">
 
-      <h3>📊 وضعیت پروژه</h3>
+      <h3>
+        📊 وضعیت پروژه
+      </h3>
 
       <div class="info">
 
         وضعیت:
-        <span class="badge blue">فعال</span>
+        <span class="badge blue">
+          فعال
+        </span>
 
         <br><br>
 
         کل تسک‌ها:
-        <strong>${tasks.length}</strong>
+        <strong>
+          ${tasks.length}
+        </strong>
 
         <br>
 
         انجام شده:
-        <strong>${completed}</strong>
+        <strong>
+          ${completed}
+        </strong>
 
         <br>
 
         در حال انجام:
-        <strong>${doing}</strong>
+        <strong>
+          ${doing}
+        </strong>
 
         <br>
 
         انجام نشده:
-        <strong>${pending}</strong>
+        <strong>
+          ${pending}
+        </strong>
 
       </div>
 
@@ -383,14 +538,27 @@ function openProject() {
 
     <div class="card">
 
-      <h3>معرفی آیس لاته</h3>
+      <h3>
+        معرفی آیس لاته
+      </h3>
 
       <div class="info">
 
-        <span class="badge">Reel</span>
-        <span class="badge">Instagram</span>
-        <span class="badge blue">ایده</span>
-        <span class="badge high">اولویت بالا</span>
+        <span class="badge">
+          Reel
+        </span>
+
+        <span class="badge">
+          Instagram
+        </span>
+
+        <span class="badge blue">
+          ایده
+        </span>
+
+        <span class="badge high">
+          اولویت بالا
+        </span>
 
         <br><br>
 
@@ -411,28 +579,38 @@ function openProject() {
   if (tasks.length === 0) {
 
     html += `
+
       <div class="card">
+
         <div class="empty">
           هنوز هیچ تسکی اضافه نشده است.
         </div>
+
       </div>
+
     `;
 
   }
 
 
+
   tasks.forEach(function(task, index) {
+
 
     html += `
 
       <div class="card">
 
-        <h3>${task.title}</h3>
+        <h3>
+          ${task.title}
+        </h3>
 
         <div class="info">
 
           👤 مسئول:
-          <strong>${task.person}</strong>
+          <strong>
+            ${task.person}
+          </strong>
 
           <br>
 
@@ -443,7 +621,9 @@ function openProject() {
           <br>
 
           📅 تاریخ انجام:
-          <strong>${task.date || "تعیین نشده"}</strong>
+          <strong>
+            ${task.date || "تعیین نشده"}
+          </strong>
 
         </div>
 
@@ -455,6 +635,7 @@ function openProject() {
           >
             تغییر وضعیت
           </button>
+
 
           <button
             onclick="deleteTask(${index})"
@@ -472,13 +653,14 @@ function openProject() {
   });
 
 
+
   html += `
 
     <div class="card">
 
       <button
         class="add-button"
-        onclick="addTask()"
+        onclick="showAddTaskForm()"
       >
         + افزودن تسک
       </button>
@@ -486,59 +668,269 @@ function openProject() {
     </div>
 
 
-    <button onclick="location.reload()">
+    <button
+      onclick="location.reload()"
+    >
       ← بازگشت به داشبورد
     </button>
 
   `;
 
 
-  document.querySelector(".container").innerHTML = html;
+  document.querySelector(
+    ".container"
+  ).innerHTML = html;
 
 }
 
 
-function addTask() {
 
-  const title = prompt(
-    "عنوان تسک را وارد کن:"
-  );
+
+function showAddTaskForm() {
+
+
+  const html = `
+
+    <div class="section-title">
+      ➕ افزودن تسک جدید
+    </div>
+
+
+    <div class="card">
+
+      <div class="form-group">
+
+        <label class="form-label">
+          عنوان تسک
+        </label>
+
+        <input
+          id="taskTitle"
+          class="form-input"
+          type="text"
+          placeholder="مثلاً طراحی پست اینستاگرام"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          مسئول
+        </label>
+
+        <select
+          id="taskPerson"
+          class="form-select"
+        >
+
+          <option value="">
+            انتخاب مسئول
+          </option>
+
+          <option value="سعید">
+            سعید
+          </option>
+
+          <option value="هژان">
+            هژان
+          </option>
+
+          <option value="مهدی">
+            مهدی
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          اولویت
+        </label>
+
+        <select
+          id="taskPriority"
+          class="form-select"
+        >
+
+          <option value="">
+            انتخاب اولویت
+          </option>
+
+          <option value="کم">
+            کم
+          </option>
+
+          <option value="عادی">
+            عادی
+          </option>
+
+          <option value="بالا">
+            بالا
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          وضعیت
+        </label>
+
+        <select
+          id="taskStatus"
+          class="form-select"
+        >
+
+          <option value="انجام نشده">
+            انجام نشده
+          </option>
+
+          <option value="در حال انجام">
+            در حال انجام
+          </option>
+
+          <option value="انجام شده">
+            انجام شده
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          تاریخ انجام
+        </label>
+
+        <input
+          id="taskDate"
+          class="form-input"
+          type="text"
+          placeholder="مثلاً 1405/07/10"
+        >
+
+      </div>
+
+
+      <div class="form-buttons">
+
+        <button
+          class="add-button"
+          onclick="saveTask()"
+        >
+          ✓ افزودن تسک
+        </button>
+
+
+        <button
+          class="cancel-button"
+          onclick="openProject()"
+        >
+          لغو
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  document.querySelector(
+    ".container"
+  ).innerHTML = html;
+
+}
+
+
+
+function saveTask() {
+
+
+  const title =
+    document.getElementById(
+      "taskTitle"
+    ).value.trim();
+
+
+  const person =
+    document.getElementById(
+      "taskPerson"
+    ).value;
+
+
+  const priority =
+    document.getElementById(
+      "taskPriority"
+    ).value;
+
+
+  const status =
+    document.getElementById(
+      "taskStatus"
+    ).value;
+
+
+  const date =
+    document.getElementById(
+      "taskDate"
+    ).value.trim();
+
+
 
   if (!title) {
+
+    alert(
+      "لطفاً عنوان تسک را وارد کن."
+    );
+
     return;
+
   }
 
-
-  const person = prompt(
-    "مسئول تسک را وارد کن:\nسعید / هژان / مهدی"
-  );
 
   if (!person) {
+
+    alert(
+      "لطفاً مسئول تسک را انتخاب کن."
+    );
+
     return;
+
   }
 
-
-  const priority = prompt(
-    "اولویت را وارد کن:\nبالا / عادی / کم"
-  );
 
   if (!priority) {
+
+    alert(
+      "لطفاً اولویت تسک را انتخاب کن."
+    );
+
     return;
+
   }
 
 
-  const status = prompt(
-    "وضعیت را وارد کن:\nانجام نشده / در حال انجام / انجام شده"
-  );
+  if (!date) {
 
-  if (!status) {
+    alert(
+      "لطفاً تاریخ انجام را وارد کن."
+    );
+
     return;
+
   }
 
-
-  const date = prompt(
-    "تاریخ انجام را وارد کن:\nمثلاً 1405/07/10"
-  );
 
 
   tasks.push({
@@ -551,7 +943,7 @@ function addTask() {
 
     status: status,
 
-    date: date || "تعیین نشده"
+    date: date
 
   });
 
@@ -561,9 +953,13 @@ function addTask() {
 }
 
 
+
 function changeStatus(index) {
 
-  const current = tasks[index].status;
+
+  const current =
+    tasks[index].status;
+
 
   let nextStatus;
 
@@ -572,36 +968,49 @@ function changeStatus(index) {
 
     nextStatus = "در حال انجام";
 
-  } else if (current === "در حال انجام") {
+  }
+
+  else if (current === "در حال انجام") {
 
     nextStatus = "انجام شده";
 
-  } else {
+  }
+
+  else {
 
     nextStatus = "انجام نشده";
 
   }
 
 
-  tasks[index].status = nextStatus;
+  tasks[index].status =
+    nextStatus;
+
 
   openProject();
 
 }
 
 
+
 function deleteTask(index) {
 
-  const confirmDelete = confirm(
-    "آیا از حذف این تسک مطمئنی؟"
-  );
+
+  const confirmDelete =
+    confirm(
+      "آیا از حذف این تسک مطمئنی؟"
+    );
+
 
   if (!confirmDelete) {
+
     return;
+
   }
 
 
   tasks.splice(index, 1);
+
 
   openProject();
 
@@ -610,4 +1019,5 @@ function deleteTask(index) {
 </script>
 
 </body>
-</html>
+
+</html> 
