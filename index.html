@@ -3736,4 +3736,410 @@ function getNotifications(){
     dateNumber(
       makeDate(
         today.jy,
-        today.jm
+        today.jm,
+        today.jd
+      )
+    );
+
+
+  const notifications=[];
+
+
+  tasks.forEach(
+    (task,index)=>{
+
+      if(
+        task.status==="انجام شده"
+      ){
+
+        return;
+
+      }
+
+
+      const taskNum =
+        dateNumber(
+          task.date
+        );
+
+
+      if(!taskNum){
+
+        return;
+
+      }
+
+
+      const project =
+        projects.find(
+          p=>p.id===task.projectId
+        );
+
+
+      const projectName =
+        project
+        ?
+        project.title
+        :
+        "پروژه حذف شده";
+
+
+      if(taskNum < todayNum){
+
+        notifications.push({
+
+          type:"overdue",
+
+          title:"⚠️ تسک عقب افتاده",
+
+          text:
+            `تسک «${task.title}» از پروژه «${projectName}» مربوط به ${task.date} است و هنوز انجام نشده.`,
+
+          index
+
+        });
+
+      }
+
+      else if(
+        taskNum===todayNum
+      ){
+
+        notifications.push({
+
+          type:"today",
+
+          title:"🔔 تسک امروز",
+
+          text:
+            `امروز باید «${task.title}» توسط ${task.person} انجام شود.`,
+
+          index
+
+        });
+
+      }
+
+      else if(
+        taskNum <= todayNum+3
+      ){
+
+        notifications.push({
+
+          type:"normal",
+
+          title:"📅 تسک نزدیک",
+
+          text:
+            `تسک «${task.title}» در تاریخ ${task.date} برنامه‌ریزی شده.`,
+
+          index
+
+        });
+
+      }
+
+    }
+  );
+
+
+  return notifications;
+
+}
+
+
+function showNotifications(){
+
+  const notifications =
+    getNotifications();
+
+
+  document.getElementById(
+    "app"
+  ).innerHTML = `
+
+    <div class="top-nav">
+
+      <button
+        class="nav-btn"
+        onclick="showDashboard()">
+
+        🏠 داشبورد
+
+      </button>
+
+
+      <button
+        class="nav-btn"
+        onclick="showCalendar()">
+
+        📅 تقویم
+
+      </button>
+
+
+      <button
+        class="nav-btn active"
+        onclick="showNotifications()">
+
+        🔔 اعلان‌ها
+
+      </button>
+
+    </div>
+
+
+    <div class="section-title">
+
+      <div class="notification-header">
+
+        <span>
+          🔔 اعلان‌ها
+        </span>
+
+
+        <span class="notification-count">
+
+          ${notifications.length}
+
+        </span>
+
+      </div>
+
+    </div>
+
+
+    ${
+      notifications.length===0
+
+      ?
+
+      `
+
+        <div class="card">
+
+          <div class="empty">
+
+            🎉
+
+            <br><br>
+
+            فعلاً اعلان مهمی نداری.
+
+          </div>
+
+        </div>
+
+      `
+
+      :
+
+      notifications
+        .map(
+          notification=>`
+
+            <div
+              class="
+                notification
+                ${
+                  notification.type==="overdue"
+                  ?
+                  "overdue"
+                  :
+                  ""
+                }
+
+                ${
+                  notification.type==="today"
+                  ?
+                  "today"
+                  :
+                  ""
+                }
+              ">
+
+              <div
+                class="notification-title">
+
+                ${notification.title}
+
+              </div>
+
+
+              <div
+                class="notification-text">
+
+                ${notification.text}
+
+              </div>
+
+
+              <button
+                onclick="
+                  showEditTaskForm(
+                    ${notification.index}
+                  )
+                ">
+
+                مشاهده تسک
+
+              </button>
+
+            </div>
+
+          `
+        )
+        .join("")
+
+    }
+
+
+    <div class="card">
+
+      <h3>
+        🔔 اعلان مرورگر
+      </h3>
+
+
+      <div class="info">
+
+        اگر اجازه اعلان مرورگر را فعال کنی،
+        برنامه می‌تواند برای اعلان‌های آینده
+        از سیستم اعلان گوشی/کامپیوتر استفاده کند.
+
+      </div>
+
+
+      <button
+        onclick="requestNotificationPermission()">
+
+        فعال کردن اعلان‌ها
+
+      </button>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   BROWSER NOTIFICATION
+===================================================== */
+
+function requestNotificationPermission(){
+
+  if(
+    !("Notification" in window)
+  ){
+
+    alert(
+      "مرورگر این دستگاه از اعلان‌های سیستم پشتیبانی نمی‌کند."
+    );
+
+    return;
+
+  }
+
+
+  Notification
+    .requestPermission()
+    .then(
+      permission=>{
+
+        if(
+          permission==="granted"
+        ){
+
+          new Notification(
+            "Content Team",
+            {
+              body:
+                "اعلان‌های Content Team فعال شد 🔔"
+            }
+          );
+
+
+          alert(
+            "اعلان‌ها فعال شدند."
+          );
+
+        }
+        else{
+
+          alert(
+            "اجازه اعلان‌ها داده نشد."
+          );
+
+        }
+
+      }
+    );
+
+}
+
+
+/* =====================================================
+   SECURITY HELPERS
+===================================================== */
+
+function escapeHtml(
+  value
+){
+
+  if(value===null ||
+     value===undefined){
+
+    return "";
+
+  }
+
+
+  return String(value)
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+function escapeAttr(
+  value
+){
+
+  return escapeHtml(
+    value
+  );
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+showDashboard();
+
+</script>
+
+</body>
+
+</html>
