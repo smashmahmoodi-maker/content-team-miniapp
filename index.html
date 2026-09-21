@@ -249,8 +249,119 @@
 </div>
 <script>
   function openProject() {
-    alert("صفحه پروژه کافه لیپار به‌زودی ساخته می‌شود 🚀");
-  }
+    function openProject() {
+  document.querySelector(".container").innerHTML = `
+    
+    <div class="section-title">
+      پروژه کافه لیپار
+    </div>
+
+    <div class="card">
+      <h3>📊 وضعیت پروژه</h3>
+
+      <div class="info">
+        وضعیت:
+        <span class="badge blue">فعال</span>
+
+        <br>
+
+        محتوا:
+        <strong>۱</strong>
+
+        <br>
+
+        تسک:
+        <strong>۵</strong>
+      </div>
+    </div>
+
+
+    <div class="section-title">
+      🎬 محتواهای پروژه
+    </div>
+
+    <div class="card">
+
+      <h3>معرفی آیس لاته</h3>
+
+      <div class="info">
+
+        <span class="badge">Reel</span>
+        <span class="badge">Instagram</span>
+        <span class="badge blue">ایده</span>
+        <span class="badge high">اولویت بالا</span>
+
+        <br><br>
+
+        ویدیوی کوتاه معرفی آیس لاته لیپار
+
+      </div>
+
+    </div>
+
+
+    <div class="section-title">
+      ✅ تسک‌های پروژه
+    </div>
+
+    <div class="card">
+      <h3>فیلمبرداری</h3>
+      <div class="info">
+        مسئول: سعید
+        <br>
+        <span class="badge high">اولویت بالا</span>
+        <span class="badge">انجام نشده</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>تدوین</h3>
+      <div class="info">
+        مسئول: مهدی
+        <br>
+        <span class="badge high">اولویت بالا</span>
+        <span class="badge">انجام نشده</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>نوشتن کپشن</h3>
+      <div class="info">
+        مسئول: هژان
+        <br>
+        <span class="badge">اولویت عادی</span>
+        <span class="badge">انجام نشده</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>تأیید نهایی</h3>
+      <div class="info">
+        مسئول: سعید
+        <br>
+        <span class="badge high">اولویت بالا</span>
+        <span class="badge">انجام نشده</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>انتشار</h3>
+      <div class="info">
+        مسئول: هژان
+        <br>
+        <span class="badge">اولویت عادی</span>
+        <span class="badge">انجام نشده</span>
+      </div>
+    </div>
+
+    <br>
+
+    <button onclick="location.reload()">
+      ← بازگشت به داشبورد
+    </button>
+
+  `;
+}
 </script>
 </body>
 </html>
