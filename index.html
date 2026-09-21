@@ -362,13 +362,23 @@
     <button onclick="location.reload()">
       ← بازگشت به داشبورد
     </button>
-
+<div class="card">
+  <button onclick="addTask()">
+    + افزودن تسک
+  </button>
+</div>
   `;
     <div class="card">
   <button onclick="addTask()">
     + افزودن تسک
   </button>
 </div>
+    function addTask() {
+  const title = prompt("عنوان تسک را وارد کن:");
+  if (title) {
+    alert("تسک «" + title + "» ساخته شد.");
+  }
+}
 }
 </script>
 </body>
